@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class WalkingH : SerializedMonoBehaviour
+public class PlayerControllerH : MonoBehaviour
 {
     // The players attached CharacterController
     [Required, SerializeField, HideInPlayMode]
@@ -14,8 +14,8 @@ public class WalkingH : SerializedMonoBehaviour
 
     private Vector3 moveDir;
 
-    [SerializeField, Range(0.1f, 1)]
-    private float gravityModifier;
+    [SerializeField, Range(1, 5)]
+    private float gravityScale;
 
     // how fast the player can move
     [SerializeField, Range(1, 10)]
@@ -31,8 +31,10 @@ public class WalkingH : SerializedMonoBehaviour
     void Update()
     {
         moveDir = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, moveDir.y, Input.GetAxis("Vertical") * movementSpeed);
-        moveDir.y = moveDir.y + (Physics.gravity.y * gravityModifier * Time.deltaTime);
+
         if (Input.GetButtonDown("Jump") && characterController.isGrounded) moveDir.y = legs.jumpForce;
+
+        moveDir.y = moveDir.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         characterController.Move(moveDir * Time.deltaTime);
     }
 
