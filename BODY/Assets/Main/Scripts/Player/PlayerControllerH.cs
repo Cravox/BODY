@@ -32,7 +32,11 @@ public class PlayerControllerH : MonoBehaviour
     {
         moveDir = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, moveDir.y, Input.GetAxis("Vertical") * movementSpeed);
 
-        if (Input.GetButtonDown("Jump") && characterController.isGrounded) moveDir.y = legs.jumpForce;
+        if (characterController.isGrounded)
+        {
+            moveDir.y = 0f;
+            if (Input.GetButtonDown("Jump")) moveDir.y = legs.jumpForce;
+        }
 
         moveDir.y = moveDir.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
         characterController.Move(moveDir * Time.deltaTime);
