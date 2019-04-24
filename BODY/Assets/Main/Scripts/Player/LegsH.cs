@@ -15,4 +15,8 @@ public class LegsH : MonoBehaviour
     {
         
     }
+
+    void Jump() {
+
+    }
 }
