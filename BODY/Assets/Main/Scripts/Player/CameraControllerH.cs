@@ -5,14 +5,31 @@ using UnityEngine;
 
 public class CameraControllerH : SerializedMonoBehaviour
 {
-    [SerializeField, Required]
-    private Transform target;
-
-    private bool useOffsetValues;
-    
-    [SerializeField]
+    [SerializeField, TabGroup("Settings")]
     private Vector3 offset;
 
+    [SerializeField, Range(1, 10), TabGroup("Settings"), Tooltip("Defines how fast the camera rotates")]
+    private float rotateSpeed;
+
+    [SerializeField, TabGroup("Settings")]
+    private bool useOffsetValues;
+
+    [SerializeField, TabGroup("Settings")]
+    private bool invertX;
+
+    [SerializeField, TabGroup("Settings")]
+    private bool invertY;
+
+    [SerializeField, Required, TabGroup("References")]
+    private Transform target;
+
+    //[Required, TabGroup("References")]
+    //public Transform pivot;
+    
+    private float horizontal;
+    
+    private float vertical;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +37,8 @@ public class CameraControllerH : SerializedMonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        var moveX = Input.GetAxis("Horizontal");
-        var moveY = Input.GetAxis("Horizontal");
-        transform.LookAt(target);
-        transform.position = target.position - offset;
+
     }
 }
