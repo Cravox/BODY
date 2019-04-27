@@ -54,15 +54,15 @@ public class PlayerControllerH : MonoBehaviour {
 
         lastLook = new Vector3(moveDir.x, 0, moveDir.z);
 
-        if (moveDir != Vector3.zero)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastLook), rotationSmooth);
-        }
-
         if (characterController.isGrounded)
         {
             moveDir.y = 0f;
             if (Input.GetButtonDown("Jump")) moveDir.y = jumpForce;
+        }
+
+        if (moveDir != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lastLook), rotationSmooth);
         }
 
         moveDir.y = moveDir.y + (Physics.gravity.y * gravityScale * Time.deltaTime);
