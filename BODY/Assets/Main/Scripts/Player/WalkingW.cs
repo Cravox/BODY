@@ -47,6 +47,7 @@ public class WalkingW : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rigid.AddForce(Physics.gravity * 4);
         InputCheck();
         Jump();
         Move();
@@ -55,7 +56,7 @@ public class WalkingW : SerializedMonoBehaviour
 
     void InputCheck()
     {
-        inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), 9 * Time.deltaTime);
+        inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxis("Horizontal"), -Input.GetAxis("Vertical")), 9 * Time.deltaTime);
         inputJump = Input.GetButtonDown("Jump");
     }
 
