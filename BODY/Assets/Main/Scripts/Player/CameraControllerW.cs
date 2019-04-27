@@ -25,7 +25,8 @@ public class CameraControllerW : MonoBehaviour
 
     void InputCheck()
     {
-        inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), 0.9f);
+        //inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), 0.9f);
+        inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxisRaw("HorizontalC"), Input.GetAxisRaw("VerticalC")), 0.9f);
     }
 
     void DistanceCheck()
