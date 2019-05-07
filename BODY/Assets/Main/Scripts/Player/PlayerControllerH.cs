@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PlayerControllerH : MonoBehaviour {
     // how high the player can jump
-    [Range(10, 30), TabGroup("Balancing")]
+    [Range(10, 100), TabGroup("Balancing")]
     public float jumpForce;
 
     // how fast the player can move
-    [SerializeField, Range(1, 10), TabGroup("Balancing")]
+    [SerializeField, Range(1, 100), TabGroup("Balancing")]
     private float movementSpeed;
 
-    [SerializeField, Range(1, 10), TabGroup("Balancing")]
+    [SerializeField, Range(1, 100), TabGroup("Balancing")]
     private float gravityScale;
 
     // The players attached CharacterController
@@ -25,6 +25,9 @@ public class PlayerControllerH : MonoBehaviour {
     [SerializeField, TabGroup("Settings"), Tooltip("How fast the character turns")]
     private float rotationSmooth = 0.5f;
 
+    [SerializeField, TabGroup("References")]
+    private Animator anim;
+
     private Vector3 moveDir;
 
     Vector2 input;
@@ -33,6 +36,8 @@ public class PlayerControllerH : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("Velocity", characterController.velocity.magnitude / movementSpeed);
+        anim.SetBool("IsGrounded", characterController.isGrounded);
         Movement();
     }
 
@@ -57,7 +62,10 @@ public class PlayerControllerH : MonoBehaviour {
         if (characterController.isGrounded)
         {
             moveDir.y = 0f;
-            if (Input.GetButtonDown("Jump")) moveDir.y = jumpForce;
+            if (Input.GetButtonDown("Jump")) {
+                moveDir.y = jumpForce;
+                anim.Play("Jump");
+            }
         }
 
         if (moveDir != Vector3.zero)
