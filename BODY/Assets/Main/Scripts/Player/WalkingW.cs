@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 public class WalkingW : SerializedMonoBehaviour
 {
@@ -27,6 +28,8 @@ public class WalkingW : SerializedMonoBehaviour
     public LayerMask checkCollisionOn;
     [TabGroup("Model"), InfoBox("Required for turning a Model during Movement")]
     public Transform modelAxis;
+    [TabGroup("Model")]
+    public Animator modelAnim;
  
     private Vector2 inputAxis;
     [InfoBox("Do not change these values, they are set automatically.")]
@@ -52,6 +55,13 @@ public class WalkingW : SerializedMonoBehaviour
         Jump();
         Move();
         GroundCheck();
+        Animate();
+    }
+
+    void Animate()
+    {
+        modelAnim.SetFloat("Velocity", rigid.velocity.magnitude / walkSpeed);
+        modelAnim.SetBool("IsGrounded", isGrounded);
     }
 
     void InputCheck()
@@ -92,8 +102,11 @@ public class WalkingW : SerializedMonoBehaviour
 
     void Jump()
     {
-        if(inputJump && isGrounded)
+        if (inputJump && isGrounded)
+        {
             rigid.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            modelAnim.Play("Jump");
+        }
     }
 
     void GroundCheck()
