@@ -28,6 +28,9 @@ public class PlayerControllerH : MonoBehaviour {
     [SerializeField, TabGroup("References")]
     private Animator anim;
 
+    [Range(1,2), SerializeField, TabGroup("Balancing")]
+    private float airborneSlow;
+
     private Vector3 moveDir;
 
     Vector2 input;
@@ -36,9 +39,9 @@ public class PlayerControllerH : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Movement();
         anim.SetFloat("Velocity", characterController.velocity.magnitude / movementSpeed);
         anim.SetBool("IsGrounded", characterController.isGrounded);
-        Movement();
     }
 
     void Movement()
@@ -67,6 +70,8 @@ public class PlayerControllerH : MonoBehaviour {
                 anim.Play("Jump");
             }
         }
+
+        moveDir = characterController.isGrounded ? moveDir : new Vector3(moveDir.x/airborneSlow, moveDir.y, moveDir.z/airborneSlow);
 
         if (moveDir != Vector3.zero)
         {
