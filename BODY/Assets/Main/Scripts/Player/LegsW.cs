@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LegsW : MonoBehaviour, IPlayerLimb
-{
-    public PlayerController playerCont { get { return PlayerController.instance; }}
-    public bool fullyCharged { get { return (energyCount == EnergyState.Three);  }}
-    public EnergyState energyCount { get => throw new System.NotImplementedException(); set { energyCount = value; } }
+public class LegsW : MonoBehaviour, IPlayerLimb {
+    public PlayerController playerCont { get { return PlayerController.instance; } }
+    public bool FullyCharged { get { return (energyState == EnergyStates.FULLY_CHARGED); } }
+
+    public EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
+    private EnergyStates energyState = EnergyStates.NOT_CHARGED;
 
     public bool isDashing;
     public float dashSpeed = 10;
     public float dashTimer;
 
-    public void Charge()
-    {
-        throw new System.NotImplementedException();
+    public void Charge() {
+        if (FullyCharged) {
+            print("Legs fully charged");
+            return;
+        }
+        energyState++;
+        print(energyState);
     }
 
-    public void Discharge()
-    {
-        throw new System.NotImplementedException();
+    public void Discharge() {
+        energyState = EnergyStates.NOT_CHARGED;
+        print("Discharge Arms");
     }
 
-    public void TierOne()
-    {
-        if(Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing)
-        {
-            if(!isDashing)
+    public void TierOne() {
+        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
+            if (!isDashing)
                 StartCoroutine(dashOnce());
         }
 
@@ -34,8 +37,7 @@ public class LegsW : MonoBehaviour, IPlayerLimb
             isDashing = false;
     }
 
-    IEnumerator dashOnce()
-    {
+    IEnumerator dashOnce() {
         isDashing = true;
         playerCont.modelAnim.SetBool("IsDashing", isDashing);
         playerCont.modelAnim.Play("Dash");
@@ -47,26 +49,22 @@ public class LegsW : MonoBehaviour, IPlayerLimb
         playerCont.modelAnim.SetBool("IsDashing", isDashing);
     }
 
-    public void TierThree()
-    {
+    public void TierThree() {
         throw new System.NotImplementedException();
     }
 
-    public void TierTwo()
-    {
+    public void TierTwo() {
         throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-       
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        TierOne();
+    void Update() {
+        if(energyState != EnergyStates.NOT_CHARGED) TierOne();
     }
 
 }

@@ -3,38 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public enum EnergyState : int {
-    NOT_CHARGED,
-    ONE_CHARGE,
-    TWO_CHARGES,
-    FULLY_CHARGED
-}
-public enum EnergyState
-{
-    One = 0,
-    Two = 1,
-    Three = 2
-}
+public class PlayerState : SerializedMonoBehaviour {
+    [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs")]
+    IPlayerLimb[] playerLimbs = new IPlayerLimb[3];
 
-public class PlayerState : SerializedMonoBehaviour
-{
-    [SerializeField]
-    List<IPlayerLimb> playerLimbs = new List<IPlayerLimb>();
+    private enum Limb : int {
+        HEAD,
+        ARMS,
+        LEGS
+    }
+
+    private IPlayerLimb head;
+    private IPlayerLimb arms;
+    private IPlayerLimb legs;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+        head = playerLimbs[0];
+        arms = playerLimbs[1];
+        legs = playerLimbs[2];
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        if (DPadButtons.Up) {
+            playerLimbs[(int)Limb.HEAD].Charge();
+            //head.Charge();
+        }
+        if (DPadButtons.Left) {
+            playerLimbs[(int)Limb.ARMS].Charge();
+            //arms.Charge();
+        }
+        if (DPadButtons.Down) {
+            playerLimbs[(int)Limb.LEGS].Charge();
+            //legs.Charge();
+        }
 
+        if (Input.GetButtonDown("ResetEnergy")) {
+            foreach (IPlayerLimb limb in playerLimbs) {
+                limb.Discharge();
+            }
+        }
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
 
     }
 }

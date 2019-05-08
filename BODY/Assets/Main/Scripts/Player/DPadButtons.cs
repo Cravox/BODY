@@ -2,37 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DPadButtons : MonoBehaviour
-{
-    static public bool dPadUp;
-    static public bool dPadDown;
-    static public bool dPadRight;
-    static public bool dPadLeft;
-
-    private readonly float F = 0.99f;
-
-    private bool buttonPressed = false;
+public class DPadButtons : MonoBehaviour {
+    public static bool Up;
+    public static bool Down;
+    public static bool Right;
+    public static bool Left;
 
     private float lastX;
     private float lastY;
 
     // Start is called before the first frame update
-    void Start()
-    {
-
+    void Start() {
+        Up = Down = Left = Right = false;
+        lastX = lastY = 0;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        lastX = Input.GetAxis("ChargeHorizontal");
-        if(lastX < 0) {
-            dPadLeft = true;
-        } else if (lastX > 0) {
-            dPadRight = true;
-        } else if (lastX == 0) {
-            dPadLeft = false;
-            dPadRight = false;
-        }
+    void Update() {
+        float lastDpadX = lastX;
+        float lastDpadY = lastY;
+
+        if (Input.GetAxis("DPadHorizontal") != 0) {
+            float DPadX = Input.GetAxis("DPadHorizontal");
+
+            Right = DPadX == 1 && lastDpadX != 1;
+            Left = DPadX == -1 && lastDpadX != -1;
+            lastX = DPadX;
+        } else { lastX = 0; }
+
+        if (Input.GetAxis("DPadVertical") != 0) {
+            float DPadY = Input.GetAxis("DPadVertical");
+
+            Up = DPadY == 1 && lastDpadY != 1;
+            Down = DPadY == -1 && lastDpadY != -1;
+
+            lastY = DPadY;
+        } else { lastY = 0; }
     }
 }

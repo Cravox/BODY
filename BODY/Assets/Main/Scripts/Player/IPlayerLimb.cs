@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IPlayerLimb {
     PlayerController playerCont { get; }
-    bool fullyCharged { get; set; }
-    EnergyState energyState { get; set; }
+    bool FullyCharged { get; }
+    EnergyStates EnergyState { get; }
 
     void TierOne();
     void TierTwo();
