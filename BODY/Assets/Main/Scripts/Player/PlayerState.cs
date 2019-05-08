@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IPlayerLimb
 {
-    PlayerController playerCont { get; set; }
-    bool fullyCharged { get; set; }
-    int energyCount { get; set; }
+    PlayerController playerCont { get; }
+    bool fullyCharged { get; }
+    EnergyState energyCount { get; set; }
 
     void TierOne();
     void TierTwo();
@@ -15,8 +15,12 @@ public interface IPlayerLimb
 
     void Charge();
     void Discharge();
-    void Update();
-    void FixedUpdate();
+}
+public enum EnergyState
+{
+    One,
+    Two,
+    Three
 }
 
 public class PlayerState : MonoBehaviour
@@ -26,23 +30,14 @@ public class PlayerState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach(IPlayerLimb pl in playerLimbs)
-        {
-            pl.Update();
-        }
     }
 
     void FixedUpdate()
     {
-        foreach (IPlayerLimb pl in playerLimbs)
-        {
-            pl.FixedUpdate();
-        }
     }
 }
