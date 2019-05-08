@@ -1,22 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
-public interface IPlayerLimb
-{
-    PlayerController playerCont { get; set; }
-    bool fullyCharged { get; set; }
-    int energyCount { get; set; }
-
-    void TierOne();
-    void TierTwo();
-
-    void TierThree();
-
-    void Charge();
-    void Discharge();
-    void Update();
-    void FixedUpdate();
+public enum EnergyState : int {
+    NOT_CHARGED,
+    ONE_CHARGE,
+    TWO_CHARGES,
+    FULLY_CHARGED
 }
 
 public class PlayerState : MonoBehaviour
@@ -32,17 +23,11 @@ public class PlayerState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(IPlayerLimb pl in playerLimbs)
-        {
-            pl.Update();
-        }
+
     }
 
     void FixedUpdate()
     {
-        foreach (IPlayerLimb pl in playerLimbs)
-        {
-            pl.FixedUpdate();
-        }
+
     }
 }
