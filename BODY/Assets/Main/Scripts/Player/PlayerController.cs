@@ -15,6 +15,8 @@ public class PlayerController : SerializedMonoBehaviour
     public Camera cam;
 
     [TabGroup("Movement")]
+    public float gravity;
+    [TabGroup("Movement")]
     public float walkSpeed;
     [TabGroup("Movement")]
     public float strafeSpeed;
@@ -36,14 +38,16 @@ public class PlayerController : SerializedMonoBehaviour
     private Vector2 inputAxis;
     [InfoBox("Do not change these values, they are set automatically.")]
     [BoxGroup("Stats"), SerializeField]
-    private Vector3 moveForce;  //used for movement direction
+    public Vector3 moveForce;  //used for movement direction
     private Vector3 lastForce;  //used for rotation stance
     [BoxGroup("Stats"), SerializeField]
     private bool inputJump;
     [BoxGroup("Stats"), SerializeField]
-    private bool isGrounded;
-
-    private Vector3 savedVelocity;
+    public bool isGrounded;
+    [BoxGroup("Stats"), SerializeField]
+    public bool stopGravity;
+    [BoxGroup("Stats"), SerializeField]
+    public Vector3 savedVelocity;
     void Awake()
     {
         instance = this;
@@ -52,7 +56,6 @@ public class PlayerController : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rigid.AddForce(Physics.gravity * 4);
         InputCheck();
         Jump();
         Move();
@@ -74,6 +77,12 @@ public class PlayerController : SerializedMonoBehaviour
 
     void Move()
     {
+        //Add gravitational force
+        if (!stopGravity)
+            rigid.AddForce(new Vector3(0, -gravity, 0));
+        else
+            rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
+
         //set direction vector of camera look rotation
         Vector3 camFwd = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
         Vector3 camRight = new Vector3(cam.transform.right.x, 0, cam.transform.right.z);
@@ -92,13 +101,16 @@ public class PlayerController : SerializedMonoBehaviour
             savedVelocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) - (moveForce * airSpeed);
         }
         else
+        {
             rigid.velocity = new Vector3(0, rigid.velocity.y, 0) + savedVelocity + (moveForce * airSpeed);
+        }
         //prevent model from returning rotation to zero
-        if (rigid.velocity.magnitude != 0)
+        Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z);
+        if (walkVel.magnitude != 0)
             lastForce = rigid.velocity;
 
         //rotate model to moving direction (which is relative to the camera)
-        float modelRot = (Vector3.SignedAngle(lastForce, transform.forward, -Vector3.up));
+        float modelRot = Mathf.Atan2(lastForce.x, lastForce.z) * Mathf.Rad2Deg;
         modelAxis.localRotation = Quaternion.RotateTowards(modelAxis.localRotation, Quaternion.Euler(new Vector3(0, modelRot, 0)), 20f);
     }
 
