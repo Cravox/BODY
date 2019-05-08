@@ -9,9 +9,16 @@ public enum EnergyState : int {
     TWO_CHARGES,
     FULLY_CHARGED
 }
-
-public class PlayerState : MonoBehaviour
+public enum EnergyState
 {
+    One = 0,
+    Two = 1,
+    Three = 2
+}
+
+public class PlayerState : SerializedMonoBehaviour
+{
+    [SerializeField]
     List<IPlayerLimb> playerLimbs = new List<IPlayerLimb>();
 
     // Start is called before the first frame update
