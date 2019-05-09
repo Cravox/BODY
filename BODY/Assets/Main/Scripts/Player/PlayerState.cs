@@ -5,48 +5,54 @@ using Sirenix.OdinInspector;
 
 public class PlayerState : SerializedMonoBehaviour {
     [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs")]
-    IPlayerLimb[] playerLimbs = new IPlayerLimb[3];
+    public IPlayerLimb[] PlayerLimbs = new IPlayerLimb[3];
 
-    private enum Limb : int {
-        HEAD,
-        ARMS,
-        LEGS
-    }
+    [Required, SerializeField, TabGroup("References")]
+    private EnergyUI energyUI;
 
-    private IPlayerLimb head;
-    private IPlayerLimb arms;
-    private IPlayerLimb legs;
-
+    public int EnergyPoints = 3;
+    
     // Start is called before the first frame update
     void Start() {
-        head = playerLimbs[0];
-        arms = playerLimbs[1];
-        legs = playerLimbs[2];
+
     }
 
     // Update is called once per frame
     void Update() {
         if (DPadButtons.Up) {
-            playerLimbs[(int)Limb.HEAD].Charge();
-            //head.Charge();
+            if(!PlayerLimbs[(int)Enums.Limb.HEAD].FullyCharged && EnergyPoints > 0) {
+                EnergyPoints--;
+                PlayerLimbs[(int)Enums.Limb.HEAD].Charge();
+                UpdateFeedback(PlayerLimbs[(int)Enums.Limb.HEAD]);
+            }
         }
+
         if (DPadButtons.Left) {
-            playerLimbs[(int)Limb.ARMS].Charge();
-            //arms.Charge();
+            if (!PlayerLimbs[(int)Enums.Limb.ARMS].FullyCharged && EnergyPoints > 0) {
+                EnergyPoints--;
+                PlayerLimbs[(int)Enums.Limb.ARMS].Charge();
+                UpdateFeedback(PlayerLimbs[(int)Enums.Limb.ARMS]);
+            }
         }
+
         if (DPadButtons.Down) {
-            playerLimbs[(int)Limb.LEGS].Charge();
-            //legs.Charge();
+            if (!PlayerLimbs[(int)Enums.Limb.LEGS].FullyCharged && EnergyPoints > 0) {
+                EnergyPoints--;
+                PlayerLimbs[(int)Enums.Limb.LEGS].Charge();
+                UpdateFeedback(PlayerLimbs[(int)Enums.Limb.LEGS]);
+            }
         }
 
         if (Input.GetButtonDown("ResetEnergy")) {
-            foreach (IPlayerLimb limb in playerLimbs) {
+            EnergyPoints = 3;
+            foreach (IPlayerLimb limb in PlayerLimbs) {
                 limb.Discharge();
             }
+            energyUI.ResetText();
         }
     }
 
-    void FixedUpdate() {
-
+    void UpdateFeedback(IPlayerLimb limb) {
+        energyUI.UpdateText(limb, EnergyPoints);
     }
 }

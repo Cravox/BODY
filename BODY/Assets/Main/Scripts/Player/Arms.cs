@@ -6,22 +6,22 @@ using Sirenix.OdinInspector;
 public class Arms : SerializedMonoBehaviour, IPlayerLimb {
     public PlayerController playerCont => throw new System.NotImplementedException();
 
-    public bool FullyCharged { get { return energyState == EnergyStates.FULLY_CHARGED; } }
+    public bool FullyCharged { get { return energyState == Enums.EnergyStates.FULLY_CHARGED; } }
 
-    public EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
-    private EnergyStates energyState = EnergyStates.NOT_CHARGED;
+    public Enums.EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
+    private Enums.EnergyStates energyState = Enums.EnergyStates.NOT_CHARGED;
+
+    public Enums.Limb Limb { get { return limb; } }
+    private Enums.Limb limb = Enums.Limb.ARMS;
+
 
     public void Charge() {
-        if (FullyCharged) {
-            print("Arms fully charged");
-            return;
-        }
         energyState++;
         print(energyState);
     }
 
     public void Discharge() {
-        energyState = EnergyStates.NOT_CHARGED;
+        energyState = Enums.EnergyStates.NOT_CHARGED;
         print("Discharge Arms");
     }
 

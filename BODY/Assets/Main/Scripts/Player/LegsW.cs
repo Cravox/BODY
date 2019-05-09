@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class LegsW : MonoBehaviour, IPlayerLimb {
     public PlayerController playerCont { get { return PlayerController.instance; } }
-    public bool FullyCharged { get { return (energyState == EnergyStates.FULLY_CHARGED); } }
+    public bool FullyCharged { get { return (energyState == Enums.EnergyStates.FULLY_CHARGED); } }
 
-    public EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
-    private EnergyStates energyState = EnergyStates.NOT_CHARGED;
+    public Enums.EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
+    private Enums.EnergyStates energyState = Enums.EnergyStates.NOT_CHARGED;
+
+    public Enums.Limb Limb { get { return limb; } }
+    private Enums.Limb limb = Enums.Limb.LEGS;
+
 
     public bool isDashing;
     public float dashSpeed = 10;
     public float dashTimer;
 
     public void Charge() {
-        if (FullyCharged) {
-            print("Legs fully charged");
-            return;
-        }
         energyState++;
         print(energyState);
     }
 
     public void Discharge() {
-        energyState = EnergyStates.NOT_CHARGED;
+        energyState = Enums.EnergyStates.NOT_CHARGED;
         print("Discharge Arms");
     }
 
@@ -64,7 +64,7 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
 
     // Update is called once per frame
     void Update() {
-        if(energyState != EnergyStates.NOT_CHARGED) TierOne();
+        if(energyState != Enums.EnergyStates.NOT_CHARGED) TierOne();
     }
 
 }
