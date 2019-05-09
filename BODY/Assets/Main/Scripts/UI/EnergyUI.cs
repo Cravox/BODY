@@ -16,7 +16,6 @@ public class EnergyUI : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        energyPointsText.text = "Energy Points: " + 3;
         limbStrings[0] = "Head State: ";
         limbStrings[1] = "Arms State: ";
         limbStrings[2] = "Legs State: ";
@@ -27,6 +26,10 @@ public class EnergyUI : MonoBehaviour {
 
     }
 
+    public void Init(int energyPoints) {
+        energyPointsText.text = "Energy Points: " + energyPoints;
+    }
+
     public void UpdateText(IPlayerLimb ILimb, int energyPoints) {
         var eState = (int)ILimb.EnergyState;
         var limb = (int)ILimb.Limb;
@@ -35,8 +38,8 @@ public class EnergyUI : MonoBehaviour {
         limbText[limb].text = limbStrings[limb] + eState;
     }
 
-    public void ResetText() {
-        energyPointsText.text = "Energy Points: " + 3;
+    public void ResetText(int energyPoints) {
+        energyPointsText.text = "Energy Points: " + energyPoints;
         for (int i = 0; i < limbText.Length; i++) {
             limbText[i].text = limbStrings[i] + 0;
         }

@@ -335,7 +335,6 @@ Transform:
   - {fileID: 603345984}
   - {fileID: 29748102}
   - {fileID: 1879228050}
-  - {fileID: 1048487932}
   - {fileID: 1201557814}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -435,7 +434,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134488223}
-  m_LocalRotation: {x: 0.3481219, y: 0, z: 0, w: 0.9374493}
+  m_LocalRotation: {x: 0.3481218, y: 0, z: 0, w: 0.93744934}
   m_LocalPosition: {x: 5.214204, y: 9.2438965, z: 1.1478038}
   m_LocalScale: {x: 1, y: 0.5555556, z: 1}
   m_Children: []
@@ -1373,7 +1372,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -1420,6 +1419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 685260496}
   - component: {fileID: 685260495}
+  - component: {fileID: 685260497}
   m_Layer: 0
   m_Name: CM_ThirdPerson
   m_TagString: Untagged
@@ -1510,6 +1510,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &685260497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685260494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_Damping: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &823594683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,6 +1819,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  isPushing: 0
 --- !u!114 &998887086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1840,10 +1865,11 @@ GameObject:
   - component: {fileID: 1048487936}
   - component: {fileID: 1048487935}
   - component: {fileID: 1048487934}
+  - component: {fileID: 1048487937}
   - component: {fileID: 1048487933}
   m_Layer: 0
-  m_Name: rigid cube (6)
-  m_TagString: Untagged
+  m_Name: Pushbox
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1856,11 +1882,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048487931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.51, y: 6.79, z: 15.67}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 5.37, y: 6.79, z: 9.29}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
-  m_Father: {fileID: 95927374}
-  m_RootOrder: 13
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1048487933
 Rigidbody:
@@ -1876,7 +1902,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &1048487934
 BoxCollider:
@@ -1936,6 +1962,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048487931}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1048487937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048487931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617271440ee0b004b990fee4abcfdcc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  rb: {fileID: 1048487933}
 --- !u!1 &1114862744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,7 +2147,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140570149}
-  m_LocalRotation: {x: 0.2934961, y: 0.00000004807429, z: -0.000000033536285, w: 0.9559603}
+  m_LocalRotation: {x: 0.2934961, y: 0.000000048076146, z: -0.000000033536285, w: 0.9559603}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2214,7 +2262,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 95927374}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1201557815
 Rigidbody:
@@ -2547,6 +2595,11 @@ PrefabInstance:
       objectReference: {fileID: 1698976193}
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
+      propertyPath: EnergyPoints
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
@@ -2569,17 +2622,17 @@ PrefabInstance:
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"PlayerLimbs.[0]","value":$eref:0'
+      value: '"path":"PlayerLimbInterfaces.[0]","value":$eref:0'
       objectReference: {fileID: 0}
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[1]
-      value: '"path":"PlayerLimbs.[1]","value":$eref:1'
+      value: '"path":"PlayerLimbInterfaces.[1]","value":$eref:1'
       objectReference: {fileID: 0}
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[2]
-      value: '"path":"PlayerLimbs.[2]","value":$eref:2'
+      value: '"path":"PlayerLimbInterfaces.[2]","value":$eref:2'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdf05a2ae6552274eb51cf3718e8d3f4, type: 3}
@@ -2832,7 +2885,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -2841,7 +2894,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Leg State: 0'
+  m_Text: 'Legs State: 0'
 --- !u!222 &1706415233
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3218,7 +3271,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0
@@ -3227,7 +3280,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Arm State: 0'
+  m_Text: 'Arms State: 0'
 --- !u!222 &1956885616
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3310,7 +3363,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988921255}
-  m_LocalRotation: {x: 0.3262536, y: 2.9402886e-10, z: -0.000000015290839, w: 0.9452823}
+  m_LocalRotation: {x: 0.32625332, y: 2.9398992e-10, z: -0.000000015290912, w: 0.9452824}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3360,7 +3413,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 0

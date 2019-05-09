@@ -8,7 +8,7 @@ public class Head : SerializedMonoBehaviour, IPlayerLimb {
     public bool FullyCharged { get { return energyState == Enums.EnergyStates.FULLY_CHARGED; } }
 
     public Enums.EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
-    private Enums.EnergyStates energyState = Enums.EnergyStates.NOT_CHARGED;
+    private Enums.EnergyStates energyState = Enums.EnergyStates.ZERO_CHARGES;
 
     public Enums.Limb Limb { get { return limb; } }
     private Enums.Limb limb = Enums.Limb.HEAD;
@@ -16,12 +16,10 @@ public class Head : SerializedMonoBehaviour, IPlayerLimb {
 
     public void Charge() {
         energyState++;
-        print(energyState);
     }
 
     public void Discharge() {
-        energyState = Enums.EnergyStates.NOT_CHARGED;
-        print("Discharge Head");
+        energyState = Enums.EnergyStates.ZERO_CHARGES;
     }
 
     public void TierOne() {

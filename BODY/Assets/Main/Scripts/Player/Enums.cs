@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct Enums {
     public enum EnergyStates : int {
-        NOT_CHARGED,
+        ZERO_CHARGES,
         ONE_CHARGE,
         TWO_CHARGES,
         FULLY_CHARGED
