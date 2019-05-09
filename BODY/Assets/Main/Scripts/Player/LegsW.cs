@@ -78,5 +78,4 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
                 break;
         }
     }
-
 }
