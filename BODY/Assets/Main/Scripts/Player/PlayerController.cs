@@ -154,7 +154,9 @@ public class PlayerController : SerializedMonoBehaviour
         
         foreach(PlayerForce pf in forces)
         {
-            pf.force *= (1 - pf.decay);
+            pf.strenght = Mathf.MoveTowards(pf.strenght, 0, (1 / pf.decay) * Time.deltaTime);
+
+            pf.force = pf.initialForce * pf.strenght;
 
             if (pf.finished)
                 pf.Stop();
@@ -172,6 +174,7 @@ public class PlayerForce
     public Vector3 initialForce;
     public Vector3 force;
     public float decay;
+    public float strenght = 1f;
     public bool finished { get { return (this.force == Vector3.zero); } }
 
     public PlayerForce(Vector3 force, float decay)
@@ -183,6 +186,7 @@ public class PlayerForce
 
     public void Stop()
     {
+        strenght = 0;
         force = Vector3.zero;
     }
 }

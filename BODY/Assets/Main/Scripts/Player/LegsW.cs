@@ -11,6 +11,7 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
 
     public bool isDashing;
     public float dashSpeed = 10;
+    public float dashDuration = 1;
     public float dashTimer;
     public PlayerForce dashForce;
 
@@ -34,7 +35,7 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
             {
                 isDashing = true;
                 playerCont.modelAnim.Play("Dash");
-                dashForce = playerCont.AddForceReturn(playerCont.modelAxis.forward * dashSpeed, 0.05f);
+                dashForce = playerCont.AddForceReturn(playerCont.modelAxis.forward * dashSpeed, dashDuration);
             }
         }
 
