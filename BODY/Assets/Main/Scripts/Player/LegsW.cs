@@ -12,6 +12,7 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
     public bool isDashing;
     public float dashSpeed = 10;
     public float dashTimer;
+    public PlayerForce dashForce;
 
     public void Charge() {
         if (FullyCharged) {
@@ -30,22 +31,22 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
     public void TierOne() {
         if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
             if (!isDashing)
-                StartCoroutine(dashOnce());
+            {
+                isDashing = true;
+                playerCont.modelAnim.Play("Dash");
+                dashForce = playerCont.AddForceReturn(playerCont.modelAxis.forward * dashSpeed, 0.05f);
+            }
         }
 
-        if (playerCont.isGrounded && isDashing)
-            isDashing = false;
-    }
+        if(Input.GetButtonUp("Jump") && isDashing)
+            dashForce.Stop();
 
-    IEnumerator dashOnce() {
-        isDashing = true;
-        playerCont.modelAnim.SetBool("IsDashing", isDashing);
-        playerCont.modelAnim.Play("Dash");
-        playerCont.stopGravity = true;
-        playerCont.savedVelocity = playerCont.modelAxis.transform.forward * dashSpeed;
-        yield return new WaitForSeconds(dashTimer);
-        playerCont.savedVelocity = Vector3.zero;
-        playerCont.stopGravity = false;
+        if (playerCont.isGrounded && isDashing)
+        {
+            dashForce.Stop();
+            isDashing = false;
+        }
+
         playerCont.modelAnim.SetBool("IsDashing", isDashing);
     }
 

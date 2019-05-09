@@ -48,6 +48,10 @@ public class PlayerController : SerializedMonoBehaviour
     public bool stopGravity;
     [BoxGroup("Stats"), SerializeField]
     public Vector3 savedVelocity;
+
+    public List<PlayerForce> forces;
+    public Vector3 extraForce;
+
     void Awake()
     {
         instance = this;
@@ -56,6 +60,7 @@ public class PlayerController : SerializedMonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Forces();
         InputCheck();
         Jump();
         Move();
@@ -81,7 +86,7 @@ public class PlayerController : SerializedMonoBehaviour
         if (!stopGravity)
             rigid.AddForce(new Vector3(0, -gravity, 0));
         else
-            rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
+            rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) + extraForce;
 
         //set direction vector of camera look rotation
         Vector3 camFwd = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
@@ -97,12 +102,12 @@ public class PlayerController : SerializedMonoBehaviour
         //set velocity including speed to rigidbody, is velocity forward?
         if (isGrounded)
         {
-            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed);
+            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed) + extraForce;
             savedVelocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) - (moveForce * airSpeed);
         }
         else
         {
-            rigid.velocity = new Vector3(0, rigid.velocity.y, 0) + savedVelocity + (moveForce * airSpeed);
+            rigid.velocity = new Vector3(0, rigid.velocity.y, 0) + savedVelocity + (moveForce * airSpeed) + extraForce;
         }
         //prevent model from returning rotation to zero
         Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z);
@@ -126,5 +131,58 @@ public class PlayerController : SerializedMonoBehaviour
     void GroundCheck()
     {
         isGrounded = (Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn).Length > 0); 
+    }
+
+    public void AddForce(Vector3 targetForce, float decay)
+    {
+        forces.Add(new PlayerForce(targetForce, decay));
+    }
+
+    public PlayerForce AddForceReturn(Vector3 targetForce, float decay)
+    {
+        PlayerForce pf = new PlayerForce(targetForce, decay);
+        forces.Add(pf);
+        return pf;
+    }
+
+    void Forces()
+    {
+        if (forces == null)
+            return;
+
+        Vector3 eF = new Vector3();
+        
+        foreach(PlayerForce pf in forces)
+        {
+            pf.force *= (1 - pf.decay);
+
+            if (pf.finished)
+                pf.Stop();
+            else
+                eF += pf.force;
+        }
+
+        extraForce = eF;
+    }
+}
+
+[System.Serializable]
+public class PlayerForce
+{
+    public Vector3 initialForce;
+    public Vector3 force;
+    public float decay;
+    public bool finished { get { return (this.force == Vector3.zero); } }
+
+    public PlayerForce(Vector3 force, float decay)
+    {
+        this.initialForce = force;
+        this.force = force;
+        this.decay = decay;
+    }
+
+    public void Stop()
+    {
+        force = Vector3.zero;
     }
 }
