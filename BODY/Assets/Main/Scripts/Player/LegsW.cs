@@ -14,7 +14,9 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
 
     public bool isDashing;
     public float dashSpeed = 10;
-    public float dashTimer;
+    public float dashDuration = 1;
+    public PlayerForce dashForce;
+
 
     public void Charge() {
         energyState++;
@@ -26,24 +28,25 @@ public class LegsW : MonoBehaviour, IPlayerLimb {
     }
 
     public void TierOne() {
-        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
+        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing)
+        {
             if (!isDashing)
-                StartCoroutine(dashOnce());
+            {
+                isDashing = true;
+                playerCont.modelAnim.Play("Dash");
+                playerCont.AddForce(playerCont.modelAxis.forward * dashSpeed, dashDuration, out dashForce);
+            }
         }
 
-        if (playerCont.isGrounded && isDashing)
-            isDashing = false;
-    }
+        if (Input.GetButtonUp("Jump") && isDashing && dashForce != null)
+            dashForce.Stop();
 
-    IEnumerator dashOnce() {
-        isDashing = true;
-        playerCont.modelAnim.SetBool("IsDashing", isDashing);
-        playerCont.modelAnim.Play("Dash");
-        playerCont.stopGravity = true;
-        playerCont.savedVelocity = playerCont.modelAxis.transform.forward * dashSpeed;
-        yield return new WaitForSeconds(dashTimer);
-        playerCont.savedVelocity = Vector3.zero;
-        playerCont.stopGravity = false;
+        if (playerCont.isGrounded && isDashing && dashForce != null)
+        {
+            dashForce.Stop();
+            isDashing = false;
+        }
+
         playerCont.modelAnim.SetBool("IsDashing", isDashing);
     }
 

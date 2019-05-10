@@ -138,11 +138,10 @@ public class PlayerController : SerializedMonoBehaviour
         forces.Add(new PlayerForce(targetForce, decay));
     }
 
-    public PlayerForce AddForceReturn(Vector3 targetForce, float decay)
+    public void AddForce(Vector3 targetForce, float decay, out PlayerForce pf)
     {
-        PlayerForce pf = new PlayerForce(targetForce, decay);
+        pf = new PlayerForce(targetForce, decay);
         forces.Add(pf);
-        return pf;
     }
 
     void Forces()
