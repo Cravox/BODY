@@ -73,7 +73,9 @@ public class Arms : SerializedMonoBehaviour, IPlayerLimb {
                     isPushing = true;
                     box.parent = playerCont.modelAxis;
                 }
-            } else interactUI.SetImageActive(false);
+            } else {
+                interactUI.SetImageActive(false);
+            }
         } else {
             if (Input.GetButtonDown("ButtonX")) {
                 box.parent = null;
