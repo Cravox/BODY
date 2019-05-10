@@ -48,6 +48,7 @@ public class PlayerController : SerializedMonoBehaviour
     public bool stopGravity;
     [BoxGroup("Stats"), SerializeField]
     public Vector3 savedVelocity;
+    public Rigidbody platform;
 
     public List<PlayerForce> forces;
     public Vector3 extraForce;
@@ -70,7 +71,8 @@ public class PlayerController : SerializedMonoBehaviour
 
     void Animate()
     {
-        modelAnim.SetFloat("Velocity", rigid.velocity.magnitude / walkSpeed);
+        Vector3 rigidvel = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
+        modelAnim.SetFloat("Velocity", rigidvel.magnitude / walkSpeed);
         modelAnim.SetBool("IsGrounded", isGrounded);
     }
 
@@ -102,17 +104,18 @@ public class PlayerController : SerializedMonoBehaviour
         //set velocity including speed to rigidbody, is velocity forward?
         if (isGrounded)
         {
-            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed) + extraForce;
+            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed) + extraForce + (platform != null ? platform.velocity : Vector3.zero);
             savedVelocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) - (moveForce * airSpeed);
         }
         else
         {
             rigid.velocity = new Vector3(0, rigid.velocity.y, 0) + savedVelocity + (moveForce * airSpeed) + extraForce;
         }
+
         //prevent model from returning rotation to zero
-        Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z);
+        Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z) - (platform != null ? platform.velocity : Vector3.zero);
         if (walkVel.magnitude != 0)
-            lastForce = rigid.velocity;
+            lastForce = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
 
         //rotate model to moving direction (which is relative to the camera)
         float modelRot = Mathf.Atan2(lastForce.x, lastForce.z) * Mathf.Rad2Deg;
@@ -164,6 +167,21 @@ public class PlayerController : SerializedMonoBehaviour
         }
 
         extraForce = eF;
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "MovingPlatform")
+        {
+            platform = col.gameObject.GetComponentInParent<Rigidbody>();
+        }
+    }
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "MovingPlatform")
+        {
+            platform = null;
+        }
     }
 }
 

@@ -41,6 +41,21 @@ public class Head : SerializedMonoBehaviour, IPlayerLimb {
 
     // Update is called once per frame
     void Update() {
-
+        switch (energyState)
+        {
+            case Enums.EnergyStates.ZERO_CHARGES:
+                break;
+            case Enums.EnergyStates.ONE_CHARGE:
+                TierOne();
+                break;
+            case Enums.EnergyStates.TWO_CHARGES:
+                TierOne();
+                TierTwo();
+                break;
+            case Enums.EnergyStates.FULLY_CHARGED:
+                break;
+            default:
+                break;
+        }
     }
 }
