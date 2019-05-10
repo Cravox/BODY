@@ -4,7 +4,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Head : SerializedMonoBehaviour, IPlayerLimb {
-    public PlayerController playerCont { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public PlayerController playerCont { get { return PlayerController.instance; } }
+
     public bool FullyCharged { get { return energyState == Enums.EnergyStates.FULLY_CHARGED; } }
 
     public Enums.EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }

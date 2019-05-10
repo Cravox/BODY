@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Arms : SerializedMonoBehaviour, IPlayerLimb {
-    public PlayerController playerCont => throw new System.NotImplementedException();
+    public PlayerController playerCont { get { return PlayerController.instance; } }
 
     public bool FullyCharged { get { return energyState == Enums.EnergyStates.FULLY_CHARGED; } }
 
@@ -14,29 +14,19 @@ public class Arms : SerializedMonoBehaviour, IPlayerLimb {
     public Enums.Limb Limb { get { return limb; } }
     private Enums.Limb limb = Enums.Limb.ARMS;
 
+    [SerializeField]
+    private InteractableUI interactUI;
+
+    [SerializeField]
+    public float interactRange = 1;
+
+    Ray ray;
+    RaycastHit hit;
+
+    private Transform box;
+
     [HideInInspector]
     public bool isPushing;
-
-    public void Charge() {
-        energyState++;
-        print(energyState);
-    }
-
-    public void Discharge() {
-        energyState = Enums.EnergyStates.ZERO_CHARGES;
-    }
-
-    public void TierOne() {
-
-    }
-
-    public void TierThree() {
-        throw new System.NotImplementedException();
-    }
-
-    public void TierTwo() {
-        throw new System.NotImplementedException();
-    }
 
     // Start is called before the first frame update
     void Start() {
@@ -60,5 +50,44 @@ public class Arms : SerializedMonoBehaviour, IPlayerLimb {
             default:
                 break;
         }
+    }
+
+    public void Charge() {
+        energyState++;
+    }
+
+    public void Discharge() {
+        energyState = Enums.EnergyStates.ZERO_CHARGES;
+    }
+
+    public void TierOne() {
+        ray.origin = transform.position;
+        ray.direction = playerCont.modelAxis.forward;
+        Debug.DrawRay(ray.origin, ray.direction*10, Color.red, 1);
+
+        if (!isPushing) {
+            if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("ArmBox"))) {
+                interactUI.SetImageActive(true);
+                box = hit.transform;
+                if (Input.GetButtonDown("ButtonX")) {
+                    isPushing = true;
+                    box.parent = playerCont.modelAxis;
+                }
+            } else interactUI.SetImageActive(false);
+        } else {
+            if (Input.GetButtonDown("ButtonX")) {
+                box.parent = null;
+                isPushing = false;
+            }
+        }
+        playerCont.modelAnim.SetBool("IsPushing", isPushing);
+    }
+
+    public void TierThree() {
+
+    }
+
+    public void TierTwo() {
+
     }
 }
