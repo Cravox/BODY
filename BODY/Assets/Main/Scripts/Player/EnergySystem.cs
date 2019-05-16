@@ -4,11 +4,17 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class EnergySystem : SerializedMonoBehaviour {
+    private enum LimbIndex : int {
+        HEAD,
+        ARMS,
+        LEGS
+    }
+
     [TabGroup("Balancing")]
     public int EnergyPoints = 3;
 
     [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs"), TabGroup("References")]
-    public IPlayerLimb[] PlayerLimbInterfaces = new IPlayerLimb[3];
+    public Limb[] PlayerLimbs = new Limb[3];
 
     [Required, SerializeField, TabGroup("References")]
     private EnergyUI energyUI;
@@ -24,15 +30,15 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (DPadButtons.Up) {
-            ChargeLimb(PlayerLimbInterfaces[(int)Enums.Limb.HEAD]);
+            ChargeLimb(PlayerLimbs[(int)LimbIndex.HEAD]);
         }
 
         if (DPadButtons.Left) {
-            ChargeLimb(PlayerLimbInterfaces[(int)Enums.Limb.ARMS]);
+            ChargeLimb(PlayerLimbs[(int)LimbIndex.ARMS]);
         }
 
         if (DPadButtons.Down) {
-            ChargeLimb(PlayerLimbInterfaces[(int)Enums.Limb.LEGS]);
+            ChargeLimb(PlayerLimbs[(int)LimbIndex.LEGS]);
         }
 
         if (Input.GetButtonDown("ResetEnergy")) {
@@ -40,7 +46,7 @@ public class EnergySystem : SerializedMonoBehaviour {
         }
     }
 
-    void ChargeLimb(IPlayerLimb limb) {
+    void ChargeLimb(Limb limb) {
         if (!limb.FullyCharged && EnergyPoints > 0) {
             EnergyPoints--;
             limb.Charge();
@@ -50,13 +56,13 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     void ResetEnergy() {
         EnergyPoints = maxEnergy;
-        foreach (IPlayerLimb limb in PlayerLimbInterfaces) {
+        foreach (Limb limb in PlayerLimbs) {
             limb.Discharge();
         }
         energyUI.ResetText(maxEnergy);
     }
 
-    void UpdateFeedback(IPlayerLimb limb) {
+    void UpdateFeedback(Limb limb) {
         energyUI.UpdateText(limb, EnergyPoints);
     }
 }

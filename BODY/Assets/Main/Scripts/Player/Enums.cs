@@ -9,10 +9,4 @@ public struct Enums {
         TWO_CHARGES,
         FULLY_CHARGED
     }
-
-    public enum Limb : int {
-        HEAD,
-        ARMS,
-        LEGS
-    }
 }

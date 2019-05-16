@@ -30,12 +30,13 @@ public class EnergyUI : MonoBehaviour {
         energyPointsText.text = "Energy Points: " + energyPoints;
     }
 
-    public void UpdateText(IPlayerLimb ILimb, int energyPoints) {
-        var eState = (int)ILimb.EnergyState;
-        var limb = (int)ILimb.Limb;
+    public void UpdateText(Limb limb, int energyPoints) {
+        var eState = (int)limb.EnergyState;
+        //var limb = (int)ILimb.Limb;
 
         energyPointsText.text = "Energy Points: " + energyPoints;
-        limbText[limb].text = limbStrings[limb] + eState;
+
+        //limbText[limb].text = limbStrings[limb] + eState;
     }
 
     public void ResetText(int energyPoints) {
