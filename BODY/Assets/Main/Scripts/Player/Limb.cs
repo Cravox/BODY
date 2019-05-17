@@ -11,6 +11,7 @@ public abstract class Limb : SerializedMonoBehaviour {
 
     protected void Start() {
         playerCont = GetComponent<PlayerController>();
+        LimbStart();
     }
 
     public void Charge() {
@@ -42,6 +43,7 @@ public abstract class Limb : SerializedMonoBehaviour {
     }
 
     protected abstract void LimbUpdate();
+    protected abstract void LimbStart();
 
     public abstract void TierOne();
     public abstract void TierTwo();

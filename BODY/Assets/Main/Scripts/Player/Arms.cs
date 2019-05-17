@@ -3,17 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class Arms : SerializedMonoBehaviour, IPlayerLimb {
-    public PlayerController playerCont { get { return PlayerController.instance; } }
-
-    public bool FullyCharged { get { return energyState == Enums.EnergyStates.FULLY_CHARGED; } }
-
-    public Enums.EnergyStates EnergyState { get { return this.energyState; } set { energyState = value; } }
-    private Enums.EnergyStates energyState = Enums.EnergyStates.ZERO_CHARGES;
-
-    public Enums.Limb Limb { get { return limb; } }
-    private Enums.Limb limb = Enums.Limb.ARMS;
-
+public class Arms : Limb {
     [SerializeField]
     private InteractableUI interactUI;
 
@@ -28,39 +18,15 @@ public class Arms : SerializedMonoBehaviour, IPlayerLimb {
     [HideInInspector]
     public bool isPushing;
 
-    // Start is called before the first frame update
-    void Start() {
+    protected override void LimbStart() {
 
     }
 
-    // Update is called once per frame
-    void Update() {
-        switch (energyState) {
-            case Enums.EnergyStates.ZERO_CHARGES:
-                break;
-            case Enums.EnergyStates.ONE_CHARGE:
-                TierOne();
-                break;
-            case Enums.EnergyStates.TWO_CHARGES:
-                TierOne();
-                TierTwo();
-                break;
-            case Enums.EnergyStates.FULLY_CHARGED:
-                break;
-            default:
-                break;
-        }
+    protected override void LimbUpdate() {
+
     }
 
-    public void Charge() {
-        energyState++;
-    }
-
-    public void Discharge() {
-        energyState = Enums.EnergyStates.ZERO_CHARGES;
-    }
-
-    public void TierOne() {
+    public override void TierOne() {
         ray.origin = transform.position;
         ray.direction = playerCont.modelAxis.forward;
         Debug.DrawRay(ray.origin, ray.direction*10, Color.red, 1);
@@ -85,11 +51,11 @@ public class Arms : SerializedMonoBehaviour, IPlayerLimb {
         playerCont.modelAnim.SetBool("IsPushing", isPushing);
     }
 
-    public void TierThree() {
+    public override void TierTwo() {
 
     }
 
-    public void TierTwo() {
+    public override void TierThree() {
 
     }
 }
