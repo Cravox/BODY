@@ -18,6 +18,8 @@ public class Arms : Limb {
     [HideInInspector]
     public bool isPushing;
 
+    public override int index => 1;
+
     protected override void LimbStart() {
 
     }

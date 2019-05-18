@@ -434,7 +434,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134488223}
-  m_LocalRotation: {x: 0.3481218, y: 0, z: 0, w: 0.93744934}
+  m_LocalRotation: {x: 0.3481219, y: 0, z: 0, w: 0.9374493}
   m_LocalPosition: {x: 5.214204, y: 9.2438965, z: 1.1478038}
   m_LocalScale: {x: 1, y: 0.5555556, z: 1}
   m_Children: []
@@ -2006,6 +2006,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  EnergyState: 0
   interactUI: {fileID: 1698976198}
   interactRange: 1
   isPushing: 0
@@ -2030,6 +2031,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  EnergyState: 0
 --- !u!114 &998887087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2313,7 +2315,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140570149}
-  m_LocalRotation: {x: 0.29349616, y: 0.000000048087802, z: -0.00000003353629, w: 0.9559603}
+  m_LocalRotation: {x: 0.29349616, y: 0.00000004808905, z: -0.00000003353629, w: 0.9559603}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2937,14 +2939,13 @@ PrefabInstance:
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: EnergyPoints
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
@@ -2975,6 +2976,21 @@ PrefabInstance:
       propertyPath: serializationData.PrefabModifications.Array.data[2]
       value: '"path":"PlayerLimbInterfaces.[2]","value":$eref:2'
       objectReference: {fileID: 0}
+    - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
+      propertyPath: PlayerLimbs.Array.data[2]
+      value: 
+      objectReference: {fileID: 998887084}
+    - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
+      propertyPath: PlayerLimbs.Array.data[1]
+      value: 
+      objectReference: {fileID: 998887085}
+    - target: {fileID: 9071744388173341595, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
+      propertyPath: PlayerLimbs.Array.data[0]
+      value: 
+      objectReference: {fileID: 998887086}
     - target: {fileID: 9071744386992386687, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: m_Layer
@@ -3562,6 +3578,15 @@ MonoBehaviour:
   - {fileID: 2102003235}
   - {fileID: 1956885615}
   - {fileID: 1706415232}
+  imageColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 0.16886091, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.94670725, a: 1}
+  - {r: 0, g: 1, b: 0.14966917, a: 1}
+  limbImage:
+  - {fileID: 7241203}
+  - {fileID: 1599664702}
+  - {fileID: 1176002165}
 --- !u!114 &1698976194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4270,7 +4295,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988921255}
-  m_LocalRotation: {x: 0.3262533, y: 2.9371927e-10, z: -0.00000001529137, w: 0.94528246}
+  m_LocalRotation: {x: 0.32625362, y: 2.9368483e-10, z: -0.000000015291418, w: 0.9452823}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

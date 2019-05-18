@@ -11,7 +11,7 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     [TabGroup("Balancing")]
-    public int EnergyPoints = 3;
+    public int EnergyPoints = 6;
 
     [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs"), TabGroup("References")]
     public Limb[] PlayerLimbs = new Limb[3];
@@ -30,26 +30,30 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (DPadButtons.Up) {
-            ChargeLimb(PlayerLimbs[(int)LimbIndex.HEAD]);
+            ChargeLimb(PlayerLimbs[(int)LimbIndex.HEAD], 1);
         }
 
         if (DPadButtons.Left) {
-            ChargeLimb(PlayerLimbs[(int)LimbIndex.ARMS]);
+            ChargeLimb(PlayerLimbs[(int)LimbIndex.ARMS], 1);
         }
 
         if (DPadButtons.Down) {
-            ChargeLimb(PlayerLimbs[(int)LimbIndex.LEGS]);
+            ChargeLimb(PlayerLimbs[(int)LimbIndex.LEGS], 1);
         }
 
-        if (Input.GetButtonDown("ResetEnergy")) {
+        if (Input.GetButtonDown("LeftBumper")) {
             ResetEnergy();
+        }
+
+        if (Input.GetButtonDown("ButtonB")) {
+            BalanceEnergy();
         }
     }
 
-    void ChargeLimb(Limb limb) {
+    void ChargeLimb(Limb limb, int amount) {
         if (!limb.FullyCharged && EnergyPoints > 0) {
-            EnergyPoints--;
-            limb.Charge();
+            EnergyPoints -= amount;
+            limb.Charge(amount);
             UpdateFeedback(limb);
         }
     }
@@ -63,6 +67,13 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void UpdateFeedback(Limb limb) {
-        energyUI.UpdateText(limb, EnergyPoints);
+        energyUI.UpdateText(limb, EnergyPoints, limb.index);
+    }
+
+    void BalanceEnergy() {
+        ResetEnergy();
+        foreach (Limb limb in PlayerLimbs) {
+            ChargeLimb(limb, 3);
+        }
     }
 }

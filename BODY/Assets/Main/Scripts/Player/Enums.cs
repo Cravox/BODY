@@ -7,6 +7,12 @@ public struct Enums {
         ZERO_CHARGES,
         ONE_CHARGE,
         TWO_CHARGES,
+        THREE_CHARGES,
+        FOUR_CHARGES,
+        FIVE_CHARGES,
+        SIX_CHARGES,
+        SEVEN_CHARGES,
+        EIGHT_CHARGES,
         FULLY_CHARGED
     }
 }
