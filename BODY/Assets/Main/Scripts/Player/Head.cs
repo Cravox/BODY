@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Head : Limb {
-    public override int index => 0;
+    protected override string limbName => "Head";
 
     public override void TierOne() {
 

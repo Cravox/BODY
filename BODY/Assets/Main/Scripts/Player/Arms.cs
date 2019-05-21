@@ -10,6 +10,12 @@ public class Arms : Limb {
     [SerializeField]
     public float interactRange = 1;
 
+    [SerializeField, TabGroup("References")]
+    private Transform topPosition;
+
+    [SerializeField, TabGroup("References")]
+    private Transform frontPosition;
+
     Ray ray;
     RaycastHit hit;
 
@@ -18,7 +24,7 @@ public class Arms : Limb {
     [HideInInspector]
     public bool isPushing;
 
-    public override int index => 1;
+    protected override string limbName => "Arms";
 
     protected override void LimbStart() {
 
@@ -40,12 +46,14 @@ public class Arms : Limb {
                 if (Input.GetButtonDown("ButtonX")) {
                     isPushing = true;
                     box.parent = playerCont.modelAxis;
+                    box.localPosition = topPosition.localPosition;
                 }
             } else {
                 interactUI.SetImageActive(false);
             }
         } else {
             if (Input.GetButtonDown("ButtonX")) {
+                box.localPosition = frontPosition.localPosition;
                 box.parent = null;
                 isPushing = false;
             }

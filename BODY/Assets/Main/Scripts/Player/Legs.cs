@@ -8,7 +8,7 @@ public class Legs : Limb {
     public float dashDuration = 1;
     public PlayerForce dashForce;
 
-    public override int index => 2;
+    protected override string limbName => "Legs";
 
     public override void TierOne() {
         if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {

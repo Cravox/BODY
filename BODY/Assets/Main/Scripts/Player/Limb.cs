@@ -9,9 +9,13 @@ public abstract class Limb : SerializedMonoBehaviour {
     protected PlayerController playerCont;
     public bool FullyCharged { get; set; }
     public Enums.EnergyStates EnergyState;
-    public abstract int index { get; }
-    
-    protected EnergyUI eUI;
+    protected abstract string limbName { get; }
+
+    [SerializeField, TabGroup("References")]
+    protected Image limbImage;
+
+    [SerializeField, TabGroup("References")]
+    protected Text limbText;
 
     protected void Start() {
         playerCont = GetComponent<PlayerController>();
@@ -20,10 +24,32 @@ public abstract class Limb : SerializedMonoBehaviour {
 
     public void Charge(int amount) {
         EnergyState += amount;
+        UpdateLimbUI();
     }
 
     public void Discharge() {
         EnergyState = Enums.EnergyStates.ZERO_CHARGES;
+        UpdateLimbUI();
+    }
+
+    public void UpdateLimbUI() {
+        limbText.text = limbName + " State: " + ((int)EnergyState * 10) + "%"; ;
+        switch (EnergyState) {
+            case Enums.EnergyStates.ZERO_CHARGES:
+                limbImage.color = Color.white;
+                break;
+            case Enums.EnergyStates.THREE_CHARGES:
+                limbImage.color = Color.red;
+                break;
+            case Enums.EnergyStates.SIX_CHARGES:
+                limbImage.color = Color.yellow;
+                break;
+            case Enums.EnergyStates.FULLY_CHARGED:
+                limbImage.color = Color.green;
+                break;
+            default:
+                break;
+        }
     }
 
     protected void Update() {
