@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InteractableUI : MonoBehaviour {
     [SerializeField]
-    private Image xImage;
+    private Image xButtonImage;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,6 +18,6 @@ public class InteractableUI : MonoBehaviour {
     }
 
     public void SetImageActive(bool show) {
-        xImage.enabled = show;
+        xButtonImage.enabled = show;
     }
 }

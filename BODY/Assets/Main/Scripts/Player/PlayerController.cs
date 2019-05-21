@@ -68,7 +68,6 @@ public class PlayerController : SerializedMonoBehaviour
     {
         Forces();
         InputCheck();
-        Jump();
         Move();
         GroundCheck();
         Animate();
@@ -84,7 +83,6 @@ public class PlayerController : SerializedMonoBehaviour
     void InputCheck()
     {
         inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxis("Horizontal"), -Input.GetAxis("Vertical")), 9 * Time.deltaTime);
-        inputJump = Input.GetButtonDown("Jump");
     }
 
     void Move()
@@ -127,13 +125,10 @@ public class PlayerController : SerializedMonoBehaviour
         modelAxis.localRotation = Quaternion.RotateTowards(modelAxis.localRotation, Quaternion.Euler(new Vector3(0, modelRot, 0)), 20f);
     }
 
-    void Jump()
+    public void Jump()
     {
-        if (inputJump && isGrounded)
-        {
-            rigid.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
-            modelAnim.Play("Jump");
-        }
+        rigid.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+        modelAnim.Play("Jump");
     }
 
     void GroundCheck()

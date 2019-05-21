@@ -8,7 +8,7 @@ public class Arms : Limb {
     private InteractableUI interactUI;
 
     [SerializeField]
-    public float interactRange = 1;
+    private float interactRange = 1;
 
     [SerializeField, TabGroup("References")]
     private Transform topPosition;
@@ -16,8 +16,8 @@ public class Arms : Limb {
     [SerializeField, TabGroup("References")]
     private Transform frontPosition;
 
-    Ray ray;
-    RaycastHit hit;
+    private Ray ray;
+    private RaycastHit hit;
 
     private Transform box;
 

@@ -11,6 +11,12 @@ public class Legs : Limb {
     protected override string limbName => "Legs";
 
     public override void TierOne() {
+        if(Input.GetButtonDown("Jump") && playerCont.isGrounded) {
+            playerCont.Jump();
+        }
+    }
+
+    public override void TierTwo() {
         if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
             if (!isDashing) {
                 isDashing = true;
@@ -28,10 +34,6 @@ public class Legs : Limb {
         }
 
         playerCont.modelAnim.SetBool("IsDashing", isDashing);
-    }
-
-    public override void TierTwo() {
-
     }
 
     public override void TierThree() {

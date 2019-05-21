@@ -64,6 +64,8 @@ public abstract class Limb : SerializedMonoBehaviour {
                 TierTwo();
                 break;
             case Enums.EnergyStates.FULLY_CHARGED:
+                TierOne();
+                TierTwo();
                 TierThree();
                 break;
             default:

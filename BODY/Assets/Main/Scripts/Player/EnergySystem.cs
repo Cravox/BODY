@@ -11,8 +11,8 @@ public class EnergySystem : SerializedMonoBehaviour {
         LEGS
     }
 
-    [TabGroup("Balancing")]
-    public int EnergyPoints = 6;
+    [SerializeField, TabGroup("Balancing")]
+    private int energyPoints = 9;
 
     [SerializeField, TabGroup("Balancing"), ValueDropdown("energyValue")]
     private int chargeAmount = 1;
@@ -32,7 +32,7 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        maxEnergy = EnergyPoints;
+        maxEnergy = energyPoints;
 
     }
 
@@ -60,19 +60,19 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void ChargeLimb(Limb limb, int amount) {
-        if (!limb.FullyCharged && EnergyPoints > 0) {
-            EnergyPoints -= amount;
+        if (!limb.FullyCharged && energyPoints > 0) {
+            energyPoints -= amount;
             limb.Charge(amount);
         }
         UpdateEnergyUI();
     }
 
     void UpdateEnergyUI() {
-        energyText.text = "Energy State: " + ((EnergyPoints+1) * 10) + "%";
+        energyText.text = "Energy State: " + ((energyPoints+1) * 10) + "%";
     }
 
     void ResetEnergy() {
-        EnergyPoints = maxEnergy;
+        energyPoints = maxEnergy;
         foreach (Limb limb in PlayerLimbs) {
             limb.Discharge();
         }
