@@ -8,49 +8,54 @@ public class PlayerController : SerializedMonoBehaviour
 {
     public static PlayerController instance;
 
-    [BoxGroup("Requirements"), Required]
+    [TabGroup("Balancing")]
+    public float gravity;
+    [TabGroup("Balancing")]
+    public float walkSpeed;
+    [TabGroup("Balancing")]
+    public float strafeSpeed;
+    [TabGroup("Balancing")]
+    public float jumpSpeed;
+    [TabGroup("Balancing")]
+    public float airSpeed;
+
+    [TabGroup("References"), Required, Header("Requirements")]
     [InfoBox("Objects are required to run.")]
     public Rigidbody rigid;
-    [BoxGroup("Requirements"), Required]
+    [TabGroup("References"), Required]
     public Camera cam;
 
-    [TabGroup("Movement")]
-    public float gravity;
-    [TabGroup("Movement")]
-    public float walkSpeed;
-    [TabGroup("Movement")]
-    public float strafeSpeed;
-    [TabGroup("Movement")]
-    public float jumpSpeed;
-    [TabGroup("Movement")]
-    public float airSpeed;
-    [TabGroup("Ground")]
+    [TabGroup("References"), Header("Ground")]
     public float groundHoldRadius;
-    [TabGroup("Ground")]
+    [TabGroup("References")]
     public Transform groundHolder;
-    [TabGroup("Ground")]
+    [TabGroup("References")]
     public LayerMask checkCollisionOn;
-    [TabGroup("Model"), InfoBox("Required for turning a Model during Movement")]
+    [TabGroup("References"), InfoBox("Required for turning a Model during Movement"), Header("Model")]
     public Transform modelAxis;
-    [TabGroup("Model")]
+    [TabGroup("References")]
     public Animator modelAnim;
- 
-    private Vector2 inputAxis;
-    [InfoBox("Do not change these values, they are set automatically.")]
-    [BoxGroup("Stats"), SerializeField]
-    public Vector3 moveForce;  //used for movement direction
-    private Vector3 lastForce;  //used for rotation stance
-    [BoxGroup("Stats"), SerializeField]
-    private bool inputJump;
-    [BoxGroup("Stats"), SerializeField]
-    public bool isGrounded;
-    [BoxGroup("Stats"), SerializeField]
-    public bool stopGravity;
-    [BoxGroup("Stats"), SerializeField]
-    public Vector3 savedVelocity;
-    public Rigidbody platform;
 
+    [TabGroup("Debugging"), SerializeField]
+    [InfoBox("<color='red'><b>Debug only: Do not change these values. \nMay disrupt Gameplay when changed.</b></color>")]
+    private Vector2 inputAxis;
+    [TabGroup("Debugging"), SerializeField]
+    public Vector3 moveForce;  //used for movement direction
+    [TabGroup("Debugging"), SerializeField]
+    private Vector3 lastForce;  //used for rotation stance
+    [TabGroup("Debugging"), SerializeField]
+    private bool inputJump;
+    [TabGroup("Debugging"), SerializeField]
+    public bool isGrounded;
+    [TabGroup("Debugging"), SerializeField]
+    public bool stopGravity;
+    [TabGroup("Debugging"), SerializeField]
+    public Vector3 savedVelocity;
+    [TabGroup("Debugging"), SerializeField]
+    public Rigidbody platform;
+    [TabGroup("Debugging"), SerializeField]
     public List<PlayerForce> forces;
+    [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
 
     void Awake()

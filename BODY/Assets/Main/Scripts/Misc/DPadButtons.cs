@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DPadButtons : MonoBehaviour {
-    public static bool Up;
-    public static bool Down;
-    public static bool Right;
-    public static bool Left;
 
-    private float lastX;
-    private float lastY;
+    public static bool Up, Down, Right, Left;
+    private float lastX, lastY;
 
     // Start is called before the first frame update
     void Start() {
