@@ -77,10 +77,13 @@ public class Arms : Limb {
 
     protected override void OnDeactivation() {
         interactUI.SetImageActive(false);
-        box.localPosition = frontPosition.localPosition;
-        box.parent = null;
-        isPushing = false;
-        boxRb.constraints = constraint;
-        playerCont.modelAnim.SetBool("IsPushing", false);
+        if (isPushing)
+        {
+            box.localPosition = frontPosition.localPosition;
+            box.parent = null;
+            isPushing = false;
+            boxRb.constraints = constraint;
+            playerCont.modelAnim.SetBool("IsPushing", false);
+        }
     }
 }
