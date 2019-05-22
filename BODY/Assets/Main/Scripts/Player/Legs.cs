@@ -51,4 +51,8 @@ public class Legs : Limb {
     protected override void LimbUpdate() {
 
     }
+
+    protected override void OnDeactivation() {
+
+    }
 }

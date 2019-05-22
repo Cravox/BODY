@@ -33,21 +33,18 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         maxEnergy = energyPoints;
-
     }
 
     // Update is called once per frame
     void Update() {
-        if (DPadButtons.Up) {
-            ChargeLimb(PlayerLimbs[(int)LimbIndex.HEAD], chargeAmount);
-        }
+        LimbIndex? myIndex = null;
 
-        if (DPadButtons.Left) {
-            ChargeLimb(PlayerLimbs[(int)LimbIndex.ARMS], chargeAmount);
-        }
+        if (DPadButtons.Up) myIndex = LimbIndex.HEAD;
+        if (DPadButtons.Left) myIndex = LimbIndex.ARMS;
+        if (DPadButtons.Down) myIndex = LimbIndex.LEGS;
 
-        if (DPadButtons.Down) {
-            ChargeLimb(PlayerLimbs[(int)LimbIndex.LEGS], chargeAmount);
+        if(myIndex != null) {
+            ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
         }
 
         if (Input.GetButtonDown("LeftBumper")) {

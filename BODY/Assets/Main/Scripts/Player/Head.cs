@@ -30,4 +30,8 @@ public class Head : Limb {
     protected override void LimbUpdate() {
 
     }
+
+    protected override void OnDeactivation() {
+
+    }
 }

@@ -68,4 +68,8 @@ public class Arms : Limb {
     public override void TierThree() {
 
     }
+
+    protected override void OnDeactivation() {
+
+    }
 }

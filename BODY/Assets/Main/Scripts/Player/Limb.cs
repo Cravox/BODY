@@ -30,10 +30,11 @@ public abstract class Limb : SerializedMonoBehaviour {
     public void Discharge() {
         EnergyState = Enums.EnergyStates.ZERO_CHARGES;
         UpdateLimbUI();
+        OnDeactivation();
     }
 
     public void UpdateLimbUI() {
-        limbText.text = limbName + " State: " + ((int)EnergyState * 10) + "%"; ;
+        limbText.text = limbName + " State: " + ((int)EnergyState * 10) + "%";
         switch (EnergyState) {
             case Enums.EnergyStates.ZERO_CHARGES:
                 limbImage.color = Color.white;
@@ -74,10 +75,11 @@ public abstract class Limb : SerializedMonoBehaviour {
         LimbUpdate();
     }
 
-    protected abstract void LimbUpdate();
-    protected abstract void LimbStart();
-
     public abstract void TierOne();
     public abstract void TierTwo();
     public abstract void TierThree();
+
+    protected abstract void LimbUpdate();
+    protected abstract void LimbStart();
+    protected abstract void OnDeactivation();
 }
