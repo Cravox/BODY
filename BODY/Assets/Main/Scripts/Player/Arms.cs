@@ -18,6 +18,8 @@ public class Arms : Limb {
 
     private Ray ray;
     private RaycastHit hit;
+    private RigidbodyConstraints constraint;
+    private Rigidbody boxRb;
 
     private Transform box;
 
@@ -43,9 +45,12 @@ public class Arms : Limb {
             if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("ArmBox"))) {
                 interactUI.SetImageActive(true);
                 box = hit.transform;
+                boxRb = box.GetComponent<Rigidbody>();
                 if (Input.GetButtonDown("ButtonX")) {
                     isPushing = true;
                     box.parent = playerCont.modelAxis;
+                    constraint = boxRb.constraints;
+                    boxRb.constraints = RigidbodyConstraints.FreezeAll;
                     box.localPosition = topPosition.localPosition;
                 }
             } else {
@@ -56,6 +61,7 @@ public class Arms : Limb {
                 box.localPosition = frontPosition.localPosition;
                 box.parent = null;
                 isPushing = false;
+                boxRb.constraints = constraint;
             }
         }
         playerCont.modelAnim.SetBool("IsPushing", isPushing);
@@ -70,6 +76,11 @@ public class Arms : Limb {
     }
 
     protected override void OnDeactivation() {
-
+        interactUI.SetImageActive(false);
+        box.localPosition = frontPosition.localPosition;
+        box.parent = null;
+        isPushing = false;
+        boxRb.constraints = constraint;
+        playerCont.modelAnim.SetBool("IsPushing", false);
     }
 }
