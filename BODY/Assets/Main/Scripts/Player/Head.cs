@@ -9,8 +9,7 @@ public class Head : Limb {
     public bool lightActive;
 
     public override void TierOne() {
-        if(Input.GetButtonDown("ButtonY"))
-        {
+        if (Input.GetButtonDown("ButtonY")) {
             lightActive = !lightActive;
             light.SetActive(lightActive);
         }

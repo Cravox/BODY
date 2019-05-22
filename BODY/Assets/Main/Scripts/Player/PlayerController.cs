@@ -58,6 +58,8 @@ public class PlayerController : SerializedMonoBehaviour
     [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
 
+    public bool doubleJumped;
+
     void Awake()
     {
         instance = this;
@@ -133,7 +135,10 @@ public class PlayerController : SerializedMonoBehaviour
 
     void GroundCheck()
     {
-        isGrounded = (Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn).Length > 0); 
+        isGrounded = (Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn).Length > 0);
+        if (isGrounded) {
+            doubleJumped = false;
+        }
     }
 
     public void AddForce(Vector3 targetForce, float decay)

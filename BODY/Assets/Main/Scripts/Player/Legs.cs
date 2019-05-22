@@ -17,23 +17,27 @@ public class Legs : Limb {
     }
 
     public override void TierTwo() {
-        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
-            if (!isDashing) {
-                isDashing = true;
-                playerCont.modelAnim.Play("Dash");
-                playerCont.AddForce(playerCont.modelAxis.forward * dashSpeed, dashDuration, out dashForce);
-            }
+        if(Input.GetButtonDown("Jump") && !playerCont.isGrounded && !playerCont.doubleJumped) {
+            playerCont.Jump();
+            playerCont.doubleJumped = true;
         }
-
-        if (Input.GetButtonUp("Jump") && isDashing && dashForce != null)
-            dashForce.Stop();
-
-        if (playerCont.isGrounded && isDashing && dashForce != null) {
-            dashForce.Stop();
-            isDashing = false;
-        }
-
-        playerCont.modelAnim.SetBool("IsDashing", isDashing);
+        //if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
+        //    if (!isDashing) {
+        //        isDashing = true;
+        //        playerCont.modelAnim.Play("Dash");
+        //        playerCont.AddForce(playerCont.modelAxis.forward * dashSpeed, dashDuration, out dashForce);
+        //    }
+        //}
+        //
+        //if (Input.GetButtonUp("Jump") && isDashing && dashForce != null)
+        //    dashForce.Stop();
+        //
+        //if (playerCont.isGrounded && isDashing && dashForce != null) {
+        //    dashForce.Stop();
+        //    isDashing = false;
+        //}
+        //
+        //playerCont.modelAnim.SetBool("IsDashing", isDashing);
     }
 
     public override void TierThree() {
