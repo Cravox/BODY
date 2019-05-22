@@ -132,7 +132,14 @@ public class PlayerController : SerializedMonoBehaviour
 
     void GroundCheck()
     {
-        isGrounded = (Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn).Length > 0);
+        Collider[] isGroundedOn = Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn);
+
+        isGrounded = (isGroundedOn.Length > 0);
+
+        if (isGrounded && isGroundedOn[0].gameObject.tag == "MovingPlatform")
+            platform = isGroundedOn[0].gameObject.GetComponentInParent<Rigidbody>();
+        else
+            platform = null;
     }
 
     public void AddForce(Vector3 targetForce, float decay, bool isImpulse)
@@ -192,20 +199,20 @@ public class PlayerController : SerializedMonoBehaviour
         extraForce = eF;
     }
 
-    void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.tag == "MovingPlatform")
-        {
-            platform = col.gameObject.GetComponentInParent<Rigidbody>();
-        }
-    }
-    void OnCollisionExit(Collision col)
-    {
-        if (col.gameObject.tag == "MovingPlatform")
-        {
-            platform = null;
-        }
-    }
+    //void OnCollisionEnter(Collision col)
+    //{
+    //    if(col.gameObject.tag == "MovingPlatform")
+    //    {
+    //        platform = col.gameObject.GetComponentInParent<Rigidbody>();
+    //    }
+    //}
+    //void OnCollisionExit(Collision col)
+    //{
+    //    if (col.gameObject.tag == "MovingPlatform")
+    //    {
+    //        platform = null;
+    //    }
+    //}
 }
 
 [System.Serializable]
