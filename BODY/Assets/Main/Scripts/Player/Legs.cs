@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class Legs : Limb {
-    public bool isDashing;
-    public float dashSpeed = 10;
-    public float dashDuration = 1;
-    public PlayerForce dashForce;
+    [TabGroup("Balancing"), Header("Double Jump"), Tooltip("X = Sideways, Y = Up, Z = Forward")]
+    public Vector3 dJumpSpeed;
+    [TabGroup("Balancing")]
+    public float jumpForwardTime = 0.5f;
+
+    [TabGroup("Debugging")]
+    public bool doubleJumping;
+    [TabGroup("Debugging")]
+    public PlayerForce dJumpForce;
 
     protected override string limbName => "Legs";
 
@@ -17,27 +23,32 @@ public class Legs : Limb {
     }
 
     public override void TierTwo() {
-        if(Input.GetButtonDown("Jump") && !playerCont.isGrounded && !playerCont.doubleJumped) {
-            playerCont.Jump();
-            playerCont.doubleJumped = true;
+        //if(Input.GetButtonDown("Jump") && !playerCont.isGrounded && !playerCont.doubleJumped) {
+        //    playerCont.Jump();
+        //    playerCont.doubleJumped = true;
+        //}
+
+        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping)
+        {
+            doubleJumping = true;
+            playerCont.modelAnim.Play("Dash");
+
+            playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
+
+            Vector3 dirForceSide = playerCont.modelAxis.forward * dJumpSpeed.z + playerCont.transform.right * dJumpSpeed.x;
+            Vector3 dirForceUp = playerCont.transform.up * dJumpSpeed.y;
+
+            playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
+            playerCont.AddForce(dirForceSide, jumpForwardTime, out dJumpForce, false);
         }
-        //if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !isDashing) {
-        //    if (!isDashing) {
-        //        isDashing = true;
-        //        playerCont.modelAnim.Play("Dash");
-        //        playerCont.AddForce(playerCont.modelAxis.forward * dashSpeed, dashDuration, out dashForce);
-        //    }
-        //}
-        //
-        //if (Input.GetButtonUp("Jump") && isDashing && dashForce != null)
-        //    dashForce.Stop();
-        //
-        //if (playerCont.isGrounded && isDashing && dashForce != null) {
-        //    dashForce.Stop();
-        //    isDashing = false;
-        //}
-        //
-        //playerCont.modelAnim.SetBool("IsDashing", isDashing);
+
+        if (playerCont.isGrounded && doubleJumping && dJumpForce != null)
+        {
+            dJumpForce.Stop();
+            doubleJumping = false;
+        }
+
+        playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
     }
 
     public override void TierThree() {

@@ -5,14 +5,10 @@ using Sirenix.OdinInspector;
 
 public class Head : Limb {
     protected override string limbName => "Head";
-    public GameObject light;
-    public bool lightActive;
+    public GameObject headLight;
 
     public override void TierOne() {
-        if (Input.GetButtonDown("ButtonY")) {
-            lightActive = !lightActive;
-            light.SetActive(lightActive);
-        }
+        headLight.SetActive(true);
     }
 
     public override void TierTwo() {
@@ -32,6 +28,6 @@ public class Head : Limb {
     }
 
     protected override void OnDeactivation() {
-
+        headLight.SetActive(false);
     }
 }

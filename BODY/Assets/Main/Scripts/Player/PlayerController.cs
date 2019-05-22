@@ -57,9 +57,6 @@ public class PlayerController : SerializedMonoBehaviour
     public List<PlayerForce> forces;
     [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
-
-    public bool doubleJumped;
-
     void Awake()
     {
         instance = this;
@@ -136,19 +133,16 @@ public class PlayerController : SerializedMonoBehaviour
     void GroundCheck()
     {
         isGrounded = (Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn).Length > 0);
-        if (isGrounded) {
-            doubleJumped = false;
-        }
     }
 
-    public void AddForce(Vector3 targetForce, float decay)
+    public void AddForce(Vector3 targetForce, float decay, bool isImpulse)
     {
-        forces.Add(new PlayerForce(targetForce, decay));
+        forces.Add(new PlayerForce(targetForce, decay, isImpulse));
     }
 
-    public void AddForce(Vector3 targetForce, float decay, out PlayerForce pf)
+    public void AddForce(Vector3 targetForce, float decay, out PlayerForce pf, bool isImpulse)
     {
-        pf = new PlayerForce(targetForce, decay);
+        pf = new PlayerForce(targetForce, decay, isImpulse);
         forces.Add(pf);
     }
 
@@ -157,18 +151,42 @@ public class PlayerController : SerializedMonoBehaviour
         if (forces == null)
             return;
 
-        Vector3 eF = new Vector3();
+        //remove finished forces
+        int forceAmount = forces.Count;
+        for (int i = 0; i < forceAmount; i++)
+        {
+            if(forces[i].finished)
+            {
+                forces.RemoveAt(i);
+                i--;
+                forceAmount = forces.Count;
+            }
+        }
+
+            Vector3 eF = new Vector3();
         
+        //if force is impulse: decays after decay time
+        //if force is not impulse: stops when decay time is reached
+
         foreach(PlayerForce pf in forces)
         {
-            pf.strenght = Mathf.MoveTowards(pf.strenght, 0, (1 / pf.decay) * Time.deltaTime);
+            if (pf.isImpulse && pf.time > pf.decay)
+                pf.strenght *= 0.6f;
+            else
+                pf.strenght = pf.time < pf.decay + 1 ? 1 : 0;
 
             pf.force = pf.initialForce * pf.strenght;
+
+            if (pf.isImpulse && pf.strenght < 0.01f)
+                pf.strenght = 0;
 
             if (pf.finished)
                 pf.Stop();
             else
+            {
+                pf.time += Time.deltaTime;
                 eF += pf.force;
+            }
         }
 
         extraForce = eF;
@@ -197,13 +215,16 @@ public class PlayerForce
     public Vector3 force;
     public float decay;
     public float strenght = 1f;
+    public float time = 1f;
+    public bool isImpulse;
     public bool finished { get { return (this.force == Vector3.zero); } }
 
-    public PlayerForce(Vector3 force, float decay)
+    public PlayerForce(Vector3 force, float decay, bool impulse)
     {
         this.initialForce = force;
         this.force = force;
         this.decay = decay;
+        this.isImpulse = impulse;
     }
 
     public void Stop()
