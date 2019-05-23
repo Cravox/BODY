@@ -29,5 +29,6 @@ public class Head : Limb {
 
     protected override void OnDeactivation() {
         headLight.SetActive(false);
+
     }
 }
