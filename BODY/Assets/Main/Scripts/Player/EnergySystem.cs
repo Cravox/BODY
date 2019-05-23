@@ -29,6 +29,7 @@ public class EnergySystem : SerializedMonoBehaviour {
     private Text energyText;
 
     private int maxEnergy;
+    private bool disCharged = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -43,18 +44,29 @@ public class EnergySystem : SerializedMonoBehaviour {
         if (DPadButtons.Left) myIndex = LimbIndex.ARMS;
         if (DPadButtons.Down) myIndex = LimbIndex.LEGS;
 
-        if (PlayerLimbs[(int)LimbIndex.ARMS].IsInteracting && myIndex != null && energyPoints == 0) {
-            if(energyPoints == 0) {
-                if (myIndex == LimbIndex.HEAD) {
-                    SwitchEnergy(LimbIndex.LEGS, LimbIndex.HEAD);
-                } else if (myIndex == LimbIndex.LEGS) {
-                    SwitchEnergy(LimbIndex.HEAD, LimbIndex.LEGS);
+        if (Input.GetButton("RightBumper") && myIndex != null) {
+            if(PlayerLimbs[(int)myIndex].EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
+                PlayerLimbs[(int)myIndex].Discharge(chargeAmount);
+                energyPoints += chargeAmount;
+            }
+            disCharged = true;
+            UpdateEnergyUI();
+        }
+
+        if (!disCharged) {
+            if (PlayerLimbs[(int)LimbIndex.ARMS].IsInteracting && myIndex != null && energyPoints == 0) {
+                if (energyPoints == 0) {
+                    if (myIndex == LimbIndex.HEAD) {
+                        SwitchEnergy(LimbIndex.LEGS, LimbIndex.HEAD);
+                    } else if (myIndex == LimbIndex.LEGS) {
+                        SwitchEnergy(LimbIndex.HEAD, LimbIndex.LEGS);
+                    }
+                } else {
+                    ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
                 }
-            } else {
+            } else if (myIndex != null) {
                 ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
             }
-        } else if (myIndex != null) {
-            ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
         }
 
         if (Input.GetButtonDown("LeftBumper")) {
@@ -64,12 +76,15 @@ public class EnergySystem : SerializedMonoBehaviour {
         if (Input.GetButtonDown("ButtonB")) {
             BalanceEnergy();
         }
+        disCharged = false;
     }
 
     void SwitchEnergy(LimbIndex from, LimbIndex to) {
-        if(PlayerLimbs[(int)from].EnergyState != Enums.EnergyStates.ZERO_CHARGES && !PlayerLimbs[(int)to].FullyCharged) {
-            PlayerLimbs[(int)from].Discharge(chargeAmount);
-            PlayerLimbs[(int)to].Charge(chargeAmount);
+        var fromLimb = PlayerLimbs[(int)from];
+        var toLimb = PlayerLimbs[(int)to];
+        if (fromLimb.EnergyState != Enums.EnergyStates.ZERO_CHARGES && toLimb.FullyCharged) {
+            fromLimb.Discharge(chargeAmount);
+            toLimb.Charge(chargeAmount);
         }
     }
 

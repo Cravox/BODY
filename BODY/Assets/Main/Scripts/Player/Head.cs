@@ -32,11 +32,24 @@ public class Head : Limb {
 
     }
 
-    protected override void OnDeactivation() {
-        for (int i = 0; i < platforms.Length; i++) {
-            platforms[i].platCol.enabled = false;
+    protected override void OnDischarge() {
+        switch (EnergyState) {
+            case Enums.EnergyStates.ZERO_CHARGES:
+                for (int i = 0; i < platforms.Length; i++) {
+                    platforms[i].platCol.enabled = false;
+                }
+                MovingPlatform.dirChangeActive = false;
+                MovingPlatform.stop = true;
+                break;
+            case Enums.EnergyStates.THREE_CHARGES:
+                MovingPlatform.stop = true;
+                break;
+            case Enums.EnergyStates.SIX_CHARGES:
+                break;
+            case Enums.EnergyStates.FULLY_CHARGED:
+                break;
+            default:
+                break;
         }
-        MovingPlatform.dirChangeActive = false;
-        MovingPlatform.stop = true;
     }
 }

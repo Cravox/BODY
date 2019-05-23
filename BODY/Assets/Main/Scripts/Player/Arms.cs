@@ -92,16 +92,28 @@ public class Arms : Limb {
         // tbd
     }
 
-    protected override void OnDeactivation() {
-        interactUI.SetImageInactive();
-        if (IsCarrying) {
-            box.localPosition = frontPosition.localPosition;
-            box.parent = null;
-            IsCarrying = false;
-            IsInteracting = false;
-            isChecking = true;
-            boxRb.constraints = constraint;
-            playerCont.modelAnim.SetBool("IsPushing", false);
+    protected override void OnDischarge() {
+        switch (EnergyState) {
+            case Enums.EnergyStates.ZERO_CHARGES:
+                interactUI.SetImageInactive();
+                if (IsCarrying) {
+                    box.localPosition = frontPosition.localPosition;
+                    box.parent = null;
+                    IsCarrying = false;
+                    IsInteracting = false;
+                    isChecking = true;
+                    boxRb.constraints = constraint;
+                    playerCont.modelAnim.SetBool("IsPushing", false);
+                }
+                break;
+            case Enums.EnergyStates.THREE_CHARGES:
+                break;
+            case Enums.EnergyStates.SIX_CHARGES:
+                break;
+            case Enums.EnergyStates.FULLY_CHARGED:
+                break;
+            default:
+                break;
         }
     }
 }

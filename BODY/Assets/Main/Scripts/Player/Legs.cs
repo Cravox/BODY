@@ -58,7 +58,7 @@ public class Legs : Limb {
 
     }
 
-    protected override void OnDeactivation() {
+    protected override void OnDischarge() {
 
     }
 }

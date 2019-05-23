@@ -31,16 +31,14 @@ public abstract class Limb : SerializedMonoBehaviour {
     public void Discharge() {
         EnergyState = Enums.EnergyStates.ZERO_CHARGES;
         UpdateLimbUI();
-        OnDeactivation();
+        OnDischarge();
     }
 
     public void Discharge(int amount) {
         if(EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
             EnergyState -= amount;
+            OnDischarge();
             UpdateLimbUI();
-            if (EnergyState == Enums.EnergyStates.ZERO_CHARGES) {
-                OnDeactivation();
-            }
         }
     }
 
@@ -92,5 +90,5 @@ public abstract class Limb : SerializedMonoBehaviour {
 
     protected abstract void LimbUpdate();
     protected abstract void LimbStart();
-    protected abstract void OnDeactivation();
+    protected abstract void OnDischarge();
 }
