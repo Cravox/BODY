@@ -6,7 +6,14 @@ using Sirenix.OdinInspector;
 public class BoxPlacer : SerializedMonoBehaviour {
     [SerializeField, Required]
     private Transform[] boxTrans = new Transform[4];
-    private int currBoxCount = 0;
+
+    [SerializeField]
+    private int triggerCount;
+
+    [SerializeField]
+    private GameObject triggeredObject;
+
+    public int currBoxCount = 0;
 
     public bool Completed;
     
@@ -17,9 +24,7 @@ public class BoxPlacer : SerializedMonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(currBoxCount >= boxTrans.Length) {
-            Completed = true;
-        }
+
     }
 
     private void OnTriggerEnter(Collider col) {
@@ -28,6 +33,11 @@ public class BoxPlacer : SerializedMonoBehaviour {
             col.gameObject.transform.eulerAngles = Vector3.zero;
             col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             currBoxCount++;
+            if(currBoxCount >= boxTrans.Length) {
+                Completed = true;
+            } else if (currBoxCount >= triggerCount) {
+
+            }
         }
     }
 }
