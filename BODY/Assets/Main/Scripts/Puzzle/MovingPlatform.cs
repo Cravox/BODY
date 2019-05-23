@@ -3,33 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+[System.Serializable]
+public class MovePos
+{
+    public Transform obj;
+    public Vector3 pos;
+    public float time;
+    public bool stay;
+
+    public void SetPos()
+    {
+        this.pos = this.obj.position;
+    }
+
+    public void SetPos(Vector3 vec)
+    {
+        this.pos = vec;
+    }
+}
+
 public class MovingPlatform : SerializedMonoBehaviour
 {
     public Rigidbody rigid;
-    public struct MovePos
-    {
-        public bool stay;
-        public Transform pos;
-        public float speed;
-        public float time;
-    }
+    public MeshRenderer renderer;
+    public Material[] mats;
 
-    private List<Vector3> pos = new List<Vector3>();
-    public List<MovePos> positions = new List<MovePos>();
-    public int currentPosition = 1;
+    public MovePos currentPos;
     public Vector3 distancePosition;
-    private float timer = 0;
+
+    public List<MovePos> positions = new List<MovePos>();
+    public int currentPosition = 0;
+
+    public MovePos dirChangePos;
+    public static bool dirChangeActive = false;
+
+    public static bool stop = true;
+
+    public bool canChangeDirection { get { return (dirChangePos.obj != null); } }
+
+    bool upwards;
+    bool waitNext;
+    //Vector3 posTo;
 
     void Start()
     {
-        distancePosition = transform.position;
-
         if (positions != null)
         {
             foreach (MovePos p in positions)
             {
-                pos.Add(p.pos.position);
+                p.SetPos();
             }
+
+            dirChangePos.pos = dirChangePos.obj.position;
+
+            Next();
         }
     }
 
@@ -38,33 +65,50 @@ public class MovingPlatform : SerializedMonoBehaviour
         if (positions == null)
             return;
 
-        TimerTick();
+        ColorsFeedback();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
+        if (positions == null || stop)
+            return;
+
         Move();
     }
 
-    void Move()
+    void ColorsFeedback()
     {
-        Vector3 posTo = pos[currentPosition];
-        if (transform.position != posTo && !positions[currentPosition].stay)
+        //0 = green, 1 = yellow, 2 = red
+
+        if (canChangeDirection && dirChangeActive)
         {
-            float dist = Vector3.Distance(distancePosition, posTo);
-            Vector3 newPos = Vector3.MoveTowards(transform.position, posTo, (dist / positions[currentPosition].time) * Time.fixedDeltaTime);
-            rigid.MovePosition(newPos);
+            if (upwards)
+                renderer.material = mats[2];
+            else
+                renderer.material = mats[1];
         }
+        else
+            renderer.material = mats[0];
     }
 
-    void TimerTick()
-    {
-        timer += Time.deltaTime;
 
-        if (timer >= positions[currentPosition].time)
+    void Move()
+    {
+        if (transform.position != currentPos.pos && !currentPos.stay)
         {
-            Next();
-            timer = 0;
+            float dist = Vector3.Distance(distancePosition, currentPos.pos);
+            Vector3 newPos = Vector3.MoveTowards(transform.position, currentPos.pos, (dist / currentPos.time) * Time.fixedDeltaTime);
+            rigid.MovePosition(newPos);
+        }
+
+        if (transform.position == currentPos.pos)
+        {
+            upwards = (canChangeDirection && dirChangeActive);
+
+            if (upwards)
+                NextUp();
+            else
+                Next();
         }
     }
 
@@ -72,9 +116,35 @@ public class MovingPlatform : SerializedMonoBehaviour
     {
         distancePosition = transform.position;
 
-        if (currentPosition >= positions.Count - 1)
-            currentPosition = 0;
+        if (!waitNext)
+        {
+            if (currentPosition >= positions.Count - 1)
+                currentPosition = 0;
+            else
+                currentPosition++;
+        }
         else
-            currentPosition++;
+            waitNext = false;
+
+        currentPos = positions[currentPosition];
+    }
+
+    void NextUp()
+    {
+        distancePosition = transform.position;
+        dirChangePos.SetPos(new Vector3(positions[currentPosition].pos.x, dirChangePos.pos.y, positions[currentPosition].pos.z));
+
+        ///////////////////////////////////////////////
+        if (transform.position == dirChangePos.pos)
+        {
+            currentPos = positions[currentPosition];
+            waitNext = false;
+        }
+        else
+        {
+            waitNext = true;
+            currentPos = dirChangePos;
+        }
+        ///////////////////////////////////////////////
     }
 }

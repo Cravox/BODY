@@ -12,11 +12,12 @@ public class Head : Limb {
     }
 
     public override void TierTwo() {
-        // activate specific moving platforms
+            MovingPlatform.stop = false;
     }
 
     public override void TierThree() {
-        // manipulate specific moving platform
+        if (Input.GetButtonDown("ButtonY"))
+            MovingPlatform.dirChangeActive = !MovingPlatform.dirChangeActive;
     }
 
     protected override void LimbStart() {
@@ -29,6 +30,7 @@ public class Head : Limb {
 
     protected override void OnDeactivation() {
         headLight.SetActive(false);
-
+        MovingPlatform.dirChangeActive = false;
+        MovingPlatform.stop = true;
     }
 }
