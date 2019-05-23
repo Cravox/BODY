@@ -7,6 +7,9 @@ public class InteractableUI : MonoBehaviour {
     [SerializeField]
     private Image xButtonImage;
 
+    [SerializeField]
+    private Text buttonText;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -17,7 +20,15 @@ public class InteractableUI : MonoBehaviour {
 
     }
 
-    public void SetImageActive(bool show) {
-        xButtonImage.enabled = show;
+    public void SetImageActive(string interaction) {
+        buttonText.enabled = true;
+        xButtonImage.enabled = true;
+
+        buttonText.text = interaction;
+    }
+
+    public void SetImageInactive() {
+        buttonText.enabled = false;
+        xButtonImage.enabled = false;
     }
 }

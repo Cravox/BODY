@@ -23,11 +23,6 @@ public class Legs : Limb {
     }
 
     public override void TierTwo() {
-        //if(Input.GetButtonDown("Jump") && !playerCont.isGrounded && !playerCont.doubleJumped) {
-        //    playerCont.Jump();
-        //    playerCont.doubleJumped = true;
-        //}
-
         if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping)
         {
             doubleJumping = true;
@@ -52,7 +47,7 @@ public class Legs : Limb {
     }
 
     public override void TierThree() {
-
+        // gliding or walljumping
     }
 
     protected override void LimbStart() {

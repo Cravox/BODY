@@ -8,8 +8,8 @@ public class BoxPlacer : SerializedMonoBehaviour {
     private Transform[] boxTrans = new Transform[4];
     private int currBoxCount = 0;
 
-
-
+    public bool Completed;
+    
     // Start is called before the first frame update
     void Start() {
         
@@ -17,11 +17,13 @@ public class BoxPlacer : SerializedMonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if(currBoxCount >= boxTrans.Length) {
+            Completed = true;
+        }
     }
 
     private void OnTriggerEnter(Collider col) {
-        if (col.gameObject.CompareTag("Box")) {
+        if (col.gameObject.CompareTag("Carry")) {
             col.gameObject.transform.position = boxTrans[currBoxCount].position;
             col.gameObject.transform.eulerAngles = Vector3.zero;
             col.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

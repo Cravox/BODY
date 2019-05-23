@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Box
   - MovingPlatform
+  - Carry
+  - Push
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - 
   - 
   - ForceBody
-  - ArmBox
+  - Interactable
   - 
   - 
   - 

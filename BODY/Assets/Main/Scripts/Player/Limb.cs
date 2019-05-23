@@ -10,6 +10,7 @@ public abstract class Limb : SerializedMonoBehaviour {
     public bool FullyCharged { get; set; }
     public Enums.EnergyStates EnergyState;
     protected abstract string limbName { get; }
+    public bool IsInteracting;
 
     [SerializeField, TabGroup("References")]
     protected Image limbImage;
@@ -31,6 +32,16 @@ public abstract class Limb : SerializedMonoBehaviour {
         EnergyState = Enums.EnergyStates.ZERO_CHARGES;
         UpdateLimbUI();
         OnDeactivation();
+    }
+
+    public void Discharge(int amount) {
+        if(EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
+            EnergyState -= amount;
+            UpdateLimbUI();
+            if (EnergyState == Enums.EnergyStates.ZERO_CHARGES) {
+                OnDeactivation();
+            }
+        }
     }
 
     public void UpdateLimbUI() {

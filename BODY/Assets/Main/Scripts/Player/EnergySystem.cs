@@ -43,7 +43,17 @@ public class EnergySystem : SerializedMonoBehaviour {
         if (DPadButtons.Left) myIndex = LimbIndex.ARMS;
         if (DPadButtons.Down) myIndex = LimbIndex.LEGS;
 
-        if(myIndex != null) {
+        if (PlayerLimbs[(int)LimbIndex.ARMS].IsInteracting && myIndex != null && energyPoints == 0) {
+            if(energyPoints == 0) {
+                if (myIndex == LimbIndex.HEAD) {
+                    SwitchEnergy(LimbIndex.LEGS, LimbIndex.HEAD);
+                } else if (myIndex == LimbIndex.LEGS) {
+                    SwitchEnergy(LimbIndex.HEAD, LimbIndex.LEGS);
+                }
+            } else {
+                ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
+            }
+        } else if (myIndex != null) {
             ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
         }
 
@@ -53,6 +63,13 @@ public class EnergySystem : SerializedMonoBehaviour {
 
         if (Input.GetButtonDown("ButtonB")) {
             BalanceEnergy();
+        }
+    }
+
+    void SwitchEnergy(LimbIndex from, LimbIndex to) {
+        if(PlayerLimbs[(int)from].EnergyState != Enums.EnergyStates.ZERO_CHARGES && !PlayerLimbs[(int)to].FullyCharged) {
+            PlayerLimbs[(int)from].Discharge(chargeAmount);
+            PlayerLimbs[(int)to].Charge(chargeAmount);
         }
     }
 

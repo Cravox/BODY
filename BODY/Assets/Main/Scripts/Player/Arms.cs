@@ -24,7 +24,10 @@ public class Arms : Limb {
     private Transform box;
 
     [HideInInspector]
-    public bool isPushing;
+    public bool IsCarrying;
+
+    private bool isChecking = true;
+    private bool canInteract;
 
     protected override string limbName => "Arms";
 
@@ -36,52 +39,66 @@ public class Arms : Limb {
 
     }
 
-    public override void TierOne() {
+    private bool CheckForInteractable() {
         ray.origin = transform.position;
         ray.direction = playerCont.modelAxis.forward;
         Debug.DrawRay(ray.origin, ray.direction*10, Color.red, 1);
 
-        if (!isPushing) {
-            if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("ArmBox"))) {
-                interactUI.SetImageActive(true);
+        var interactable = false;
+        if (isChecking) {
+            if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
+                interactUI.SetImageActive(hit.transform.gameObject.tag);
+                interactable = true;
                 box = hit.transform;
                 boxRb = box.GetComponent<Rigidbody>();
-                if (Input.GetButtonDown("ButtonX")) {
-                    isPushing = true;
-                    box.parent = playerCont.modelAxis;
-                    constraint = boxRb.constraints;
-                    boxRb.constraints = RigidbodyConstraints.FreezeAll;
-                    box.localPosition = topPosition.localPosition;
-                }
             } else {
-                interactUI.SetImageActive(false);
-            }
-        } else {
-            if (Input.GetButtonDown("ButtonX")) {
-                box.localPosition = frontPosition.localPosition;
-                box.parent = null;
-                isPushing = false;
-                boxRb.constraints = constraint;
+                interactUI.SetImageInactive();
             }
         }
-        playerCont.modelAnim.SetBool("IsPushing", isPushing);
+
+        return interactable;
+    }
+
+    public override void TierOne() {
+        canInteract = CheckForInteractable();
+
+        if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
+            IsCarrying = true;
+            isChecking = false;
+            box.parent = playerCont.modelAxis;
+            constraint = boxRb.constraints;
+            boxRb.constraints = RigidbodyConstraints.FreezeAll;
+            box.localPosition = topPosition.localPosition;
+        } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
+            box.localPosition = frontPosition.localPosition;
+            box.parent = null;
+            isChecking = true;
+            IsCarrying = false;
+            boxRb.constraints = constraint;
+        }
+
+        IsInteracting = IsCarrying;
+        playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
     }
 
     public override void TierTwo() {
-
+        if(canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Push")) {
+            // push object
+        }
     }
 
     public override void TierThree() {
-
+        // tbd
     }
 
     protected override void OnDeactivation() {
-        interactUI.SetImageActive(false);
-        if (isPushing)
-        {
+        interactUI.SetImageInactive();
+        if (IsCarrying) {
             box.localPosition = frontPosition.localPosition;
             box.parent = null;
-            isPushing = false;
+            IsCarrying = false;
+            IsInteracting = false;
+            isChecking = true;
             boxRb.constraints = constraint;
             playerCont.modelAnim.SetBool("IsPushing", false);
         }

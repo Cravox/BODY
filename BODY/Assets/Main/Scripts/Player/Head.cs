@@ -12,11 +12,11 @@ public class Head : Limb {
     }
 
     public override void TierTwo() {
-
+        // activate specific moving platforms
     }
 
     public override void TierThree() {
-
+        // manipulate specific moving platform
     }
 
     protected override void LimbStart() {
