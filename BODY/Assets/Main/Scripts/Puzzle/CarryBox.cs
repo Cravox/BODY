@@ -6,10 +6,12 @@ public class CarryBox : MonoBehaviour {
     [SerializeField]
     private bool isTrigger;
 
-    public bool pickedUp;
+    [HideInInspector]
+    public bool FirstPickUp = false;
+    private bool pickedUp = false;
 
     [SerializeField]
-    private GameObject triggeredObject;
+    private List<Door> triggeredObjects;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,8 +20,11 @@ public class CarryBox : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (pickedUp && isTrigger) {
-
+        if (FirstPickUp && isTrigger && !pickedUp) {
+            foreach (var door in triggeredObjects) {
+                door.Open(true);
+                pickedUp = true;
+            }
         }
     }
 }

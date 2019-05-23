@@ -69,6 +69,7 @@ public class Arms : Limb {
             constraint = boxRb.constraints;
             boxRb.constraints = RigidbodyConstraints.FreezeAll;
             box.localPosition = topPosition.localPosition;
+            box.GetComponent<CarryBox>().FirstPickUp = true;
         } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
             box.localPosition = frontPosition.localPosition;
             box.parent = null;

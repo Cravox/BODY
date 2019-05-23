@@ -8,13 +8,14 @@ public class BoxPlacer : SerializedMonoBehaviour {
     private Transform[] boxTrans = new Transform[4];
 
     [SerializeField]
-    private int triggerCount;
+    private int triggerCount = 2;
 
     [SerializeField]
-    private GameObject triggeredObject;
+    private Door triggeredDoor;
 
     public int currBoxCount = 0;
 
+    private bool triggered = false;
     public bool Completed;
     
     // Start is called before the first frame update
@@ -36,7 +37,7 @@ public class BoxPlacer : SerializedMonoBehaviour {
             if(currBoxCount >= boxTrans.Length) {
                 Completed = true;
             } else if (currBoxCount >= triggerCount) {
-
+                triggeredDoor.Open(true);
             }
         }
     }
