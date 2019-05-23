@@ -39,6 +39,11 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     public static bool stop = true;
 
+    [HideInInspector]
+    public Collider platCol;
+
+    public static bool colliderEnabled;
+
     public bool canChangeDirection { get { return (dirChangePos.obj != null); } }
 
     bool upwards;
@@ -58,6 +63,8 @@ public class MovingPlatform : SerializedMonoBehaviour
 
             Next();
         }
+        platCol = GetComponent<BoxCollider>();
+        platCol.enabled = false;
     }
 
     void Update()
@@ -87,10 +94,12 @@ public class MovingPlatform : SerializedMonoBehaviour
             else
                 renderer.material = mats[1];
         }
-        else
+        else if(platCol.enabled)
             renderer.material = mats[0];
+        else if (!platCol.enabled) {
+            renderer.material = mats[3];
+        }
     }
-
 
     void Move()
     {
@@ -146,5 +155,9 @@ public class MovingPlatform : SerializedMonoBehaviour
             currentPos = dirChangePos;
         }
         ///////////////////////////////////////////////
+    }
+
+    public void EnablePlatformCollider(bool enable) {
+        platCol.enabled = enable;
     }
 }

@@ -5,10 +5,14 @@ using Sirenix.OdinInspector;
 
 public class Head : Limb {
     protected override string limbName => "Head";
-    public GameObject headLight;
+
+    [SerializeField]
+    private MovingPlatform[] platforms = new MovingPlatform[2];
 
     public override void TierOne() {
-        headLight.SetActive(true);
+        for (int i = 0; i < platforms.Length; i++) {
+            platforms[i].platCol.enabled = true;
+        }
     }
 
     public override void TierTwo() {
@@ -29,7 +33,9 @@ public class Head : Limb {
     }
 
     protected override void OnDeactivation() {
-        headLight.SetActive(false);
+        for (int i = 0; i < platforms.Length; i++) {
+            platforms[i].platCol.enabled = false;
+        }
         MovingPlatform.dirChangeActive = false;
         MovingPlatform.stop = true;
     }
