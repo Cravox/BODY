@@ -57,6 +57,9 @@ public class PlayerController : SerializedMonoBehaviour
     public List<PlayerForce> forces;
     [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
+
+    Vector3 platformNoY;
+
     void Awake()
     {
         instance = this;
@@ -89,8 +92,7 @@ public class PlayerController : SerializedMonoBehaviour
         //Add gravitational force
         if (!stopGravity)
             rigid.AddForce(new Vector3(0, -gravity, 0));
-        else
-            rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) + extraForce;
+
 
         //set direction vector of camera look rotation
         Vector3 camFwd = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
@@ -106,7 +108,7 @@ public class PlayerController : SerializedMonoBehaviour
         //set velocity including speed to rigidbody, is velocity forward?
         if (isGrounded)
         {
-            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed) + extraForce + (platform != null ? platform.velocity : Vector3.zero);
+            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed) + extraForce;
             savedVelocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) - (moveForce * airSpeed);
         }
         else
@@ -115,7 +117,7 @@ public class PlayerController : SerializedMonoBehaviour
         }
 
         //prevent model from returning rotation to zero
-        Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z) - (platform != null ? platform.velocity : Vector3.zero);
+        Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z) - platformNoY;
         if (walkVel.magnitude != 0)
             lastForce = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
 
@@ -196,23 +198,13 @@ public class PlayerController : SerializedMonoBehaviour
             }
         }
 
+        Vector3 platformVel = (platform != null ? platform.velocity : Vector3.zero);
+        platformNoY = new Vector3(platformVel.x, 0, platformVel.z);
+
+        eF += (platform != null ? platformNoY : Vector3.zero);
+
         extraForce = eF;
     }
-
-    //void OnCollisionEnter(Collision col)
-    //{
-    //    if(col.gameObject.tag == "MovingPlatform")
-    //    {
-    //        platform = col.gameObject.GetComponentInParent<Rigidbody>();
-    //    }
-    //}
-    //void OnCollisionExit(Collision col)
-    //{
-    //    if (col.gameObject.tag == "MovingPlatform")
-    //    {
-    //        platform = null;
-    //    }
-    //}
 }
 
 [System.Serializable]

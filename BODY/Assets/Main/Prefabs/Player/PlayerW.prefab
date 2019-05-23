@@ -519,8 +519,8 @@ MonoBehaviour:
   energyPoints: 9
   chargeAmount: 3
   PlayerLimbs:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 998887086}
+  - {fileID: 998887085}
   - {fileID: 9071744388173341594}
   energyText: {fileID: 0}
 --- !u!114 &9071744388173341594
@@ -583,8 +583,8 @@ MonoBehaviour:
   limbText: {fileID: 0}
   interactUI: {fileID: 0}
   interactRange: 1
-  topPosition: {fileID: 0}
-  frontPosition: {fileID: 0}
+  topPosition: {fileID: 2025864847}
+  frontPosition: {fileID: 1883752840}
   isPushing: 0
 --- !u!114 &998887086
 MonoBehaviour:
@@ -610,7 +610,7 @@ MonoBehaviour:
   EnergyState: 0
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
-  headLight: {fileID: 0}
+  headLight: {fileID: 915118266}
 --- !u!114 &998887087
 MonoBehaviour:
   m_ObjectHideFlags: 0
