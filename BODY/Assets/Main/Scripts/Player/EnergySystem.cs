@@ -11,6 +11,12 @@ public class EnergySystem : SerializedMonoBehaviour {
         LEGS
     }
 
+    public enum ChargeState : int {
+        NOT_CHARGING,
+        CHARGING,
+        DISCHARGING
+    }
+
     [SerializeField, TabGroup("Balancing")]
     private int energyPoints = 9;
 
@@ -28,46 +34,107 @@ public class EnergySystem : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References")]
     private Text energyText;
 
+    [SerializeField, TabGroup("References")]
+    private Image stateImage;
+
+    [SerializeField, TabGroup("References")]
+    private Text stateText;
+
     private int maxEnergy;
     private bool disCharged = false;
+
+    private float leftTriggerInput;
+    private float rightTriggerInput;
+
+    private string[] stateString = new string[2];
+
+    public static bool isCharging;
+    public static bool isDischarging;
+
+    public static ChargeState chargeState;
 
     // Start is called before the first frame update
     void Start() {
         maxEnergy = energyPoints;
+        stateString[0] = "CHARGING";
+        stateString[1] = "DISCHARGING";
     }
 
     // Update is called once per frame
     void Update() {
+        leftTriggerInput = Input.GetAxis("LeftTrigger");
+        rightTriggerInput = Input.GetAxis("RightTrigger");
+
         LimbIndex? myIndex = null;
 
-        if (DPadButtons.Up) myIndex = LimbIndex.HEAD;
-        if (DPadButtons.Left) myIndex = LimbIndex.ARMS;
-        if (DPadButtons.Down) myIndex = LimbIndex.LEGS;
+        if (Input.GetButtonDown("ButtonY")) myIndex = LimbIndex.HEAD;
+        if (Input.GetButtonDown("ButtonX")) myIndex = LimbIndex.ARMS;
+        if (Input.GetButtonDown("Jump")) myIndex = LimbIndex.LEGS;
 
-        if (Input.GetButton("RightBumper") && myIndex != null) {
-            if(PlayerLimbs[(int)myIndex].EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
-                PlayerLimbs[(int)myIndex].Discharge(chargeAmount);
-                energyPoints += chargeAmount;
+        if (rightTriggerInput >= 0.8f) {
+            ShowStateUI(true);
+            chargeState = ChargeState.CHARGING;
+        } else if (leftTriggerInput >= 0.8f) {
+            ShowStateUI(false);
+            chargeState = ChargeState.DISCHARGING;
+        } else {
+            stateImage.enabled = false;
+            stateText.text = "";
+            chargeState = ChargeState.NOT_CHARGING;
+        }
+
+        if (chargeState == ChargeState.NOT_CHARGING) {
+            if (myIndex == LimbIndex.LEGS && PlayerLimbs[(int)myIndex].EnergyState == Enums.EnergyStates.ZERO_CHARGES) {
+                ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
+                UpdateEnergyUI();
             }
-            disCharged = true;
+        }
+
+        if (chargeState == ChargeState.CHARGING) {
+            print("Charging");
+            if (myIndex != null) {
+                ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
+            }
+            UpdateEnergyUI();
+        } else if (chargeState == ChargeState.DISCHARGING) {
+            print("Discharging");
+            if (myIndex != null) {
+                if (PlayerLimbs[(int)myIndex].EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
+                    PlayerLimbs[(int)myIndex].Discharge(chargeAmount);
+                    energyPoints += chargeAmount;
+                }
+            }
             UpdateEnergyUI();
         }
 
-        if (!disCharged) {
-            if (PlayerLimbs[(int)LimbIndex.ARMS].IsInteracting && myIndex != null && energyPoints == 0) {
-                if (energyPoints == 0) {
-                    if (myIndex == LimbIndex.HEAD) {
-                        SwitchEnergy(LimbIndex.LEGS, LimbIndex.HEAD);
-                    } else if (myIndex == LimbIndex.LEGS) {
-                        SwitchEnergy(LimbIndex.HEAD, LimbIndex.LEGS);
-                    }
-                } else {
-                    ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
-                }
-            } else if (myIndex != null) {
-                ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
-            }
-        }
+        //if (DPadButtons.Up) myIndex = LimbIndex.HEAD;
+        //if (DPadButtons.Left) myIndex = LimbIndex.ARMS;
+        //if (DPadButtons.Down) myIndex = LimbIndex.LEGS;
+
+        //if (Input.GetButton("RightBumper") && myIndex != null) {
+        //    if (PlayerLimbs[(int)myIndex].EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
+        //        PlayerLimbs[(int)myIndex].Discharge(chargeAmount);
+        //        energyPoints += chargeAmount;
+        //    }
+        //    disCharged = true;
+        //    UpdateEnergyUI();
+        //}
+
+        //if (!disCharged) {
+        //    if (PlayerLimbs[(int)LimbIndex.ARMS].IsInteracting && myIndex != null && energyPoints == 0) {
+        //        if (energyPoints == 0) {
+        //            if (myIndex == LimbIndex.HEAD) {
+        //                SwitchEnergy(LimbIndex.LEGS, LimbIndex.HEAD);
+        //            } else if (myIndex == LimbIndex.LEGS) {
+        //                SwitchEnergy(LimbIndex.HEAD, LimbIndex.LEGS);
+        //            }
+        //        } else {
+        //            ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
+        //        }
+        //    } else if (myIndex != null) {
+        //        ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
+        //    }
+        //}
 
         if (Input.GetButtonDown("LeftBumper")) {
             ResetEnergy();
@@ -76,7 +143,13 @@ public class EnergySystem : SerializedMonoBehaviour {
         if (Input.GetButtonDown("ButtonB")) {
             BalanceEnergy();
         }
-        disCharged = false;
+    }
+
+    void ShowStateUI(bool charge) {
+        stateImage.enabled = true;
+
+        if (charge) stateText.text = stateString[0];
+        else stateText.text = stateString[1];
     }
 
     void SwitchEnergy(LimbIndex from, LimbIndex to) {

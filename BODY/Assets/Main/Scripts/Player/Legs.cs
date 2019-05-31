@@ -17,30 +17,32 @@ public class Legs : Limb {
     protected override string limbName => "Legs";
 
     public override void TierOne() {
-        if(Input.GetButtonDown("Jump") && playerCont.isGrounded) {
-            playerCont.Jump();
+        if(EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
+            if (Input.GetButtonDown("Jump") && playerCont.isGrounded) {
+                playerCont.Jump();
+            }
         }
     }
 
     public override void TierTwo() {
-        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping)
-        {
-            doubleJumping = true;
-            playerCont.modelAnim.Play("Dash");
+        if(EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
+            if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping) {
+                doubleJumping = true;
+                playerCont.modelAnim.Play("Dash");
 
-            playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
+                playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
 
-            Vector3 dirForceSide = playerCont.modelAxis.forward * dJumpSpeed.z + playerCont.transform.right * dJumpSpeed.x;
-            Vector3 dirForceUp = playerCont.transform.up * dJumpSpeed.y;
+                Vector3 dirForceSide = playerCont.modelAxis.forward * dJumpSpeed.z + playerCont.transform.right * dJumpSpeed.x;
+                Vector3 dirForceUp = playerCont.transform.up * dJumpSpeed.y;
 
-            playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
-            playerCont.AddForce(dirForceSide, jumpForwardTime, out dJumpForce, false);
-        }
+                playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
+                playerCont.AddForce(dirForceSide, jumpForwardTime, out dJumpForce, false);
+            }
 
-        if (playerCont.isGrounded && doubleJumping && dJumpForce != null)
-        {
-            dJumpForce.Stop();
-            doubleJumping = false;
+            if (playerCont.isGrounded && doubleJumping && dJumpForce != null) {
+                dJumpForce.Stop();
+                doubleJumping = false;
+            }
         }
 
         playerCont.modelAnim.SetBool("IsDashing", doubleJumping);

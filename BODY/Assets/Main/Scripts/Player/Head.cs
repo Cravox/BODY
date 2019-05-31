@@ -20,8 +20,10 @@ public class Head : Limb {
     }
 
     public override void TierThree() {
-        if (Input.GetButtonDown("ButtonY"))
-            MovingPlatform.dirChangeActive = !MovingPlatform.dirChangeActive;
+        if(EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
+            if (Input.GetButtonDown("ButtonY"))
+                MovingPlatform.dirChangeActive = !MovingPlatform.dirChangeActive;
+        }
     }
 
     protected override void LimbStart() {

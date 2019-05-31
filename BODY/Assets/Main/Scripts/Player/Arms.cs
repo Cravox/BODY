@@ -62,28 +62,30 @@ public class Arms : Limb {
     public override void TierOne() {
         canInteract = CheckForInteractable();
 
-        if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
-            IsCarrying = true;
-            isChecking = false;
-            box.parent = playerCont.modelAxis;
-            constraint = boxRb.constraints;
-            boxRb.constraints = RigidbodyConstraints.FreezeAll;
-            box.localPosition = topPosition.localPosition;
-            box.GetComponent<CarryBox>().FirstPickUp = true;
-        } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
-            box.localPosition = frontPosition.localPosition;
-            box.parent = null;
-            isChecking = true;
-            IsCarrying = false;
-            boxRb.constraints = constraint;
-        }
+        if (EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
+            if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
+                IsCarrying = true;
+                isChecking = false;
+                box.parent = playerCont.modelAxis;
+                constraint = boxRb.constraints;
+                boxRb.constraints = RigidbodyConstraints.FreezeAll;
+                box.localPosition = topPosition.localPosition;
+                box.GetComponent<CarryBox>().FirstPickUp = true;
+            } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
+                box.localPosition = frontPosition.localPosition;
+                box.parent = null;
+                isChecking = true;
+                IsCarrying = false;
+                boxRb.constraints = constraint;
+            }
 
+        }
         IsInteracting = IsCarrying;
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
     }
 
     public override void TierTwo() {
-        if(canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Push")) {
+        if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Push")) {
             // push object
         }
     }
