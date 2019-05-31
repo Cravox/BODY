@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
+// head, arms and legs inherit from limb
 [RequireComponent(typeof(PlayerController))]
 public abstract class Limb : SerializedMonoBehaviour {
     protected PlayerController playerCont;
@@ -12,9 +13,11 @@ public abstract class Limb : SerializedMonoBehaviour {
     protected abstract string limbName { get; }
     public bool IsInteracting;
 
+    // references the limbs attached UI-Image
     [SerializeField, TabGroup("References")]
     protected Image limbImage;
 
+    // references the limbs attached UI-Text
     [SerializeField, TabGroup("References")]
     protected Text limbText;
 
@@ -35,7 +38,7 @@ public abstract class Limb : SerializedMonoBehaviour {
     }
 
     public void Discharge(int amount) {
-        if(EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
+        if (EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
             EnergyState -= amount;
             OnDischarge();
             UpdateLimbUI();

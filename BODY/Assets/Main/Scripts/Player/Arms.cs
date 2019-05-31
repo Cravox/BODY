@@ -78,8 +78,8 @@ public class Arms : Limb {
                 IsCarrying = false;
                 boxRb.constraints = constraint;
             }
-
         }
+
         IsInteracting = IsCarrying;
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
     }

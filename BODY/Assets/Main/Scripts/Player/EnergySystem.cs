@@ -47,9 +47,6 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     private string[] stateString = new string[2];
 
-    public static bool isCharging;
-    public static bool isDischarging;
-
     public static ChargeState chargeState;
 
     // Start is called before the first frame update
@@ -82,6 +79,7 @@ public class EnergySystem : SerializedMonoBehaviour {
             chargeState = ChargeState.NOT_CHARGING;
         }
 
+        // charge Leg if player presses A and theres no energy in legs
         if (chargeState == ChargeState.NOT_CHARGING) {
             if (myIndex == LimbIndex.LEGS && PlayerLimbs[(int)myIndex].EnergyState == Enums.EnergyStates.ZERO_CHARGES) {
                 ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
@@ -89,51 +87,16 @@ public class EnergySystem : SerializedMonoBehaviour {
             }
         }
 
-        if (chargeState == ChargeState.CHARGING) {
-            print("Charging");
-            if (myIndex != null) {
+        // checks if player wants to charge or discharge limb
+        if (myIndex != null) {
+            if (chargeState == ChargeState.CHARGING) {
                 ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
-            }
-            UpdateEnergyUI();
-        } else if (chargeState == ChargeState.DISCHARGING) {
-            print("Discharging");
-            if (myIndex != null) {
+            } else if (chargeState == ChargeState.DISCHARGING) {
                 if (PlayerLimbs[(int)myIndex].EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
-                    PlayerLimbs[(int)myIndex].Discharge(chargeAmount);
-                    energyPoints += chargeAmount;
+                    DischargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
                 }
             }
-            UpdateEnergyUI();
         }
-
-        //if (DPadButtons.Up) myIndex = LimbIndex.HEAD;
-        //if (DPadButtons.Left) myIndex = LimbIndex.ARMS;
-        //if (DPadButtons.Down) myIndex = LimbIndex.LEGS;
-
-        //if (Input.GetButton("RightBumper") && myIndex != null) {
-        //    if (PlayerLimbs[(int)myIndex].EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
-        //        PlayerLimbs[(int)myIndex].Discharge(chargeAmount);
-        //        energyPoints += chargeAmount;
-        //    }
-        //    disCharged = true;
-        //    UpdateEnergyUI();
-        //}
-
-        //if (!disCharged) {
-        //    if (PlayerLimbs[(int)LimbIndex.ARMS].IsInteracting && myIndex != null && energyPoints == 0) {
-        //        if (energyPoints == 0) {
-        //            if (myIndex == LimbIndex.HEAD) {
-        //                SwitchEnergy(LimbIndex.LEGS, LimbIndex.HEAD);
-        //            } else if (myIndex == LimbIndex.LEGS) {
-        //                SwitchEnergy(LimbIndex.HEAD, LimbIndex.LEGS);
-        //            }
-        //        } else {
-        //            ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
-        //        }
-        //    } else if (myIndex != null) {
-        //        ChargeLimb(PlayerLimbs[(int)myIndex], chargeAmount);
-        //    }
-        //}
 
         if (Input.GetButtonDown("LeftBumper")) {
             ResetEnergy();
@@ -151,6 +114,7 @@ public class EnergySystem : SerializedMonoBehaviour {
         else stateText.text = stateString[1];
     }
 
+    // put energy from one limb to another one
     void SwitchEnergy(LimbIndex from, LimbIndex to) {
         var fromLimb = PlayerLimbs[(int)from];
         var toLimb = PlayerLimbs[(int)to];
@@ -161,9 +125,17 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void ChargeLimb(Limb limb, int amount) {
-        if (!limb.FullyCharged && energyPoints > 0) {
+        if (!limb.FullyCharged && energyPoints >= amount) {
             energyPoints -= amount;
             limb.Charge(amount);
+        }
+        UpdateEnergyUI();
+    }
+
+    void DischargeLimb(Limb limb, int amount) {
+        if (limb.EnergyState != Enums.EnergyStates.ZERO_CHARGES) {
+            energyPoints += amount;
+            limb.Discharge(amount);
         }
         UpdateEnergyUI();
     }
@@ -172,6 +144,7 @@ public class EnergySystem : SerializedMonoBehaviour {
         energyText.text = "Energy State: " + ((energyPoints+1) * 10) + "%";
     }
 
+    //reset all energy
     void ResetEnergy() {
         energyPoints = maxEnergy;
         foreach (Limb limb in PlayerLimbs) {
@@ -180,6 +153,7 @@ public class EnergySystem : SerializedMonoBehaviour {
         UpdateEnergyUI();
     }
 
+    // resets energy and puts 1 energy-charge in each limb
     void BalanceEnergy() {
         ResetEnergy();
         foreach (Limb limb in PlayerLimbs) {
