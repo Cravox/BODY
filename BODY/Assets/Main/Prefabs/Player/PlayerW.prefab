@@ -390,9 +390,9 @@ GameObject:
   - component: {fileID: 9071744388173341592}
   - component: {fileID: 9071744388173341595}
   - component: {fileID: 9071744388173341594}
-  - component: {fileID: 998887085}
-  - component: {fileID: 998887086}
-  - component: {fileID: 998887087}
+  - component: {fileID: 6996675974615068665}
+  - component: {fileID: 940651021042444897}
+  - component: {fileID: 4502315206112840769}
   m_Layer: 8
   m_Name: PlayerW
   m_TagString: Player
@@ -519,10 +519,12 @@ MonoBehaviour:
   energyPoints: 9
   chargeAmount: 3
   PlayerLimbs:
-  - {fileID: 998887086}
-  - {fileID: 998887085}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 9071744388173341594}
   energyText: {fileID: 0}
+  stateImage: {fileID: 0}
+  stateText: {fileID: 0}
 --- !u!114 &9071744388173341594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,6 +547,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   EnergyState: 0
+  IsInteracting: 0
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
   dJumpSpeed: {x: 0, y: 30, z: 5}
@@ -557,7 +560,7 @@ MonoBehaviour:
     strenght: 0
     time: 0
     isImpulse: 0
---- !u!114 &998887085
+--- !u!114 &6996675974615068665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -579,14 +582,15 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   EnergyState: 0
+  IsInteracting: 0
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
   interactUI: {fileID: 0}
   interactRange: 1
   topPosition: {fileID: 2025864847}
   frontPosition: {fileID: 1883752840}
-  isPushing: 0
---- !u!114 &998887086
+  IsCarrying: 0
+--- !u!114 &940651021042444897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -608,10 +612,13 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   EnergyState: 0
+  IsInteracting: 0
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
-  headLight: {fileID: 915118266}
---- !u!114 &998887087
+  platforms:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &4502315206112840769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

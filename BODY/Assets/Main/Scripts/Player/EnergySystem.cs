@@ -41,7 +41,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     private Text stateText;
 
     private int maxEnergy;
-    private bool disCharged = false;
 
     private float leftTriggerInput;
     private float rightTriggerInput;
