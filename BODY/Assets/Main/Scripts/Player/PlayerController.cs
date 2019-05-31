@@ -91,7 +91,7 @@ public class PlayerController : SerializedMonoBehaviour
     {
         //Add gravitational force
         if (!stopGravity)
-            rigid.AddForce(new Vector3(0, -gravity, 0));
+            rigid.AddForce(new Vector3(0, -gravity, 0) * Time.deltaTime);
 
 
         //set direction vector of camera look rotation
