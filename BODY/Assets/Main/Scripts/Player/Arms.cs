@@ -34,7 +34,7 @@ public class Arms : Limb {
     }
 
     protected override void LimbUpdate() {
-
+        canInteract = CheckForInteractable();
     }
 
     private bool CheckForInteractable() {
@@ -58,8 +58,7 @@ public class Arms : Limb {
     }
 
     public override int TierOne() {
-        canInteract = CheckForInteractable();
-
+        int cost = 0;
         if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
             IsCarrying = true;
             isChecking = false;
@@ -68,6 +67,7 @@ public class Arms : Limb {
             boxRb.constraints = RigidbodyConstraints.FreezeAll;
             box.localPosition = topPosition.localPosition;
             box.GetComponent<CarryBox>().FirstPickUp = true;
+            cost = tierCosts[0];
         } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
             box.localPosition = frontPosition.localPosition;
             box.parent = null;
@@ -78,7 +78,7 @@ public class Arms : Limb {
 
         IsInteracting = IsCarrying;
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
-        return tierCosts[0];
+        return cost;
     }
 
     public override int TierTwo() {
