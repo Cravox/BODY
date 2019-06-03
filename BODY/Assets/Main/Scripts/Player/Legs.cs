@@ -14,42 +14,42 @@ public class Legs : Limb {
     [TabGroup("Debugging")]
     public PlayerForce dJumpForce;
 
-    protected override string limbName => "Legs";
-
-    public override void TierOne() {
-        if(EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
-            if (Input.GetButtonDown("Jump") && playerCont.isGrounded) {
-                playerCont.Jump();
-            }
+    public override int TierOne() {
+        if (playerCont.isGrounded) {
+            playerCont.Jump();
+            return tierCosts[0];
+        } else {
+            return 0;
         }
     }
 
-    public override void TierTwo() {
-        if(EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
-            if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping) {
-                doubleJumping = true;
-                playerCont.modelAnim.Play("Dash");
+    public override int TierTwo() {
+        if (!playerCont.isGrounded && !doubleJumping) {
+            doubleJumping = true;
+            playerCont.modelAnim.Play("Dash");
 
-                playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
+            playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
 
-                Vector3 dirForceSide = playerCont.modelAxis.forward * dJumpSpeed.z + playerCont.transform.right * dJumpSpeed.x;
-                Vector3 dirForceUp = playerCont.transform.up * dJumpSpeed.y;
+            Vector3 dirForceSide = playerCont.modelAxis.forward * dJumpSpeed.z + playerCont.transform.right * dJumpSpeed.x;
+            Vector3 dirForceUp = playerCont.transform.up * dJumpSpeed.y;
 
-                playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
-                playerCont.AddForce(dirForceSide, jumpForwardTime, out dJumpForce, false);
-            }
+            playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
+            playerCont.AddForce(dirForceSide, jumpForwardTime, out dJumpForce, false);
+        }
 
-            if (playerCont.isGrounded && doubleJumping && dJumpForce != null) {
-                dJumpForce.Stop();
-                doubleJumping = false;
-            }
+        if (playerCont.isGrounded && doubleJumping && dJumpForce != null) {
+            dJumpForce.Stop();
+            doubleJumping = false;
+            return tierCosts[1];
         }
 
         playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
+        return 0;
     }
 
-    public override void TierThree() {
+    public override int TierThree() {
         // gliding or walljumping
+        return tierCosts[2];
     }
 
     protected override void LimbStart() {
@@ -57,10 +57,6 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-
-    }
-
-    protected override void OnDischarge() {
 
     }
 }

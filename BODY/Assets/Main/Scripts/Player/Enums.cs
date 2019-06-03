@@ -15,4 +15,15 @@ public struct Enums {
         EIGHT_CHARGES,
         FULLY_CHARGED
     }
+
+    public enum LimbIndex : int {
+        HEAD,
+        ARMS,
+        LEGS
+    }
+
+    public enum ChargeState : int {
+        CHARGE_TIER_ONE,
+        CHARGE_TIER_TWO
+    }
 }

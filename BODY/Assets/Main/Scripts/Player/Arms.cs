@@ -29,8 +29,6 @@ public class Arms : Limb {
     private bool isChecking = true;
     private bool canInteract;
 
-    protected override string limbName => "Arms";
-
     protected override void LimbStart() {
 
     }
@@ -59,63 +57,39 @@ public class Arms : Limb {
         return interactable;
     }
 
-    public override void TierOne() {
+    public override int TierOne() {
         canInteract = CheckForInteractable();
 
-        if (EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
-            if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
-                IsCarrying = true;
-                isChecking = false;
-                box.parent = playerCont.modelAxis;
-                constraint = boxRb.constraints;
-                boxRb.constraints = RigidbodyConstraints.FreezeAll;
-                box.localPosition = topPosition.localPosition;
-                box.GetComponent<CarryBox>().FirstPickUp = true;
-            } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
-                box.localPosition = frontPosition.localPosition;
-                box.parent = null;
-                isChecking = true;
-                IsCarrying = false;
-                boxRb.constraints = constraint;
-            }
+        if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
+            IsCarrying = true;
+            isChecking = false;
+            box.parent = playerCont.modelAxis;
+            constraint = boxRb.constraints;
+            boxRb.constraints = RigidbodyConstraints.FreezeAll;
+            box.localPosition = topPosition.localPosition;
+            box.GetComponent<CarryBox>().FirstPickUp = true;
+        } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
+            box.localPosition = frontPosition.localPosition;
+            box.parent = null;
+            isChecking = true;
+            IsCarrying = false;
+            boxRb.constraints = constraint;
         }
 
         IsInteracting = IsCarrying;
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
+        return tierCosts[0];
     }
 
-    public override void TierTwo() {
+    public override int TierTwo() {
         if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Push")) {
             // push object
         }
+        return tierCosts[1];
     }
 
-    public override void TierThree() {
+    public override int TierThree() {
         // tbd
-    }
-
-    protected override void OnDischarge() {
-        switch (EnergyState) {
-            case Enums.EnergyStates.ZERO_CHARGES:
-                interactUI.SetImageInactive();
-                if (IsCarrying) {
-                    box.localPosition = frontPosition.localPosition;
-                    box.parent = null;
-                    IsCarrying = false;
-                    IsInteracting = false;
-                    isChecking = true;
-                    boxRb.constraints = constraint;
-                    playerCont.modelAnim.SetBool("IsPushing", false);
-                }
-                break;
-            case Enums.EnergyStates.THREE_CHARGES:
-                break;
-            case Enums.EnergyStates.SIX_CHARGES:
-                break;
-            case Enums.EnergyStates.FULLY_CHARGED:
-                break;
-            default:
-                break;
-        }
+        return tierCosts[2];
     }
 }
