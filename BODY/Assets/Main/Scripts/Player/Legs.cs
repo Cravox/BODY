@@ -25,7 +25,7 @@ public class Legs : Limb {
     [TabGroup("Debugging")]
     public PlayerForce wJumpForce;
     [TabGroup("Debugging")]
-    public bool wallJump;
+    public bool wallJump { get { return Physics.Raycast(transform.position, playerCont.modelAxis.transform.forward, wJumpDistanceToWall, LayerMask.GetMask("wJump")); } }
 
     public override int TierOne() {
         if (playerCont.isGrounded) {
@@ -37,7 +37,7 @@ public class Legs : Limb {
     }
 
     public override int TierTwo() {
-        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping && !wallJump) {
+        if (!playerCont.isGrounded && !doubleJumping && !wallJump) {
             doubleJumping = true;
             playerCont.modelAnim.Play("Dash");
 
@@ -48,21 +48,16 @@ public class Legs : Limb {
 
             playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
             playerCont.AddForce(dirForceSide, dJumpForwardTime, out dJumpForce, false);
-        }
 
-        if (playerCont.isGrounded && doubleJumping && dJumpForce != null) {
-            dJumpForce.Stop();
-            doubleJumping = false;
             return tierCosts[1];
         }
 
-        playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
         return 0;
     }
 
     public override int TierThree() {
         // walljump (atm)
-        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !wallJumping && wallJump) {
+        if (!playerCont.isGrounded && !wallJumping && wallJump) {
             wallJumping = true;
             playerCont.modelAnim.Play("Dash");
 
@@ -73,11 +68,7 @@ public class Legs : Limb {
 
             playerCont.AddForce(dirForceUp, 0, out wJumpForce, true);
             playerCont.AddForce(dirForceSide, wJumpForwardTime, out wJumpForce, false);
-        }
-
-        if (playerCont.isGrounded && wallJumping && wJumpForce != null) {
-            wJumpForce.Stop();
-            wallJumping = false;
+            return tierCosts[2];
         }
 
         Debug.DrawRay(transform.position, playerCont.modelAxis.transform.forward * wJumpDistanceToWall, Color.green, 0.1f);
@@ -92,11 +83,21 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-        //bool canWallJump = (EnergyState == Enums.EnergyStates.FULLY_CHARGED);
-        bool ray = Physics.Raycast(transform.position, playerCont.modelAxis.transform.forward, wJumpDistanceToWall, LayerMask.GetMask("wJump"));
+        playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
 
-        Debug.Log(ray);
+        if (playerCont.isGrounded) //if grounded, cancel ongoing forces
+        {
+            if (doubleJumping && dJumpForce != null)
+            { 
+                dJumpForce.Stop();
+                doubleJumping = false;
+            }
 
-        //wallJump = (canWallJump && ray);
+            if (wallJumping && wJumpForce != null)
+            {
+                wJumpForce.Stop();
+                wallJumping = false;
+            }
+        }
     }
 }
