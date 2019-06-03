@@ -36,20 +36,19 @@ public class Legs : Limb {
         }
     }
 
-    public override void TierTwo() {
-        if(EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING) {
-            if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping && !wallJump) {
-                doubleJumping = true;
-                playerCont.modelAnim.Play("Dash");
+    public override int TierTwo() {
+        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !doubleJumping && !wallJump) {
+            doubleJumping = true;
+            playerCont.modelAnim.Play("Dash");
 
             playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
 
             Vector3 dirForceSide = playerCont.modelAxis.forward * dJumpSpeed.z + playerCont.transform.right * dJumpSpeed.x;
             Vector3 dirForceUp = playerCont.transform.up * dJumpSpeed.y;
 
-                playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
-                playerCont.AddForce(dirForceSide, dJumpForwardTime, out dJumpForce, false);
-            }
+            playerCont.AddForce(dirForceUp, 0, out dJumpForce, true);
+            playerCont.AddForce(dirForceSide, dJumpForwardTime, out dJumpForce, false);
+        }
 
         if (playerCont.isGrounded && doubleJumping && dJumpForce != null) {
             dJumpForce.Stop();
@@ -61,47 +60,43 @@ public class Legs : Limb {
         return 0;
     }
 
-    public override void TierThree() {
+    public override int TierThree() {
         // walljump (atm)
-        if (EnergySystem.chargeState == EnergySystem.ChargeState.NOT_CHARGING)
-        {
-            if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !wallJumping && wallJump)
-            {
-                wallJumping = true;
-                playerCont.modelAnim.Play("Dash");
+        if (Input.GetButtonDown("Jump") && !playerCont.isGrounded && !wallJumping && wallJump) {
+            wallJumping = true;
+            playerCont.modelAnim.Play("Dash");
 
-                playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
+            playerCont.rigid.velocity = new Vector3(playerCont.rigid.velocity.x, 0, playerCont.rigid.velocity.z);
 
-                Vector3 dirForceSide = playerCont.modelAxis.forward * wJumpSpeed.z + playerCont.transform.right * wJumpSpeed.x;
-                Vector3 dirForceUp = playerCont.transform.up * wJumpSpeed.y;
+            Vector3 dirForceSide = playerCont.modelAxis.forward * wJumpSpeed.z + playerCont.transform.right * wJumpSpeed.x;
+            Vector3 dirForceUp = playerCont.transform.up * wJumpSpeed.y;
 
-                playerCont.AddForce(dirForceUp, 0, out wJumpForce, true);
-                playerCont.AddForce(dirForceSide, wJumpForwardTime, out wJumpForce, false);
-            }
+            playerCont.AddForce(dirForceUp, 0, out wJumpForce, true);
+            playerCont.AddForce(dirForceSide, wJumpForwardTime, out wJumpForce, false);
+        }
 
-            if (playerCont.isGrounded && wallJumping && wJumpForce != null)
-            {
-                wJumpForce.Stop();
-                wallJumping = false;
-            }
+        if (playerCont.isGrounded && wallJumping && wJumpForce != null) {
+            wJumpForce.Stop();
+            wallJumping = false;
         }
 
         Debug.DrawRay(transform.position, playerCont.modelAxis.transform.forward * wJumpDistanceToWall, Color.green, 0.1f);
-
+        return 0;
         //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
 
 
     }
 
     protected override void LimbStart() {
+
     }
 
     protected override void LimbUpdate() {
-        bool canWallJump = (EnergyState == Enums.EnergyStates.FULLY_CHARGED);
+        //bool canWallJump = (EnergyState == Enums.EnergyStates.FULLY_CHARGED);
         bool ray = Physics.Raycast(transform.position, playerCont.modelAxis.transform.forward, wJumpDistanceToWall, LayerMask.GetMask("wJump"));
 
         Debug.Log(ray);
 
-        wallJump = (canWallJump && ray);
+        //wallJump = (canWallJump && ray);
     }
 }
