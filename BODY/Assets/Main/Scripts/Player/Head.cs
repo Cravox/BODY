@@ -9,7 +9,7 @@ public class Head : Limb {
 
     public override int TierOne() {
         for (int i = 0; i < platforms.Length; i++) {
-            platforms[i].platCol.enabled = true;
+            platforms[i].platCol.enabled = !platforms[i].platCol.enabled;
         }
         return tierCosts[0];
     }
@@ -20,8 +20,7 @@ public class Head : Limb {
     }
 
     public override int TierThree() {
-        if (Input.GetButtonDown("ButtonY"))
-            MovingPlatform.dirChangeActive = !MovingPlatform.dirChangeActive;
+        MovingPlatform.dirChangeActive = !MovingPlatform.dirChangeActive;
         return tierCosts[2];
     }
 

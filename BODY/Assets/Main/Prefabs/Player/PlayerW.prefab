@@ -93,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796004481}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.57, z: 0.133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9071744386992386686}
@@ -502,14 +502,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  gravity: 4000
-  walkSpeed: 12
+  gravityModifier: 3
+  walkSpeed: 4
   strafeSpeed: 9
-  jumpSpeed: 15
-  airSpeed: 8
+  jumpSpeed: 5
+  airSpeed: 4
   rigid: {fileID: 9071744388173341591}
   cam: {fileID: 0}
-  groundHoldRadius: 0.4
+  groundHoldRadius: 0.2
   groundHolder: {fileID: 9071744387671212689}
   checkCollisionOn:
     serializedVersion: 2
@@ -578,27 +578,16 @@ MonoBehaviour:
     SerializationNodes: []
   IsInteracting: 0
   tierCosts: 050000000a0000000f000000
-  dJumpSpeed: {x: 0, y: 30, z: 5}
-  dJumpForwardTime: 0.5
-  wJumpDistanceToWall: 1
-  wJumpSpeed: {x: 0, y: 0, z: 0}
-  wJumpForwardTime: 0.5
+  dJumpSpeed: {x: 0, y: 5, z: 5}
+  wJumpSpeed: {x: 0, y: 5, z: -5}
+  wJumpDistanceToWall: 0.3
+  jumping: 0
   doubleJumping: 0
-  dJumpForce:
-    initialForce: {x: 0, y: 0, z: 0}
-    force: {x: 0, y: 0, z: 0}
-    decay: 0
-    strenght: 0
-    time: 0
-    isImpulse: 0
   wallJumping: 0
-  wJumpForce:
-    initialForce: {x: 0, y: 0, z: 0}
-    force: {x: 0, y: 0, z: 0}
-    decay: 0
-    strenght: 0
-    time: 0
-    isImpulse: 0
+  wallRay: {fileID: 1796004482}
+  rMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &6996675974615068665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +615,7 @@ MonoBehaviour:
   interactRange: 1
   topPosition: {fileID: 2025864847}
   frontPosition: {fileID: 1883752840}
+  throwForce: 300
   IsCarrying: 0
 --- !u!114 &940651021042444897
 MonoBehaviour:
@@ -651,7 +641,6 @@ MonoBehaviour:
   IsInteracting: 0
   tierCosts: 050000000a0000000f000000
   platforms:
-  - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &4502315206112840769
 MonoBehaviour:

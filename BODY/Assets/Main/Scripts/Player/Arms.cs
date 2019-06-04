@@ -16,6 +16,9 @@ public class Arms : Limb {
     [SerializeField, TabGroup("References")]
     private Transform frontPosition;
 
+    [SerializeField, TabGroup("Balancing")]
+    private float throwForce = 5;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -40,28 +43,26 @@ public class Arms : Limb {
     private bool CheckForInteractable() {
         ray.origin = transform.position;
         ray.direction = playerCont.modelAxis.forward;
-        Debug.DrawRay(ray.origin, ray.direction*10, Color.red, 1);
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 1);
 
         var interactable = false;
-        if (isChecking) {
-            if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
-                interactUI.SetImageActive(hit.transform.gameObject.tag);
-                interactable = true;
-                box = hit.transform;
-                boxRb = box.GetComponent<Rigidbody>();
-            } else {
-                interactUI.SetImageInactive();
-            }
+        if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
+            interactUI.SetImageActive(hit.transform.gameObject.tag);
+            interactable = true;
+            box = hit.transform;
+            boxRb = box.GetComponent<Rigidbody>();
+        } else {
+            interactUI.SetImageInactive();
         }
 
         return interactable;
     }
 
     public override int TierOne() {
+        playerCont.rigid.velocity = Vector3.zero;
         int cost = 0;
         if (canInteract && box.CompareTag("Carry")) {
             IsCarrying = true;
-            isChecking = false;
             box.parent = playerCont.modelAxis;
             constraint = boxRb.constraints;
             boxRb.constraints = RigidbodyConstraints.FreezeAll;
@@ -71,7 +72,6 @@ public class Arms : Limb {
         } else if (IsCarrying) {
             box.localPosition = frontPosition.localPosition;
             box.parent = null;
-            isChecking = true;
             IsCarrying = false;
             boxRb.constraints = constraint;
         }
@@ -82,10 +82,17 @@ public class Arms : Limb {
     }
 
     public override int TierTwo() {
+        playerCont.rigid.velocity = Vector3.zero;
         int cost = 0;
         if (IsCarrying) {
-            box.GetComponent<Rigidbody>().AddForce(Vector3.forward * 5);
+            cost = tierCosts[1];
+            box.parent = null;
+            IsCarrying = false;
+            boxRb.constraints = constraint;
+            var modelTrans = playerCont.modelAxis.transform.localRotation.eulerAngles;
+            box.GetComponent<Rigidbody>().AddForce(playerCont.modelAxis.transform.forward * throwForce);
         }
+        playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
         return cost;
     }
 

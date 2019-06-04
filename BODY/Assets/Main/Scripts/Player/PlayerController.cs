@@ -9,7 +9,7 @@ public class PlayerController : SerializedMonoBehaviour
     public static PlayerController instance;
 
     [TabGroup("Balancing")]
-    public float gravity;
+    public float gravityModifier;
     [TabGroup("Balancing")]
     public float walkSpeed;
     [TabGroup("Balancing")]
@@ -74,6 +74,12 @@ public class PlayerController : SerializedMonoBehaviour
         Animate();
     }
 
+    private void FixedUpdate() {
+        //Add gravitational force
+        if (!stopGravity)
+            rigid.AddForce(new Vector3(0, Physics.gravity.y * gravityModifier, 0));
+    }
+
     void Animate()
     {
         Vector3 rigidvel = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
@@ -88,10 +94,6 @@ public class PlayerController : SerializedMonoBehaviour
 
     void Move()
     {
-        //Add gravitational force
-        if (!stopGravity)
-            rigid.AddForce(new Vector3(0, -gravity, 0) * Time.deltaTime);
-
         //set direction vector of camera look rotation
         Vector3 camFwd = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
         Vector3 camRight = new Vector3(cam.transform.right.x, 0, cam.transform.right.z);

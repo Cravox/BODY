@@ -30,31 +30,29 @@ public class Legs : Limb {
             Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
             playerCont.JumpOnce(jumpSpeed, true);
             jumping = true;
-            return tierCosts[0];
-        } else {
-            return 0;
-        }
-    }
-
-    public override int TierTwo() {
-        if (!playerCont.isGrounded && !doubleJumping && !wallJump) {
+        } else if (!playerCont.isGrounded && !doubleJumping && !wallJump) {
             playerCont.JumpOnce(dJumpSpeed, false);
             doubleJumping = true;
-            return tierCosts[1];
+            return tierCosts[0];
         }
         return 0;
     }
 
-    public override int TierThree() {
+    public override int TierTwo() {
+
         // walljump (atm)
         if (!playerCont.isGrounded && !wallJumping && wallJump) {
             playerCont.JumpOnce(wJumpSpeed, false);
             wallJumping = true;
-            return tierCosts[2];
+            return tierCosts[1];
         }
         return 0;
 
         //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
+    }
+
+    public override int TierThree() {
+        return 0;
     }
 
     protected override void LimbStart() {
@@ -62,6 +60,7 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
+        print(wallJump);
         playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
 
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
