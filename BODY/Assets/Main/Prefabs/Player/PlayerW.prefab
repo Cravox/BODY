@@ -516,7 +516,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  energyPoints: 9
+  energyPoints: 100
   PlayerLimbs:
   - {fileID: 0}
   - {fileID: 0}
@@ -546,9 +546,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   IsInteracting: 0
-  tierCosts: 000000000000000000000000
-  limbImage: {fileID: 0}
-  limbText: {fileID: 0}
+  tierCosts: 050000000a0000000f000000
   dJumpSpeed: {x: 0, y: 30, z: 5}
   dJumpForwardTime: 0.5
   wJumpDistanceToWall: 1
@@ -592,9 +590,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   IsInteracting: 0
-  tierCosts: 000000000000000000000000
-  limbImage: {fileID: 0}
-  limbText: {fileID: 0}
+  tierCosts: 050000000a0000000f000000
   interactUI: {fileID: 0}
   interactRange: 1
   topPosition: {fileID: 2025864847}
@@ -622,9 +618,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   IsInteracting: 0
-  tierCosts: 000000000000000000000000
-  limbImage: {fileID: 0}
-  limbText: {fileID: 0}
+  tierCosts: 050000000a0000000f000000
   platforms:
   - {fileID: 0}
   - {fileID: 0}

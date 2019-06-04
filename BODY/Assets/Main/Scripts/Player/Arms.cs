@@ -59,7 +59,7 @@ public class Arms : Limb {
 
     public override int TierOne() {
         int cost = 0;
-        if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Carry")) {
+        if (canInteract && box.CompareTag("Carry")) {
             IsCarrying = true;
             isChecking = false;
             box.parent = playerCont.modelAxis;
@@ -68,7 +68,7 @@ public class Arms : Limb {
             box.localPosition = topPosition.localPosition;
             box.GetComponent<CarryBox>().FirstPickUp = true;
             cost = tierCosts[0];
-        } else if (Input.GetButtonDown("ButtonX") && IsCarrying) {
+        } else if (IsCarrying) {
             box.localPosition = frontPosition.localPosition;
             box.parent = null;
             isChecking = true;
@@ -82,10 +82,11 @@ public class Arms : Limb {
     }
 
     public override int TierTwo() {
-        if (canInteract && Input.GetButtonDown("ButtonX") && box.CompareTag("Push")) {
-            // push object
+        int cost = 0;
+        if (IsCarrying) {
+            box.GetComponent<Rigidbody>().AddForce(Vector3.forward * 5);
         }
-        return tierCosts[1];
+        return cost;
     }
 
     public override int TierThree() {

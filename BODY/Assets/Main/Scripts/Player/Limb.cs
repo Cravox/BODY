@@ -14,14 +14,6 @@ public abstract class Limb : SerializedMonoBehaviour {
     [SerializeField, TabGroup("Balancing"), Tooltip("From top to bottom: TierOne, TierTwo, TierThree")]
     protected int[] tierCosts = new int[3];
 
-    // references the limbs attached UI-Image
-    [SerializeField, TabGroup("References")]
-    protected Image limbImage;
-
-    // references the limbs attached UI-Text
-    [SerializeField, TabGroup("References")]
-    protected Text limbText;
-
     protected void Start() {
         playerCont = GetComponent<PlayerController>();
         LimbStart();
