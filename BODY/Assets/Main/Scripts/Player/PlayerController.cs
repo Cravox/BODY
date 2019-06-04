@@ -50,14 +50,13 @@ public class PlayerController : SerializedMonoBehaviour
     [TabGroup("Debugging"), SerializeField]
     public bool stopGravity;
     [TabGroup("Debugging"), SerializeField]
-    public Vector3 savedVelocity;
-    [TabGroup("Debugging"), SerializeField]
     public Rigidbody platform;
     [TabGroup("Debugging"), SerializeField]
     public List<PlayerForce> forces;
     [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
-
+    [TabGroup("Debugging"), SerializeField]
+    public float modelRot;
     Vector3 platformNoY;
 
     void Awake()
@@ -93,7 +92,6 @@ public class PlayerController : SerializedMonoBehaviour
         if (!stopGravity)
             rigid.AddForce(new Vector3(0, -gravity, 0) * Time.deltaTime);
 
-
         //set direction vector of camera look rotation
         Vector3 camFwd = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
         Vector3 camRight = new Vector3(cam.transform.right.x, 0, cam.transform.right.z);
@@ -106,29 +104,35 @@ public class PlayerController : SerializedMonoBehaviour
         moveForce = camRight * inputAxis.x + camFwd * inputAxis.y;
 
         //set velocity including speed to rigidbody, is velocity forward?
-        if (isGrounded)
-        {
-            rigid.velocity = new Vector3(moveForce.x * walkSpeed, rigid.velocity.y, moveForce.z * walkSpeed) + extraForce;
-            savedVelocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) - (moveForce * airSpeed);
-        }
-        else
-        {
-            rigid.velocity = new Vector3(0, rigid.velocity.y, 0) + savedVelocity + (moveForce * airSpeed) + extraForce;
-        }
+        float currentSpeed = (isGrounded ? walkSpeed : airSpeed);
+        rigid.velocity = new Vector3(moveForce.x * currentSpeed, rigid.velocity.y, moveForce.z * currentSpeed) + extraForce;
 
         //prevent model from returning rotation to zero
         Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z) - platformNoY;
-        if (walkVel.magnitude != 0)
+        if (walkVel.magnitude >= 0.1f)
             lastForce = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
 
         //rotate model to moving direction (which is relative to the camera)
-        float modelRot = Mathf.Atan2(lastForce.x, lastForce.z) * Mathf.Rad2Deg;
+        modelRot = Mathf.Atan2(lastForce.x, lastForce.z) * Mathf.Rad2Deg;
         modelAxis.localRotation = Quaternion.RotateTowards(modelAxis.localRotation, Quaternion.Euler(new Vector3(0, modelRot, 0)), 20f);
     }
 
-    public void Jump()
+    public void JumpOnce(Vector3 jumpForce, bool regular)
     {
-        rigid.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+        rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
+
+        Vector3 dirForceSide;
+
+        if (regular)
+            dirForceSide = transform.forward * jumpForce.z + transform.right * jumpForce.x;
+        else
+            dirForceSide = modelAxis.forward * jumpForce.z + transform.right * jumpForce.x;
+
+        Vector3 dirForceUp = transform.up * jumpForce.y;
+
+        AddForce(dirForceUp, 0, true, true);
+        AddForce(dirForceSide, 50, true, true);
+
         modelAnim.Play("Jump");
     }
 
@@ -144,19 +148,14 @@ public class PlayerController : SerializedMonoBehaviour
             platform = null;
     }
 
-    public void AddForce(Vector3 targetForce, float decay, bool isImpulse)
+    public void AddForce(Vector3 targetForce, float decay, bool isImpulse, bool endOnGround)
     {
-        forces.Add(new PlayerForce(targetForce, decay, isImpulse));
-    }
-
-    public void AddForce(Vector3 targetForce, float decay, out PlayerForce pf, bool isImpulse)
-    {
-        pf = new PlayerForce(targetForce, decay, isImpulse);
-        forces.Add(pf);
+        forces.Add(new PlayerForce(targetForce, decay, isImpulse, endOnGround));
     }
 
     void Forces()
     {
+        //do not apply any forces when empty
         if (forces == null)
             return;
 
@@ -164,7 +163,7 @@ public class PlayerController : SerializedMonoBehaviour
         int forceAmount = forces.Count;
         for (int i = 0; i < forceAmount; i++)
         {
-            if(forces[i].finished)
+            if(!forces[i].running)
             {
                 forces.RemoveAt(i);
                 i--;
@@ -172,37 +171,48 @@ public class PlayerController : SerializedMonoBehaviour
             }
         }
 
-            Vector3 eF = new Vector3();
-        
-        //if force is impulse: decays after decay time
-        //if force is not impulse: stops when decay time is reached
+        //create new combined force vector
+        Vector3 eF = new Vector3();
 
-        foreach(PlayerForce pf in forces)
+        //force calculation for each force
+        foreach (PlayerForce pf in forces)
         {
-            if (pf.isImpulse && pf.time > pf.decay)
-                pf.strenght *= 0.6f;
-            else
-                pf.strenght = pf.time < pf.decay + 1 ? 1 : 0;
+            //stop when on ground
+            if (pf.cancelOnGround && isGrounded && pf.time > 0.5f)
+                pf.Stop();
 
+            //control the force strenght amount
+            if (pf.time > pf.decay)
+            {
+                if (pf.isImpulse)           //if force is impulse: decays after decay time is reached
+                    pf.strenght *= 0.6f;
+                else
+                    pf.strenght = 0;        //if force is not impulse: stops when decay time is reached
+            }
+
+            //apply strenght factor to initial force
             pf.force = pf.initialForce * pf.strenght;
 
+            //if strenght is too low for measurable impact
             if (pf.isImpulse && pf.strenght < 0.01f)
                 pf.strenght = 0;
 
-            if (pf.finished)
-                pf.Stop();
-            else
+            //stop when force time is finished
+            if (pf.running)
             {
-                pf.time += Time.deltaTime;
+                pf.time += Time.fixedDeltaTime;
                 eF += pf.force;
             }
+            else
+                pf.Stop();
         }
 
+        //add platform force
         Vector3 platformVel = (platform != null ? platform.velocity : Vector3.zero);
         platformNoY = new Vector3(platformVel.x, 0, platformVel.z);
-
         eF += (platform != null ? platformNoY : Vector3.zero);
 
+        //finally, set force
         extraForce = eF;
     }
 }
@@ -214,16 +224,18 @@ public class PlayerForce
     public Vector3 force;
     public float decay;
     public float strenght = 1f;
-    public float time = 1f;
+    public float time = 0;
     public bool isImpulse;
-    public bool finished { get { return (this.force == Vector3.zero); } }
+    public bool cancelOnGround;
+    public bool running { get { return (this.force != Vector3.zero); } }
 
-    public PlayerForce(Vector3 force, float decay, bool impulse)
+    public PlayerForce(Vector3 force, float decay, bool impulse, bool cancelOnGround)
     {
         this.initialForce = force;
         this.force = force;
         this.decay = decay;
         this.isImpulse = impulse;
+        this.cancelOnGround = cancelOnGround;
     }
 
     public void Stop()
