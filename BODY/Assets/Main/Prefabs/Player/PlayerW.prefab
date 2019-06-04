@@ -93,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883752839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15579605, y: -0.94299996, z: 1.6500001}
+  m_LocalPosition: {x: -0.179, y: 0.412, z: 0.69}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 9071744388173341593}
@@ -123,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025864846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 3.45, z: -0.02}
+  m_LocalPosition: {x: 0.005, y: 1.789, z: -0.02}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 9071744388173341593}
@@ -293,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9071744387671212686}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.54, z: 0}
+  m_LocalPosition: {x: 0, y: -0.007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9071744388173341593}
@@ -430,10 +430,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.6
+  m_Radius: 0.3
+  m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!54 &9071744388173341591
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -517,7 +517,6 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   energyPoints: 9
-  chargeAmount: 3
   PlayerLimbs:
   - {fileID: 0}
   - {fileID: 0}
@@ -546,14 +545,25 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  EnergyState: 0
   IsInteracting: 0
+  tierCosts: 000000000000000000000000
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
   dJumpSpeed: {x: 0, y: 30, z: 5}
-  jumpForwardTime: 0.5
+  dJumpForwardTime: 0.5
+  wJumpDistanceToWall: 1
+  wJumpSpeed: {x: 0, y: 0, z: 0}
+  wJumpForwardTime: 0.5
   doubleJumping: 0
   dJumpForce:
+    initialForce: {x: 0, y: 0, z: 0}
+    force: {x: 0, y: 0, z: 0}
+    decay: 0
+    strenght: 0
+    time: 0
+    isImpulse: 0
+  wallJumping: 0
+  wJumpForce:
     initialForce: {x: 0, y: 0, z: 0}
     force: {x: 0, y: 0, z: 0}
     decay: 0
@@ -581,8 +591,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  EnergyState: 0
   IsInteracting: 0
+  tierCosts: 000000000000000000000000
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
   interactUI: {fileID: 0}
@@ -611,8 +621,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  EnergyState: 0
   IsInteracting: 0
+  tierCosts: 000000000000000000000000
   limbImage: {fileID: 0}
   limbText: {fileID: 0}
   platforms:
@@ -710,7 +720,7 @@ PrefabInstance:
     - target: {fileID: 4182634590317513727, guid: d3def4d2a1c8cb349a181f1a636ff678,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4182634590317513727, guid: d3def4d2a1c8cb349a181f1a636ff678,
         type: 3}
@@ -756,6 +766,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182634590317513727, guid: d3def4d2a1c8cb349a181f1a636ff678,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182634590317513727, guid: d3def4d2a1c8cb349a181f1a636ff678,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4182634590317513727, guid: d3def4d2a1c8cb349a181f1a636ff678,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4182634590317614897, guid: d3def4d2a1c8cb349a181f1a636ff678,
         type: 3}

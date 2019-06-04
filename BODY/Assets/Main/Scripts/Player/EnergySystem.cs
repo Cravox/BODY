@@ -49,7 +49,7 @@ public class EnergySystem : SerializedMonoBehaviour {
         leftTriggerInput = Input.GetAxis("LeftTrigger");
         rightTriggerInput = Input.GetAxis("RightTrigger");
 
-        if(rightTriggerInput >= 0.9f) {
+        if(rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
             stateText.text = stateString[2];
         } else if (leftTriggerInput >= 0.9f) {
             stateText.text = stateString[1];
