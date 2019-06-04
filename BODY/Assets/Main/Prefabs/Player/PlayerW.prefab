@@ -69,6 +69,36 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1796004481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1796004482}
+  m_Layer: 0
+  m_Name: WallRay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1796004482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796004481}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9071744386992386686}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1883752839
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +189,7 @@ Transform:
   - {fileID: 9071744387405672973}
   - {fileID: 9071744388171965971}
   - {fileID: 9071744388308210668}
+  - {fileID: 1796004482}
   m_Father: {fileID: 9071744388173341593}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -471,18 +502,18 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  gravity: 70
+  gravity: 4000
   walkSpeed: 12
   strafeSpeed: 9
-  jumpSpeed: 30
-  airSpeed: 7
+  jumpSpeed: 15
+  airSpeed: 8
   rigid: {fileID: 9071744388173341591}
   cam: {fileID: 0}
   groundHoldRadius: 0.4
   groundHolder: {fileID: 9071744387671212689}
   checkCollisionOn:
     serializedVersion: 2
-    m_Bits: 567
+    m_Bits: 1591
   modelAxis: {fileID: 9071744386992386686}
   modelAnim: {fileID: 9071744388318100900}
   inputAxis: {x: 0, y: 0}
@@ -491,10 +522,10 @@ MonoBehaviour:
   inputJump: 0
   isGrounded: 0
   stopGravity: 0
-  savedVelocity: {x: 0, y: 0, z: 0}
   platform: {fileID: 0}
   forces: []
   extraForce: {x: 0, y: 0, z: 0}
+  modelRot: 0
 --- !u!114 &9071744388173341595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,8 +549,8 @@ MonoBehaviour:
     SerializationNodes: []
   energyPoints: 100
   PlayerLimbs:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 940651021042444897}
+  - {fileID: 6996675974615068665}
   - {fileID: 9071744388173341594}
   energyText: {fileID: 0}
   stateImage: {fileID: 0}
