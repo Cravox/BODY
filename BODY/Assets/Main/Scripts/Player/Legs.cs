@@ -71,16 +71,11 @@ public class Legs : Limb {
         //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
     }
 
-    public override int TierThree() {
-        return 0;
-    }
-
     protected override void LimbStart() {
 
     }
 
     protected override void LimbUpdate() {
-        print(wallJump);
         playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
 
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces

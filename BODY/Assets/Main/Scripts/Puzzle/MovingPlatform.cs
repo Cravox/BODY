@@ -35,9 +35,9 @@ public class MovingPlatform : SerializedMonoBehaviour
     public int currentPosition = 0;
 
     public MovePos dirChangePos;
-    public static bool dirChangeActive = false;
+    public bool dirChangeActive = false;
 
-    public static bool stop = true;
+    public bool stop = true;
 
     [HideInInspector]
     public Collider platCol;
@@ -64,7 +64,7 @@ public class MovingPlatform : SerializedMonoBehaviour
             Next();
         }
         platCol = GetComponent<BoxCollider>();
-        platCol.enabled = false;
+        platCol.isTrigger = true;
     }
 
     void Update()
@@ -94,9 +94,9 @@ public class MovingPlatform : SerializedMonoBehaviour
             else
                 renderer.material = mats[1];
         }
-        else if(platCol.enabled)
+        else if(!platCol.isTrigger)
             renderer.material = mats[0];
-        else if (!platCol.enabled) {
+        else if (platCol.isTrigger) {
             renderer.material = mats[3];
         }
     }
