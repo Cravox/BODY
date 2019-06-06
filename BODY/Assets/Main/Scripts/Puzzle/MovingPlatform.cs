@@ -36,7 +36,7 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     public MovePos dirChangePos;
     public bool dirChangeActive = false;
-
+    public bool stasis = false;
     public bool stop = true;
 
     [HideInInspector]
@@ -77,7 +77,7 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     void FixedUpdate()
     {
-        if (positions == null || stop)
+        if (positions == null || stop || stasis)
             return;
 
         Move();

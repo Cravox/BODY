@@ -5,9 +5,18 @@ using Sirenix.OdinInspector;
 
 public class Head : Limb {
 
+    [TabGroup("Balancing")]
+    public float maxDistancePlatform;
+    [TabGroup("Balancing")]
+    public float maxDistanceStasis;
 
+    [TabGroup("References")]
+    public Animator anim1;
+    [TabGroup("References")]
+    public Animator anim2;
+
+    [TabGroup("Debugging")]
     List<MovingPlatform> platforms = new List<MovingPlatform>();
-    public float maxDistance;
 
     public override int TierOne() {
         List<MovingPlatform> pInDistance = GetPlatformColliders();
@@ -16,9 +25,12 @@ public class Head : Limb {
         {
             t.platCol.isTrigger = false;
         }
-        
-        if(pInDistance.Count > 0)
+
+        if (pInDistance.Count > 0)
+        {
+            anim1.Play("anim", 0, 0);
             return tierCosts[0];
+        }
 
         return 0;
     }
@@ -35,8 +47,20 @@ public class Head : Limb {
         return 0;
     }
 
-    public override int TierThree() {   
-        //stasis
+    public override int TierThree() {
+        List<StasisController> sInDistance = GetStasisObjects();
+
+        foreach (StasisController sc in sInDistance)
+        {
+            sc.StasisTrigger();
+        }
+
+        if (sInDistance.Count > 0)
+        {
+            anim2.Play("anim", 0, 0);
+            return tierCosts[2];
+        }
+
         return 0;
     }
 
@@ -44,7 +68,7 @@ public class Head : Limb {
     {
         List<MovingPlatform> t = new List<MovingPlatform>();
 
-        Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistance, LayerMask.GetMask("Platform"));
+        Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform, LayerMask.GetMask("Platform"));
 
         foreach(Collider c in raySphere)
         {
@@ -59,6 +83,25 @@ public class Head : Limb {
         }
 
         return t;
+    }
+
+    List<StasisController> GetStasisObjects()
+    {
+        List<StasisController> sc = new List<StasisController>();
+
+        Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform);
+
+        foreach (Collider c in raySphere)
+        {
+            StasisController s = c.GetComponent<StasisController>();
+
+            if (s != null)
+            {
+                sc.Add(s);
+            }
+        }
+
+        return sc;
     }
 
     protected override void LimbStart() {

@@ -24,7 +24,7 @@ public class Legs : Limb {
 
     [TabGroup("Debugging")]
     public Transform wallRay;
-
+    [TabGroup("Debugging")]
     public bool hover;
 
     private bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
