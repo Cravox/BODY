@@ -65,18 +65,11 @@ public class Arms : Limb {
         playerCont.rigid.velocity = Vector3.zero;
         int cost = 0;
         if (canInteract && box.CompareTag("Carry")) {
-            IsCarrying = true;
-            box.parent = playerCont.modelAxis;
-            constraint = boxRb.constraints;
-            boxRb.constraints = RigidbodyConstraints.FreezeAll;
-            box.localPosition = topPosition.localPosition;
-            box.GetComponent<CarryBox>().FirstPickUp = true;
+            AttachObject();
             cost = tierCosts[0];
         } else if (IsCarrying) {
             box.localPosition = frontPosition.localPosition;
-            box.parent = null;
-            IsCarrying = false;
-            boxRb.constraints = constraint;
+            DetachObject();
         }
 
         IsInteracting = IsCarrying;
@@ -88,15 +81,30 @@ public class Arms : Limb {
         playerCont.rigid.velocity = Vector3.zero;
         int cost = 0;
         if (IsCarrying) {
-            cost = tierCosts[1];
-            box.parent = null;
-            IsCarrying = false;
-            boxRb.constraints = constraint;
+            DetachObject();
+
             var modelTrans = playerCont.modelAxis.transform;
-            box.GetComponent<Rigidbody>().AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
+
+            boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
+            cost = tierCosts[1];
         }
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
         return cost;
+    }
+
+    private void AttachObject() {
+        IsCarrying = true;
+        box.parent = playerCont.modelAxis;
+        constraint = boxRb.constraints;
+        boxRb.constraints = RigidbodyConstraints.FreezeAll;
+        box.localPosition = topPosition.localPosition;
+        box.GetComponent<CarryBox>().FirstPickUp = true;
+    }
+
+    private void DetachObject() {
+        box.parent = null;
+        IsCarrying = false;
+        boxRb.constraints = constraint;
     }
 
     public override int TierThree() {
