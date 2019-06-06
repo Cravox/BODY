@@ -20,6 +20,8 @@ public class Head : Limb {
     public override int TierOne() {
         List<MovingPlatform> pInDistance = GetPlatformColliders();
 
+        anim1.Play("anim", 0, 0);
+
         foreach (MovingPlatform t in pInDistance)
         {
             t.platCol.isTrigger = false;
@@ -27,7 +29,6 @@ public class Head : Limb {
 
         if (pInDistance.Count > 0)
         {
-            anim1.Play("anim", 0, 0);
             return tierCosts[0];
         }
 
@@ -49,6 +50,8 @@ public class Head : Limb {
     public override int TierThree() {
         List<StasisController> sInDistance = GetStasisObjects();
 
+        anim2.Play("anim", 0, 0);
+
         foreach (StasisController sc in sInDistance)
         {
             sc.StasisTrigger();
@@ -56,7 +59,6 @@ public class Head : Limb {
 
         if (sInDistance.Count > 0)
         {
-            anim2.Play("anim", 0, 0);
             return tierCosts[2];
         }
 
@@ -112,6 +114,19 @@ public class Head : Limb {
     }
 
     protected override void UpdateLimbUI() {
-
+        switch (chargeState)
+        {
+            case Enums.ChargeState.TIER_ONE:
+                limbText.text = "Send Energy";
+                break;
+            case Enums.ChargeState.TIER_TWO:
+                limbText.text = "Manipulate Energy";
+                break;
+            case Enums.ChargeState.TIER_THREE:
+                limbText.text = "Stasis";
+                break;
+            default:
+                break;
+        }
     }
 }

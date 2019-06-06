@@ -108,7 +108,7 @@ public class Arms : Limb {
                     limbText.text = "Throw";
                     break;
                 case Enums.ChargeState.TIER_THREE:
-                    limbText.text = "";
+                    limbText.text = "ArgumentNotImplementedException(call 911)";
                     break;
                 default:
                     break;

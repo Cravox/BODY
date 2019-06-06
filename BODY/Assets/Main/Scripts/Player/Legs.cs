@@ -92,8 +92,32 @@ public class Legs : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        if (playerCont.isGrounded) {
-            limbText.text = "Jump";
+        switch (chargeState)
+        {
+            case Enums.ChargeState.TIER_ONE:
+                if (playerCont.isGrounded)
+                    limbText.text = "Jump";
+                else if (!playerCont.isGrounded && !doubleJumping)
+                    limbText.text = "Double Jump";
+                else
+                    limbText.text = "";
+                break;
+            case Enums.ChargeState.TIER_TWO:
+                if (!playerCont.isGrounded && wallJump)
+                    limbText.text = "Wall Jump";
+                else
+                    limbText.text = "";
+                break;
+            case Enums.ChargeState.TIER_THREE:
+                if (!playerCont.isGrounded && hover)
+                    limbText.text = "End Hover";
+                else if (!playerCont.isGrounded && !hover)
+                    limbText.text = "Start Hover";
+                else
+                    limbText.text = "";
+                break;
+            default:
+                break;
         }
     }
 }
