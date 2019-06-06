@@ -19,6 +19,9 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
     private float throwForce = 5;
 
+    [SerializeField, TabGroup("Balancing")]
+    private float upForce = 5;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -89,8 +92,8 @@ public class Arms : Limb {
             box.parent = null;
             IsCarrying = false;
             boxRb.constraints = constraint;
-            var modelTrans = playerCont.modelAxis.transform.localRotation.eulerAngles;
-            box.GetComponent<Rigidbody>().AddForce(playerCont.modelAxis.transform.forward * throwForce);
+            var modelTrans = playerCont.modelAxis.transform;
+            box.GetComponent<Rigidbody>().AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
         }
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
         return cost;
