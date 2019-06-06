@@ -7,8 +7,12 @@ using Sirenix.OdinInspector;
 // head, arms and legs inherit from limb
 [RequireComponent(typeof(PlayerController))]
 public abstract class Limb : SerializedMonoBehaviour {
+    [SerializeField, TabGroup("References"), Required]
+    protected Text limbText;
+
+    public Enums.ChargeState chargeState;
+
     protected PlayerController playerCont;
-    public bool FullyCharged { get; set; }
     public bool IsInteracting;
 
     [SerializeField, TabGroup("Balancing"), Tooltip("From top to bottom: TierOne, TierTwo, TierThree")]
@@ -21,12 +25,14 @@ public abstract class Limb : SerializedMonoBehaviour {
 
     protected void Update() {
         LimbUpdate();
+        UpdateLimbUI();
     }
 
     public abstract int TierOne();
     public abstract int TierTwo();
     public abstract int TierThree();
 
+    protected abstract void UpdateLimbUI();
     protected abstract void LimbUpdate();
     protected abstract void LimbStart();
 }

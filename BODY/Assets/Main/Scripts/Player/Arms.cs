@@ -50,12 +50,9 @@ public class Arms : Limb {
 
         var interactable = false;
         if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
-            interactUI.SetImageActive(hit.transform.gameObject.tag);
             interactable = true;
             box = hit.transform;
             boxRb = box.GetComponent<Rigidbody>();
-        } else {
-            interactUI.SetImageInactive();
         }
 
         return interactable;
@@ -92,6 +89,33 @@ public class Arms : Limb {
         return cost;
     }
 
+    public override int TierThree() {
+        // tbd
+        return tierCosts[2];
+    }
+
+    protected override void UpdateLimbUI() {
+        if (canInteract && box.CompareTag("Carry")) {
+            limbText.text = "Pick up";
+        } else if (canInteract && box.CompareTag("Push")) {
+            limbText.text = "Push";
+        } else if (IsCarrying) {
+            switch (chargeState) {
+                case Enums.ChargeState.TIER_ONE:
+                    limbText.text = "Drop";
+                    break;
+                case Enums.ChargeState.TIER_TWO:
+                    limbText.text = "Throw";
+                    break;
+                case Enums.ChargeState.TIER_THREE:
+                    limbText.text = "";
+                    break;
+                default:
+                    break;
+            }
+        } else limbText.text = "";
+    }
+
     private void AttachObject() {
         IsCarrying = true;
         box.parent = playerCont.modelAxis;
@@ -105,10 +129,5 @@ public class Arms : Limb {
         box.parent = null;
         IsCarrying = false;
         boxRb.constraints = constraint;
-    }
-
-    public override int TierThree() {
-        // tbd
-        return tierCosts[2];
     }
 }

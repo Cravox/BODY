@@ -4,7 +4,6 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Head : Limb {
-
     [TabGroup("Balancing")]
     public float maxDistancePlatform;
     [TabGroup("Balancing")]
@@ -109,6 +108,10 @@ public class Head : Limb {
     }
 
     protected override void LimbUpdate() {
+
+    }
+
+    protected override void UpdateLimbUI() {
 
     }
 }

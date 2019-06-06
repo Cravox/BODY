@@ -30,13 +30,11 @@ public class Legs : Limb {
     private bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
 
     public override int TierOne() {
-        if (!playerCont.isGrounded && !doubleJumping && !hover)
-        {
+        if (!playerCont.isGrounded && !doubleJumping && !hover) {
             playerCont.JumpOnce(dJumpSpeed, false, 1);
             doubleJumping = true;
             return tierCosts[0];
-        }
-        else if (playerCont.isGrounded && !jumping && !hover) {
+        } else if (playerCont.isGrounded && !jumping && !hover) {
             Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
             playerCont.JumpOnce(jumpSpeed, true, 0);
             jumping = true;
@@ -46,8 +44,7 @@ public class Legs : Limb {
     }
 
     public override int TierTwo() {
-        if (!playerCont.isGrounded && wallJump && !hover)
-        {
+        if (!playerCont.isGrounded && wallJump && !hover) {
             playerCont.StopAllForces(); //stop all forces to make walljump clean
             playerCont.JumpOnce(wJumpSpeed, false, 2);
             wallJumping = true;
@@ -59,8 +56,7 @@ public class Legs : Limb {
     public override int TierThree() {
         // hover
 
-        if (!playerCont.isGrounded)
-        {
+        if (!playerCont.isGrounded) {
             playerCont.StopAllForces();
             playerCont.rigid.velocity = Vector3.zero;
             hover = !hover;
@@ -80,18 +76,24 @@ public class Legs : Limb {
 
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
         {
-                jumping = false;
-                doubleJumping = false;
-                wallJumping = false;
-                hover = false;
+            jumping = false;
+            doubleJumping = false;
+            wallJumping = false;
+            hover = false;
         }
 
         playerCont.hovering = hover;
 
-        playerCont.rigid.constraints = 
-            (hover ? RigidbodyConstraints.FreezePositionY : RigidbodyConstraints.None) 
-            | RigidbodyConstraints.FreezeRotationX 
-            | RigidbodyConstraints.FreezeRotationY 
+        playerCont.rigid.constraints =
+            (hover ? RigidbodyConstraints.FreezePositionY : RigidbodyConstraints.None)
+            | RigidbodyConstraints.FreezeRotationX
+            | RigidbodyConstraints.FreezeRotationY
             | RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    protected override void UpdateLimbUI() {
+        if (playerCont.isGrounded) {
+            limbText.text = "Jump";
+        }
     }
 }

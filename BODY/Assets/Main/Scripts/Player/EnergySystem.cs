@@ -50,10 +50,13 @@ public class EnergySystem : SerializedMonoBehaviour {
         rightTriggerInput = Input.GetAxis("RightTrigger");
 
         if(rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
+            SetLimbState(Enums.ChargeState.TIER_THREE);
             stateText.text = stateString[2];
         } else if (leftTriggerInput >= 0.9f) {
+            SetLimbState(Enums.ChargeState.TIER_TWO);
             stateText.text = stateString[1];
         } else {
+            SetLimbState(Enums.ChargeState.TIER_ONE);
             stateText.text = stateString[0];
         }
 
@@ -71,6 +74,12 @@ public class EnergySystem : SerializedMonoBehaviour {
         //var limb = PlayerLimbs[(int)myIndex];
 
         UpdateEnergyUI();
+    }
+
+    void SetLimbState(Enums.ChargeState cs) {
+        foreach (Limb limb in PlayerLimbs) {
+            limb.chargeState = cs;
+        }
     }
 
     void UpdateEnergyUI() {
