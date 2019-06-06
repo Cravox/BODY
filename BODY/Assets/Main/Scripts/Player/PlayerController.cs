@@ -48,7 +48,7 @@ public class PlayerController : SerializedMonoBehaviour
     [TabGroup("Debugging"), SerializeField]
     public bool isGrounded;
     [TabGroup("Debugging"), SerializeField]
-    public bool stopGravity;
+    public bool hovering;
     [TabGroup("Debugging"), SerializeField]
     public Rigidbody platform;
     [TabGroup("Debugging"), SerializeField]
@@ -58,6 +58,8 @@ public class PlayerController : SerializedMonoBehaviour
     [TabGroup("Debugging"), SerializeField]
     public float modelRot;
     Vector3 platformNoY;
+
+    public bool stopGravity { get { return (hovering); } }
 
     void Awake()
     {
@@ -106,11 +108,11 @@ public class PlayerController : SerializedMonoBehaviour
         moveForce = camRight * inputAxis.x + camFwd * inputAxis.y;
 
         //set velocity including speed to rigidbody, is velocity forward?
-        float currentSpeed = (isGrounded ? walkSpeed : airSpeed);
+        float currentSpeed = ((isGrounded || hovering) ? walkSpeed : airSpeed);
         rigid.velocity = new Vector3(moveForce.x * currentSpeed, rigid.velocity.y, moveForce.z * currentSpeed) + extraForce;
 
         //prevent model from returning rotation to zero
-        Vector3 walkVel = new Vector3(rigid.velocity.x, 0 , rigid.velocity.z) - platformNoY;
+        Vector3 walkVel = new Vector3(rigid.velocity.x, 0, rigid.velocity.z) - platformNoY;
         if (walkVel.magnitude >= 0.1f)
             lastForce = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
 
@@ -119,7 +121,7 @@ public class PlayerController : SerializedMonoBehaviour
         modelAxis.localRotation = Quaternion.RotateTowards(modelAxis.localRotation, Quaternion.Euler(new Vector3(0, modelRot, 0)), 20f);
     }
 
-    public void JumpOnce(Vector3 jumpForce, bool regular)
+    public void JumpOnce(Vector3 jumpForce, bool regular, int forceId)
     {
         rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
 
@@ -150,11 +152,29 @@ public class PlayerController : SerializedMonoBehaviour
             platform = null;
     }
 
-    public void AddForce(Vector3 targetForce, float decay, bool isImpulse, bool endOnGround)
+    public void AddForce(int id, Vector3 targetForce, float decay, bool isImpulse, bool endOnGround)
     {
-        forces.Add(new PlayerForce(targetForce, decay, isImpulse, endOnGround));
+        forces.Add(new PlayerForce(id, targetForce, decay, isImpulse, endOnGround));
     }
 
+    public void AddForce(Vector3 targetForce, float decay, bool isImpulse, bool endOnGround)
+    {
+        forces.Add(new PlayerForce(0, targetForce, decay, isImpulse, endOnGround));
+    }
+    public void StopAllForces()
+    {
+        foreach (PlayerForce pf in forces)
+            pf.Stop();
+    }
+
+    public void StopForces(int id)
+    {
+        foreach(PlayerForce f in forces)
+        {
+            if (f.typeId == id)
+                f.Stop();
+        }
+    }
     void Forces()
     {
         //do not apply any forces when empty
@@ -222,6 +242,7 @@ public class PlayerController : SerializedMonoBehaviour
 [System.Serializable]
 public class PlayerForce
 {
+    public int typeId;
     public Vector3 initialForce;
     public Vector3 force;
     public float decay;
@@ -231,8 +252,9 @@ public class PlayerForce
     public bool cancelOnGround;
     public bool running { get { return (this.force != Vector3.zero); } }
 
-    public PlayerForce(Vector3 force, float decay, bool impulse, bool cancelOnGround)
+    public PlayerForce(int typeId, Vector3 force, float decay, bool impulse, bool cancelOnGround)
     {
+        this.typeId = typeId;
         this.initialForce = force;
         this.force = force;
         this.decay = decay;

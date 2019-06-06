@@ -12,6 +12,9 @@ public class Legs : Limb {
     [TabGroup("Balancing")]
     public float wJumpDistanceToWall = 1f;
 
+    [TabGroup("References")]
+    public LayerMask rMask;
+
     [TabGroup("Debugging")]
     public bool jumping;
     [TabGroup("Debugging")]
@@ -21,31 +24,48 @@ public class Legs : Limb {
 
     [TabGroup("Debugging")]
     public Transform wallRay;
-    public bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
-    public LayerMask rMask;
-    public RaycastHit[] r;
+
+    public bool hover;
+
+    private bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
 
     public override int TierOne() {
-        if (playerCont.isGrounded && !jumping) {
-            Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
-            playerCont.JumpOnce(jumpSpeed, true);
-            jumping = true;
-        } else if (!playerCont.isGrounded && !doubleJumping && !wallJump) {
-            playerCont.JumpOnce(dJumpSpeed, false);
+        if (!playerCont.isGrounded && !doubleJumping && !hover)
+        {
+            playerCont.JumpOnce(dJumpSpeed, false, 1);
             doubleJumping = true;
             return tierCosts[0];
         }
+        else if (playerCont.isGrounded && !jumping && !hover) {
+            Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
+            playerCont.JumpOnce(jumpSpeed, true, 0);
+            jumping = true;
+        }
+
         return 0;
     }
 
     public override int TierTwo() {
-
-        // walljump (atm)
-        if (!playerCont.isGrounded && !wallJumping && wallJump) {
-            playerCont.JumpOnce(wJumpSpeed, false);
+        if (!playerCont.isGrounded && wallJump && !hover)
+        {
+            playerCont.StopAllForces(); //stop all forces to make walljump clean
+            playerCont.JumpOnce(wJumpSpeed, false, 2);
             wallJumping = true;
             return tierCosts[1];
         }
+        return 0;
+    }
+
+    public override int TierThree() {
+        // hover
+
+        if (!playerCont.isGrounded)
+        {
+            playerCont.StopAllForces();
+            playerCont.rigid.velocity = Vector3.zero;
+            hover = !hover;
+        }
+
         return 0;
 
         //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
@@ -68,6 +88,15 @@ public class Legs : Limb {
                 jumping = false;
                 doubleJumping = false;
                 wallJumping = false;
+                hover = false;
         }
+
+        playerCont.hovering = hover;
+
+        playerCont.rigid.constraints = 
+            (hover ? RigidbodyConstraints.FreezePositionY : RigidbodyConstraints.None) 
+            | RigidbodyConstraints.FreezeRotationX 
+            | RigidbodyConstraints.FreezeRotationY 
+            | RigidbodyConstraints.FreezeRotationZ;
     }
 }
