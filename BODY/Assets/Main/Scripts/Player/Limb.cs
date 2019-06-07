@@ -10,6 +10,7 @@ public abstract class Limb : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References"), Required]
     protected Text limbText;
 
+    [HideInInspector]
     public Enums.ChargeState chargeState;
 
     protected PlayerController playerCont;

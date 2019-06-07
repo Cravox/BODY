@@ -219,8 +219,7 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 9071744388173341594, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 9071744388173341594, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: dJumpSpeed.z
@@ -231,11 +230,17 @@ PrefabInstance:
       propertyPath: limbText
       value: 
       objectReference: {fileID: 1231178430}
+    - target: {fileID: 9071744388173341594, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
+      propertyPath: timeToHover
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6996675974615068665, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6996675974615068665, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
     - target: {fileID: 6996675974615068665, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: interactUI
@@ -265,7 +270,8 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 940651021042444897, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
+        type: 3}
     - target: {fileID: 940651021042444897, guid: fdf05a2ae6552274eb51cf3718e8d3f4,
         type: 3}
       propertyPath: platforms.Array.data[0]
@@ -1439,22 +1445,22 @@ PrefabInstance:
     - target: {fileID: 3576558733759711705, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14285108
+      value: 0.14285155
       objectReference: {fileID: 0}
     - target: {fileID: 3576558733759711705, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000031631615
+      value: 0.0000000031631684
       objectReference: {fileID: 0}
     - target: {fileID: 3576558733759711705, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000014982598
+      value: -0.000000014982703
       objectReference: {fileID: 0}
     - target: {fileID: 3576558733759711705, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9897442
+      value: 0.9897441
       objectReference: {fileID: 0}
     - target: {fileID: 3576558733759711705, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
@@ -1469,17 +1475,17 @@ PrefabInstance:
     - target: {fileID: 3576558734520268375, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.108671054
+      value: 0.10867113
       objectReference: {fileID: 0}
     - target: {fileID: 3576558734520268375, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000005359345
+      value: 0.00000005359334
       objectReference: {fileID: 0}
     - target: {fileID: 3576558734520268375, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000023897863
+      value: -0.000000023897856
       objectReference: {fileID: 0}
     - target: {fileID: 3576558734520268375, guid: a0d20bc4e879d8244981fa2378db19a0,
         type: 3}
@@ -1604,12 +1610,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 307527634}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1349650958 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1021018360061927067, guid: ec1c75c116c1a9548ab6eceb511b528a,
-    type: 3}
-  m_PrefabInstance: {fileID: 307527634}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1349650961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,9 +1622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbe2ca177147874fa3e4711c063a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StasisTime: 0
-  Triggered: 0
-  rigid: {fileID: 1349650958}
   isPlatform: 1
 --- !u!1 &1350904893
 GameObject:
@@ -1736,12 +1733,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1302275623}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1618022161 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1625918249, guid: 201192f016aa2cb4d820c5a4ec40bdd7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1302275623}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1618022166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1754,9 +1745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbe2ca177147874fa3e4711c063a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StasisTime: 0
-  Triggered: 0
-  rigid: {fileID: 1618022161}
   isPlatform: 0
 --- !u!1 &1628856167
 GameObject:
