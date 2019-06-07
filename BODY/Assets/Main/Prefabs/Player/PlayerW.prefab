@@ -451,6 +451,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  limbText: {fileID: 0}
+  chargeState: 0
   IsInteracting: 0
   tierCosts: 050000000a0000000f000000
   dJumpSpeed: {x: 0, y: 5, z: 5}
@@ -485,6 +487,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  limbText: {fileID: 0}
+  chargeState: 0
   IsInteracting: 0
   tierCosts: 050000000a0000000f000000
   interactUI: {fileID: 0}
@@ -492,6 +496,9 @@ MonoBehaviour:
   topPosition: {fileID: 2025864847}
   frontPosition: {fileID: 1883752840}
   throwForce: 300
+  upForce: 5
+  pushForce: 1000
+  rayTrans: {fileID: 1796004482}
   IsCarrying: 0
 --- !u!114 &940651021042444897
 MonoBehaviour:
@@ -514,10 +521,16 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  limbText: {fileID: 0}
+  chargeState: 0
   IsInteracting: 0
   tierCosts: 050000000a0000000f000000
   maxDistancePlatform: 0
   maxDistanceStasis: 0
+  maxStasisTime: 0
+  anim1: {fileID: 0}
+  anim2: {fileID: 0}
+  activatedPlatforms: []
 --- !u!114 &4502315206112840769
 MonoBehaviour:
   m_ObjectHideFlags: 0

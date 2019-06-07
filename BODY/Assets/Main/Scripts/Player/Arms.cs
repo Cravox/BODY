@@ -25,6 +25,9 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
     private float pushForce = 1000;
 
+    [SerializeField, TabGroup("References")]
+    private Transform rayTrans;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -47,9 +50,8 @@ public class Arms : Limb {
     }
 
     private bool CheckForInteractable() {
-        ray.origin = transform.position;
+        ray.origin = rayTrans.position;
         ray.direction = playerCont.modelAxis.forward;
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 1);
 
         var interactable = false;
         if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
