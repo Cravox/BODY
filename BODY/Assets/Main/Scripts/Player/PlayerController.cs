@@ -146,7 +146,14 @@ public class PlayerController : SerializedMonoBehaviour
 
         isGrounded = (isGroundedOn.Length > 0);
 
-        if (isGrounded && isGroundedOn[0].gameObject.tag == "MovingPlatform")
+        string tag = "";
+
+        if (isGrounded)
+            tag = isGroundedOn[0].gameObject.tag;
+        else
+            tag = "";
+
+        if (tag == "MovingPlatform" || tag == "Carry")
             platform = isGroundedOn[0].gameObject.GetComponentInParent<Rigidbody>();
         else
             platform = null;

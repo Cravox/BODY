@@ -11,6 +11,8 @@ public class Legs : Limb {
     public Vector3 wJumpSpeed;
     [TabGroup("Balancing")]
     public float wJumpDistanceToWall = 1f;
+    [TabGroup("Balancing"), Header("Hover")]
+    public float timeToHover;
 
     [TabGroup("References")]
     public LayerMask rMask;
@@ -26,6 +28,9 @@ public class Legs : Limb {
     public Transform wallRay;
     [TabGroup("Debugging")]
     public bool hover;
+
+    private bool hasHovered;
+    private Coroutine hoverCoroutine;
 
     private bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
 
@@ -56,15 +61,30 @@ public class Legs : Limb {
     public override int TierThree() {
         // hover
 
-        if (!playerCont.isGrounded) {
+        if (!playerCont.isGrounded && !hasHovered)
+        {
             playerCont.StopAllForces();
             playerCont.rigid.velocity = Vector3.zero;
-            hover = !hover;
+            hoverCoroutine = StartCoroutine(hoverTime(timeToHover));
+            hasHovered = true;
         }
+        else
+            StopHover();
 
         return 0;
 
         //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
+    }
+    void StopHover()
+    {
+        StopCoroutine(hoverCoroutine);
+        hover = false;
+    }
+    IEnumerator hoverTime(float t)
+    {
+        hover = true;
+        yield return new WaitForSeconds(t);
+        hover = false;
     }
 
     protected override void LimbStart() {
@@ -79,7 +99,11 @@ public class Legs : Limb {
             jumping = false;
             doubleJumping = false;
             wallJumping = false;
-            hover = false;
+
+            if (hoverCoroutine != null)
+                StopHover();
+
+            hasHovered = false;
         }
 
         playerCont.hovering = hover;
@@ -111,7 +135,7 @@ public class Legs : Limb {
             case Enums.ChargeState.TIER_THREE:
                 if (!playerCont.isGrounded && hover)
                     limbText.text = "End Hover";
-                else if (!playerCont.isGrounded && !hover)
+                else if (!playerCont.isGrounded && !hover && !hasHovered)
                     limbText.text = "Start Hover";
                 else
                     limbText.text = "";
