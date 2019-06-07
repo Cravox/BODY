@@ -32,9 +32,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         maxEnergy = energyPoints;
-        stateString[0] = "TIER_ONE";
-        stateString[1] = "TIER_TWO";
-        stateString[2] = "TIER_THREE";
         stateImage.enabled = true;
     }
 
@@ -49,29 +46,25 @@ public class EnergySystem : SerializedMonoBehaviour {
         leftTriggerInput = Input.GetAxis("LeftTrigger");
         rightTriggerInput = Input.GetAxis("RightTrigger");
 
-        if(rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
+        if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
             SetLimbState(Enums.ChargeState.TIER_THREE);
-            stateText.text = stateString[2];
         } else if (leftTriggerInput >= 0.9f) {
             SetLimbState(Enums.ChargeState.TIER_TWO);
-            stateText.text = stateString[1];
         } else {
             SetLimbState(Enums.ChargeState.TIER_ONE);
-            stateText.text = stateString[0];
         }
 
-        if(myIndex != null) {
-            if (rightTriggerInput >= 0.9f) {
-                energyPoints -= PlayerLimbs[(int)myIndex].TierThree();
-            } else if (leftTriggerInput >= 0.9f) {
-                energyPoints -= PlayerLimbs[(int)myIndex].TierTwo();
-            } else {
-                energyPoints -= PlayerLimbs[(int)myIndex].TierOne();
-            }
-        }
+        if (myIndex == null) return;
 
-        //if (myIndex == null) return;
-        //var limb = PlayerLimbs[(int)myIndex];
+        var limb = PlayerLimbs[(int)myIndex];
+
+        if (limb.chargeState == Enums.ChargeState.TIER_THREE) {
+            energyPoints -= limb.TierThree();
+        } else if (limb.chargeState == Enums.ChargeState.TIER_TWO) {
+            energyPoints -= limb.TierTwo();
+        } else {
+            energyPoints -= limb.TierOne();
+        }
 
         UpdateEnergyUI();
     }

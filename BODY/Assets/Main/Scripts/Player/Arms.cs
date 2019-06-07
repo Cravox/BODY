@@ -22,6 +22,9 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
     private float upForce = 5;
 
+    [SerializeField, TabGroup("Balancing")]
+    private float pushForce = 1000;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -91,13 +94,14 @@ public class Arms : Limb {
 
     public override int TierThree() {
         // tbd
+        boxRb.AddForce(playerCont.modelAxis.transform.forward * pushForce);
         return tierCosts[2];
     }
 
     protected override void UpdateLimbUI() {
-        if (canInteract && box.CompareTag("Carry")) {
+        if (canInteract && box.CompareTag("Carry") && chargeState == Enums.ChargeState.TIER_ONE) {
             limbText.text = "Pick up";
-        } else if (canInteract && box.CompareTag("Push")) {
+        } else if (canInteract && box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_THREE) {
             limbText.text = "Push";
         } else if (IsCarrying) {
             switch (chargeState) {
@@ -108,7 +112,7 @@ public class Arms : Limb {
                     limbText.text = "Throw";
                     break;
                 case Enums.ChargeState.TIER_THREE:
-                    limbText.text = "ArgumentNotImplementedException(call 911)";
+                    limbText.text = "";
                     break;
                 default:
                     break;

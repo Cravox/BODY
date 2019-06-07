@@ -39,6 +39,8 @@ public class MovingPlatform : SerializedMonoBehaviour
     public bool stasis = false;
     public bool stop = true;
 
+    public bool isActive { get { return !platCol.isTrigger; } }
+
     [HideInInspector]
     public Collider platCol;
 

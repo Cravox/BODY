@@ -9,26 +9,28 @@ public class Head : Limb {
     [TabGroup("Balancing")]
     public float maxDistanceStasis;
 
+    [SerializeField, TabGroup("Balancing")]
+    private float maxStasisTime;
+
     [TabGroup("References")]
     public Animator anim1;
     [TabGroup("References")]
     public Animator anim2;
 
-    [TabGroup("Debugging")]
-    List<MovingPlatform> platforms = new List<MovingPlatform>();
+    [TabGroup("Debugging"), SerializeField]
+    private List<MovingPlatform> activatedPlatforms = new List<MovingPlatform>();
+
+    private List<MovingPlatform> pInDistance;
 
     public override int TierOne() {
-        List<MovingPlatform> pInDistance = GetPlatformColliders();
-
         anim1.Play("anim", 0, 0);
 
-        foreach (MovingPlatform t in pInDistance)
-        {
-            t.platCol.isTrigger = false;
+        foreach (MovingPlatform platform in pInDistance) {
+            platform.platCol.isTrigger = false;
+            activatedPlatforms.Add(platform);
         }
 
-        if (pInDistance.Count > 0)
-        {
+        if (pInDistance.Count > 0) {
             return tierCosts[0];
         }
 
@@ -36,13 +38,14 @@ public class Head : Limb {
     }
 
     public override int TierTwo() {
-        foreach (MovingPlatform t in platforms)
-        {
+        foreach (MovingPlatform t in activatedPlatforms) {
             t.stop = false;
         }
 
-        if (platforms.Count > 0)
+        if (activatedPlatforms.Count > 0) {
+            activatedPlatforms.Clear();
             return tierCosts[1];
+        }
 
         return 0;
     }
@@ -52,52 +55,46 @@ public class Head : Limb {
 
         anim2.Play("anim", 0, 0);
 
-        foreach (StasisController sc in sInDistance)
-        {
-            sc.StasisTrigger();
+        foreach (StasisController sc in sInDistance) {
+            sc.StartCoroutine(sc.Stasis(maxStasisTime));
         }
 
-        if (sInDistance.Count > 0)
-        {
+        if (sInDistance.Count > 0) {
             return tierCosts[2];
         }
 
         return 0;
     }
 
-    List<MovingPlatform> GetPlatformColliders()
-    {
+    List<MovingPlatform> GetPlatformColliders() {
         List<MovingPlatform> t = new List<MovingPlatform>();
 
         Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform, LayerMask.GetMask("Platform"));
 
-        foreach(Collider c in raySphere)
-        {
-            if (c.tag == "MovingPlatform")
-            {
+        if (raySphere.Length <= 0) return t;
+
+        foreach (Collider c in raySphere) {
+            if (c.tag == "MovingPlatform" && !c.GetComponent<MovingPlatform>().isActive) {
                 MovingPlatform mp = c.GetComponent<MovingPlatform>();
                 t.Add(mp);
 
-                if (!platforms.Contains(mp))
-                    platforms.Add(mp);
+                //if (!platforms.Contains(mp))
+                //    platforms.Add(mp);
             }
         }
 
         return t;
     }
 
-    List<StasisController> GetStasisObjects()
-    {
+    List<StasisController> GetStasisObjects() {
         List<StasisController> sc = new List<StasisController>();
 
         Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform);
 
-        foreach (Collider c in raySphere)
-        {
+        foreach (Collider c in raySphere) {
             StasisController s = c.GetComponent<StasisController>();
 
-            if (s != null)
-            {
+            if (s != null) {
                 sc.Add(s);
             }
         }
@@ -110,17 +107,24 @@ public class Head : Limb {
     }
 
     protected override void LimbUpdate() {
-
+        pInDistance = GetPlatformColliders();
     }
 
     protected override void UpdateLimbUI() {
-        switch (chargeState)
-        {
+        switch (chargeState) {
             case Enums.ChargeState.TIER_ONE:
-                limbText.text = "Send Energy";
+                if (pInDistance.Count > 0) {
+                    limbText.text = "Send Energy";
+                } else {
+                    limbText.text = "";
+                }
                 break;
             case Enums.ChargeState.TIER_TWO:
-                limbText.text = "Manipulate Energy";
+                if(activatedPlatforms.Count > 0) {
+                    limbText.text = "Manipulate Energy";
+                } else {
+                    limbText.text = "";
+                }
                 break;
             case Enums.ChargeState.TIER_THREE:
                 limbText.text = "Stasis";
