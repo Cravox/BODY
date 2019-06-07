@@ -13,7 +13,6 @@ public abstract class Limb : SerializedMonoBehaviour {
     public Enums.ChargeState chargeState;
 
     protected PlayerController playerCont;
-    public bool IsInteracting;
 
     [SerializeField, TabGroup("Balancing"), Tooltip("From top to bottom: TierOne, TierTwo, TierThree")]
     protected int[] tierCosts = new int[3];

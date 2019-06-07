@@ -5,9 +5,6 @@ using Sirenix.OdinInspector;
 
 public class Arms : Limb {
     [SerializeField]
-    private InteractableUI interactUI;
-
-    [SerializeField]
     private float interactRange = 1;
 
     [SerializeField, TabGroup("References")]
@@ -28,12 +25,13 @@ public class Arms : Limb {
     [SerializeField, TabGroup("References")]
     private Transform rayTrans;
 
+    [SerializeField, TabGroup("Debugging")]
+    private Transform box;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
     private Rigidbody boxRb;
-
-    private Transform box;
 
     [HideInInspector]
     public bool IsCarrying;
@@ -74,7 +72,6 @@ public class Arms : Limb {
             DetachObject();
         }
 
-        IsInteracting = IsCarrying;
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
         return cost;
     }

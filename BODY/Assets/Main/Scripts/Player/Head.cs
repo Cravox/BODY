@@ -66,7 +66,7 @@ public class Head : Limb {
         return 0;
     }
 
-    List<MovingPlatform> GetPlatformColliders() {
+    private List<MovingPlatform> GetPlatformColliders() {
         List<MovingPlatform> t = new List<MovingPlatform>();
 
         Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform, LayerMask.GetMask("Platform"));
@@ -86,7 +86,7 @@ public class Head : Limb {
         return t;
     }
 
-    List<StasisController> GetStasisObjects() {
+    private List<StasisController> GetStasisObjects() {
         List<StasisController> sc = new List<StasisController>();
 
         Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform);

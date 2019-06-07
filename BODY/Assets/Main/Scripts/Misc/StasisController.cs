@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class StasisController : MonoBehaviour
 {
-    public float StasisTime;
+    private Rigidbody rigid;
 
-    private float stasisTimer = 0;
-
-    public bool Triggered = false;
-
-    public Rigidbody rigid;
     private Vector3 savedVelocity;
     public bool isPlatform;
+
+    private void Start() {
+        rigid = GetComponent<Rigidbody>();
+    }
 
     public IEnumerator Stasis(float stasisTime) {
         savedVelocity = rigid.velocity;
