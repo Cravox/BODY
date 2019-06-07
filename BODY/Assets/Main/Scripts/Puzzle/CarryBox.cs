@@ -5,17 +5,20 @@ using UnityEngine;
 public class CarryBox : MonoBehaviour {
     [SerializeField]
     private bool isTrigger;
+    private Rigidbody rigid;
+    public CollisionField groundTrigger;
 
     [HideInInspector]
     public bool FirstPickUp = false;
     private bool pickedUp = false;
+    public MovingPlatform platformOn;
 
     [SerializeField]
     private List<Door> triggeredObjects;
 
     // Start is called before the first frame update
     void Start() {
-
+        rigid = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -26,5 +29,15 @@ public class CarryBox : MonoBehaviour {
                 pickedUp = true;
             }
         }
+
+        if(platformOn != null)
+            rigid.velocity = platformOn.rigid.velocity;
+
+        if (groundTrigger.obj != null && groundTrigger.obj.gameObject.tag == "MovingPlatform")
+        {
+            platformOn = groundTrigger.obj.gameObject.GetComponent<MovingPlatform>();
+        }
+        else
+            platformOn = null;
     }
 }
