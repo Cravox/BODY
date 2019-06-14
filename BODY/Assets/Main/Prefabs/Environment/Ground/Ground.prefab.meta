@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:BODY/Assets/Main/Prefabs/Environment/Ground/Ground.prefab.meta
 guid: 67a93e478ec85244da7aa5f0f36f4377
 PrefabImporter:
+=======
+guid: 896a014074dc6db4b80042b7f5f2bd8d
+folderAsset: yes
+DefaultImporter:
+>>>>>>> Daniel:BODY/Assets/Main/Meshes/Character.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
