@@ -5,19 +5,39 @@ using UnityEngine;
 public class StasisController : MonoBehaviour
 {
     private Rigidbody rigid;
+    private MovingPlatform platform;
 
     private Vector3 savedVelocity;
+    private RigidbodyConstraints constrains;
     public bool isPlatform;
+    
 
     private void Start() {
         rigid = GetComponent<Rigidbody>();
+
+        if (isPlatform)
+            platform = GetComponent<MovingPlatform>();
     }
 
     public IEnumerator Stasis(float stasisTime) {
         savedVelocity = rigid.velocity;
+
         rigid.isKinematic = true;
+        //constrains = rigid.constraints;
+        //rigid.constraints = RigidbodyConstraints.FreezeAll;
+
+        if (isPlatform)
+            platform.stasis = true;
+
         yield return new WaitForSecondsRealtime(stasisTime);
-        rigid.isKinematic = false;
+
+        if (isPlatform)
+            platform.stasis = false;
+        else
+            rigid.isKinematic = false;
+
+        //rigid.constraints = constrains;
+
         rigid.velocity = savedVelocity;
     }
 }

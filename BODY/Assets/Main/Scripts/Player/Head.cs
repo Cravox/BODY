@@ -63,6 +63,8 @@ public class Head : Limb {
             return tierCosts[2];
         }
 
+        playerCont.modelAnim.Play("Dance");
+
         return 0;
     }
 
