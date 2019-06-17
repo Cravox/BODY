@@ -44,7 +44,11 @@ public class Arms : Limb {
     }
 
     protected override void LimbUpdate() {
-        canInteract = CheckForInteractable();
+        if (!IsCarrying) {
+            canInteract = CheckForInteractable();
+        } else {
+            canInteract = false;
+        }
     }
 
     private bool CheckForInteractable() {
@@ -62,7 +66,6 @@ public class Arms : Limb {
     }
 
     public override int TierOne() {
-        playerCont.rigid.velocity = Vector3.zero;
         int cost = 0;
         if (canInteract && box.CompareTag("Carry")) {
             AttachObject();
@@ -77,7 +80,6 @@ public class Arms : Limb {
     }
 
     public override int TierTwo() {
-        playerCont.rigid.velocity = Vector3.zero;
         int cost = 0;
         if (IsCarrying) {
             DetachObject();
