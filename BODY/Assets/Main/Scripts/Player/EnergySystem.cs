@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
 public class EnergySystem : SerializedMonoBehaviour {
-    [SerializeField, TabGroup("Balancing")]
-    private int energyPoints = 100;
+    [TabGroup("Balancing")]
+    public int EnergyPoints = 100;
 
     [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs"), TabGroup("References")]
     public Limb[] PlayerLimbs = new Limb[3];
@@ -24,14 +24,12 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     private float leftTriggerInput;
     private float rightTriggerInput;
-
-    private delegate void TierMethod();
-
+    
     private string[] stateString = new string[3];
 
     // Start is called before the first frame update
     void Start() {
-        maxEnergy = energyPoints;
+        maxEnergy = EnergyPoints;
         stateImage.enabled = true;
     }
 
@@ -59,11 +57,11 @@ public class EnergySystem : SerializedMonoBehaviour {
         var limb = PlayerLimbs[(int)myIndex];
 
         if (limb.chargeState == Enums.ChargeState.TIER_THREE) {
-            energyPoints -= limb.TierThree();
+            EnergyPoints -= limb.TierThree();
         } else if (limb.chargeState == Enums.ChargeState.TIER_TWO) {
-            energyPoints -= limb.TierTwo();
+            EnergyPoints -= limb.TierTwo();
         } else {
-            energyPoints -= limb.TierOne();
+            EnergyPoints -= limb.TierOne();
         }
 
         UpdateEnergyUI();
@@ -76,6 +74,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void UpdateEnergyUI() {
-        energyText.text = "Energy State: " + energyPoints + "%";
+        energyText.text = "Energy State: " + EnergyPoints + "%";
     }
 }

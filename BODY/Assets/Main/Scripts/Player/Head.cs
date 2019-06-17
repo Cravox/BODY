@@ -79,9 +79,6 @@ public class Head : Limb {
             if (c.tag == "MovingPlatform" && !c.GetComponent<MovingPlatform>().isActive) {
                 MovingPlatform mp = c.GetComponent<MovingPlatform>();
                 t.Add(mp);
-
-                //if (!platforms.Contains(mp))
-                //    platforms.Add(mp);
             }
         }
 

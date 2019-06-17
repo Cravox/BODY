@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -94,9 +94,13 @@ public class Arms : Limb {
     }
 
     public override int TierThree() {
-        // tbd
-        boxRb.AddForce(playerCont.modelAxis.transform.forward * pushForce);
-        return tierCosts[2];
+        int cost = 0;
+        if(canInteract && !IsCarrying) {
+            PushBox pushBox = box.GetComponent<PushBox>();
+            pushBox.PushedBox(transform.position, pushForce);
+            cost = tierCosts[2];
+        }
+        return cost;
     }
 
     protected override void UpdateLimbUI() {
