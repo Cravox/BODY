@@ -5,16 +5,18 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Leiste
-    2100002: emission
-    2100004: Basecolor
-    2100006: Leistenkante
+    2100000: No Name
+    2100002: Leiste
+    2100004: emission
+    2100006: Basecolor
+    2100008: Leistenkante
     2300000: //RootNode
     3300000: //RootNode
-    4300000: base_wall_straight_01
+    4300000: mid_wall_corner_01
+    4300002: base_wall_straight_01
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -74,7 +76,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
