@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3793426445707065684}
   - component: {fileID: 3793426445704198516}
   - component: {fileID: 3793426445705165748}
-  - component: {fileID: 4304757233007294741}
-  - component: {fileID: 3360368689821441179}
+  - component: {fileID: 5617705383630158893}
+  - component: {fileID: 8666677893092575619}
   m_Layer: 0
   m_Name: mid_wall_corner_01
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4304757233007294741
+--- !u!65 &5617705383630158893
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,9 +90,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.4, y: 4, z: 0.5}
-  m_Center: {x: -0.3, y: 2, z: 1.4}
---- !u!65 &3360368689821441179
+  m_Size: {x: 4.5, y: 4, z: 0.5}
+  m_Center: {x: 0.2, y: 2, z: 2.4}
+--- !u!65 &8666677893092575619
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,5 +103,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 4, z: 3.4}
-  m_Center: {x: 1.4, y: 2, z: -0.3}
+  m_Size: {x: 0.5, y: 4, z: 4.5}
+  m_Center: {x: 2.4, y: 2, z: 0.2}
