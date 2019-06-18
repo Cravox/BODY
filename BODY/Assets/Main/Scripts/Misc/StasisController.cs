@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class StasisController : MonoBehaviour
-{
+public class StasisController : SerializedMonoBehaviour {
     private Rigidbody rigid;
     private MovingPlatform platform;
 
     private Vector3 savedVelocity;
     private RigidbodyConstraints constrains;
     public bool isPlatform;
-    
+
 
     private void Start() {
         rigid = GetComponent<Rigidbody>();

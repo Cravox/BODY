@@ -29,7 +29,7 @@ public class PushBox : SerializedMonoBehaviour {
         List<AngleVector> angleVectors = new List<AngleVector>(directions.Length);
 
         for (int i = 0; i < directions.Length; i++) {
-            var angle = Vector3.SignedAngle(directions[i], toPlayer, Vector3.up);
+            var angle = Vector3.Angle(directions[i], toPlayer);
             angleVectors.Add(
                 new AngleVector() {
                     Angle = angle,
@@ -39,6 +39,6 @@ public class PushBox : SerializedMonoBehaviour {
         }
 
         angleVectors.Sort((av1, av2) => av1.Angle.CompareTo(av2.Angle));
-        GetComponent<Rigidbody>().AddForce(angleVectors[0].Direction.normalized * pushForce, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(-angleVectors[0].Direction.normalized * pushForce, ForceMode.Impulse);
     }
 }
