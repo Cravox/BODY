@@ -61,27 +61,25 @@ public class Legs : Limb {
     public override int TierThree() {
         // hover
 
-        if (!playerCont.isGrounded && !hasHovered)
-        {
+        if (!playerCont.isGrounded && !hasHovered) {
             playerCont.StopAllForces();
             playerCont.rigid.velocity = Vector3.zero;
             hoverCoroutine = StartCoroutine(hoverTime(timeToHover));
             hasHovered = true;
-        }
-        else
+        } else
             StopHover();
 
         return 0;
 
         //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
     }
-    void StopHover()
-    {
+
+    void StopHover() {
         StopCoroutine(hoverCoroutine);
         hover = false;
     }
-    IEnumerator hoverTime(float t)
-    {
+
+    IEnumerator hoverTime(float t) {
         hover = true;
         yield return new WaitForSeconds(t);
         hover = false;
@@ -116,8 +114,7 @@ public class Legs : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        switch (chargeState)
-        {
+        switch (chargeState) {
             case Enums.ChargeState.TIER_ONE:
                 if (playerCont.isGrounded)
                     limbText.text = "Jump";

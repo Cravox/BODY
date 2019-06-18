@@ -119,7 +119,7 @@ public class Head : Limb {
                 }
                 break;
             case Enums.ChargeState.TIER_TWO:
-                if(activatedPlatforms.Count > 0) {
+                if (activatedPlatforms.Count > 0) {
                     limbText.text = "Manipulate Energy";
                 } else {
                     limbText.text = "";

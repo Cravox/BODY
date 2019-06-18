@@ -4,27 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     public PauseMenu pauseMenu;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         InputHandler();
     }
 
-    void InputHandler()
-    {
-        if (Input.GetButtonDown("ButtonPause"))
-        {
+    void InputHandler() {
+        if (Input.GetButtonDown("ButtonPause")) {
             pauseMenu.isActive = !pauseMenu.isActive;
 
             EventSystem es = EventSystem.current;
