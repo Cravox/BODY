@@ -45,23 +45,23 @@ public class EnergySystem : SerializedMonoBehaviour {
         rightTriggerInput = Input.GetAxis("RightTrigger");
 
         if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
-            SetLimbState(Enums.ChargeState.TIER_THREE);
-        } else if (leftTriggerInput >= 0.9f) {
             SetLimbState(Enums.ChargeState.TIER_TWO);
-        } else {
+        } else if (leftTriggerInput >= 0.9f) {
             SetLimbState(Enums.ChargeState.TIER_ONE);
+        } else {
+            SetLimbState(Enums.ChargeState.NOT_CHARGED);
         }
 
         if (myIndex == null) return;
 
         var limb = PlayerLimbs[(int)myIndex];
 
-        if (limb.chargeState == Enums.ChargeState.TIER_THREE) {
-            EnergyPoints -= limb.TierThree();
-        } else if (limb.chargeState == Enums.ChargeState.TIER_TWO) {
+        if(limb.chargeState == Enums.ChargeState.TIER_TWO) {
             EnergyPoints -= limb.TierTwo();
-        } else {
+        } else if (limb.chargeState == Enums.ChargeState.TIER_ONE) {
             EnergyPoints -= limb.TierOne();
+        } else {
+            limb.BaselineAbility();
         }
 
         UpdateEnergyUI();

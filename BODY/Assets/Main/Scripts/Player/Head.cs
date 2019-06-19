@@ -22,6 +22,10 @@ public class Head : Limb {
 
     private List<MovingPlatform> pInDistance;
 
+    public override void BaselineAbility() {
+        //U BLIND BUT U SEE
+    }
+
     public override int TierOne() {
         anim1.Play("anim", 0, 0);
 
@@ -111,6 +115,9 @@ public class Head : Limb {
 
     protected override void UpdateLimbUI() {
         switch (chargeState) {
+            case Enums.ChargeState.NOT_CHARGED:
+                limbText.text = "";
+                break;
             case Enums.ChargeState.TIER_ONE:
                 if (pInDistance.Count > 0) {
                     limbText.text = "Send Energy";
@@ -124,9 +131,6 @@ public class Head : Limb {
                 } else {
                     limbText.text = "";
                 }
-                break;
-            case Enums.ChargeState.TIER_THREE:
-                limbText.text = "Stasis";
                 break;
             default:
                 break;

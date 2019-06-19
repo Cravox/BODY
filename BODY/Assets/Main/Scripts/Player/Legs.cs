@@ -34,28 +34,42 @@ public class Legs : Limb {
 
     private bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
 
+    public override void BaselineAbility() {
+        if (playerCont.isGrounded && !jumping && !hover) {
+            Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
+            playerCont.JumpOnce(jumpSpeed, true, 0);
+            jumping = true;
+        }
+    }
+
     public override int TierOne() {
         if (!playerCont.isGrounded && !doubleJumping && !hover) {
             playerCont.JumpOnce(dJumpSpeed, false, 1);
             doubleJumping = true;
             return tierCosts[0];
-        } else if (playerCont.isGrounded && !jumping && !hover) {
-            Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
-            playerCont.JumpOnce(jumpSpeed, true, 0);
-            jumping = true;
         }
 
         return 0;
     }
 
     public override int TierTwo() {
-        if (!playerCont.isGrounded && wallJump && !hover) {
-            playerCont.StopAllForces(); //stop all forces to make walljump clean
-            playerCont.JumpOnce(wJumpSpeed, false, 2);
-            wallJumping = true;
+        if (!playerCont.isGrounded && !hasHovered) {
+            playerCont.StopAllForces();
+            playerCont.rigid.velocity = Vector3.zero;
+            hoverCoroutine = StartCoroutine(hoverTime(timeToHover));
+            hasHovered = true;
             return tierCosts[1];
-        }
+        } else
+            StopHover();
+
         return 0;
+        //if (!playerCont.isGrounded && wallJump && !hover) {
+        //    playerCont.StopAllForces(); //stop all forces to make walljump clean
+        //    playerCont.JumpOnce(wJumpSpeed, false, 2);
+        //    wallJumping = true;
+        //    return tierCosts[1];
+        //}
+        //return 0;
     }
 
     public override int TierThree() {
@@ -115,21 +129,19 @@ public class Legs : Limb {
 
     protected override void UpdateLimbUI() {
         switch (chargeState) {
-            case Enums.ChargeState.TIER_ONE:
+            case Enums.ChargeState.NOT_CHARGED:
                 if (playerCont.isGrounded)
                     limbText.text = "Jump";
-                else if (!playerCont.isGrounded && !doubleJumping)
+                else
+                    limbText.text = "";
+                break;
+            case Enums.ChargeState.TIER_ONE:
+                if (!playerCont.isGrounded && !doubleJumping)
                     limbText.text = "Double Jump";
                 else
                     limbText.text = "";
                 break;
             case Enums.ChargeState.TIER_TWO:
-                if (!playerCont.isGrounded && wallJump)
-                    limbText.text = "Wall Jump";
-                else
-                    limbText.text = "";
-                break;
-            case Enums.ChargeState.TIER_THREE:
                 if (!playerCont.isGrounded && hover)
                     limbText.text = "End Hover";
                 else if (!playerCont.isGrounded && !hover && !hasHovered)

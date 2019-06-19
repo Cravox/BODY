@@ -65,21 +65,18 @@ public class Arms : Limb {
         return interactable;
     }
 
-    public override int TierOne() {
-        int cost = 0;
+    public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
             AttachObject();
-            cost = tierCosts[0];
         } else if (IsCarrying) {
             box.localPosition = frontPosition.localPosition;
             DetachObject();
         }
 
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
-        return cost;
     }
 
-    public override int TierTwo() {
+    public override int TierOne() {
         int cost = 0;
         if (IsCarrying) {
             DetachObject();
@@ -87,9 +84,19 @@ public class Arms : Limb {
             var modelTrans = playerCont.modelAxis.transform;
 
             boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
-            cost = tierCosts[1];
+            cost = tierCosts[0];
         }
         playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
+        return cost;
+    }
+
+    public override int TierTwo() {
+        int cost = 0;
+        if (canInteract && !IsCarrying) {
+            PushBox pushBox = box.GetComponent<PushBox>();
+            pushBox.PushedBox(transform.position, pushForce);
+            cost = tierCosts[1];
+        }
         return cost;
     }
 
@@ -104,19 +111,19 @@ public class Arms : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        if (canInteract && box.CompareTag("Carry") && chargeState == Enums.ChargeState.TIER_ONE) {
+        if (canInteract && box.CompareTag("Carry") && chargeState == Enums.ChargeState.NOT_CHARGED) {
             limbText.text = "Pick up";
-        } else if (canInteract && box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_THREE) {
+        } else if (canInteract && box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_TWO) {
             limbText.text = "Push";
         } else if (IsCarrying) {
             switch (chargeState) {
-                case Enums.ChargeState.TIER_ONE:
+                case Enums.ChargeState.NOT_CHARGED:
                     limbText.text = "Drop";
                     break;
-                case Enums.ChargeState.TIER_TWO:
+                case Enums.ChargeState.TIER_ONE:
                     limbText.text = "Throw";
                     break;
-                case Enums.ChargeState.TIER_THREE:
+                case Enums.ChargeState.TIER_TWO:
                     limbText.text = "";
                     break;
                 default:

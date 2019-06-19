@@ -28,6 +28,7 @@ public abstract class Limb : SerializedMonoBehaviour {
         UpdateLimbUI();
     }
 
+    public abstract void BaselineAbility();
     public abstract int TierOne();
     public abstract int TierTwo();
     public abstract int TierThree();

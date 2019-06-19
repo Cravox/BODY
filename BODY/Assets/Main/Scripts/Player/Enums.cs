@@ -23,8 +23,8 @@ public struct Enums {
     }
 
     public enum ChargeState : int {
+        NOT_CHARGED,
         TIER_ONE,
-        TIER_TWO,
-        TIER_THREE
+        TIER_TWO
     }
 }
