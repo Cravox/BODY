@@ -6,6 +6,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameManager : SerializedMonoBehaviour {
+
+    public static GameManager instance;
+
+    public bool playerInHub = true;
+
     [SerializeField, TabGroup("References")]
     private PauseMenu pauseMenu;
 
@@ -14,7 +19,7 @@ public class GameManager : SerializedMonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
+        instance = this;
     }
 
     // Update is called once per frame
