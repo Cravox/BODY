@@ -6,9 +6,10 @@ using UnityEngine;
 public class PuzzleManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("Balancing")]
     private Transform[] resettableObjects;
-
+    
     private Vector3[] startObjectPosition;
     private Vector3[] startObjectEulerAngles;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -23,16 +24,13 @@ public class PuzzleManager : SerializedMonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetButtonDown("SelectButton")) {
-            ResetObjects();
-        }
+
     }
 
-    void ResetObjects() {
+    public void ResetObjects() {
         for (int i = 0; i < resettableObjects.Length; i++) {
             resettableObjects[i].position = startObjectPosition[i];
             resettableObjects[i].eulerAngles = startObjectEulerAngles[i];
         }
-
     }
 }
