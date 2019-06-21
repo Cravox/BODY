@@ -89,7 +89,8 @@ public class Legs : Limb {
     }
 
     void StopHover() {
-        StopCoroutine(hoverCoroutine);
+        if(hoverCoroutine != null)
+            StopCoroutine(hoverCoroutine);
         hover = false;
     }
 

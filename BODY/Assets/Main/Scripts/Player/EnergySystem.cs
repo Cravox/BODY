@@ -35,9 +35,12 @@ public class EnergySystem : SerializedMonoBehaviour {
         Enums.LimbIndex? myIndex = null;
         int eCost = 0;
 
-        if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
-        if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
-        if (Input.GetButtonDown("Jump")) myIndex = Enums.LimbIndex.LEGS;
+        if (!GameManager.instance.inPauseMenu)
+        {
+            if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
+            if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
+            if (Input.GetButtonDown("Jump")) myIndex = Enums.LimbIndex.LEGS;
+        }
 
         leftTriggerInput = Input.GetAxis("LeftTrigger");
         rightTriggerInput = Input.GetAxis("RightTrigger");
