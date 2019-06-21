@@ -17,9 +17,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References")]
     private Image stateImage;
 
-    [SerializeField, TabGroup("References")]
-    private Text stateText;
-
     private int maxEnergy;
 
     private float leftTriggerInput;
