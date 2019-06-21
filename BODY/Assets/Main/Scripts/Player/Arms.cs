@@ -39,6 +39,13 @@ public class Arms : Limb {
     private bool isChecking = true;
     private bool canInteract;
 
+
+    public Vector3 impactPos;
+    public int impactIterations;
+    public float impactIterationLenght;
+    public Transform ball;
+    public LayerMask rMask;
+
     protected override void LimbStart() {
 
     }
@@ -49,6 +56,48 @@ public class Arms : Limb {
         } else {
             canInteract = false;
         }
+
+        PredictRigidbody();
+    }
+
+    public void PredictRigidbody()
+    {
+        if(!IsCarrying)
+        {
+            impactPos = Vector3.zero;
+            return;
+        }
+
+        Vector3 dir = playerCont.modelAxis.forward;
+        float vFwd = (pushForce / boxRb.mass);
+        float vUp = (upForce / boxRb.mass);
+
+        impactPos = CalcRigidPos(topPosition.position, dir, vFwd, vUp, impactIterations, impactIterationLenght);
+        ball.position = impactPos;
+    }
+
+    Vector3 CalcRigidPos(Vector3 origin, Vector3 dir, float fwd, float up, int iterations, float stepDistance)
+    {
+        Vector3 result = Vector3.zero;
+        List<Vector3> calcs = new List<Vector3>();
+        calcs.Add(origin);
+
+        for (int i = 1; i < iterations + 1; i++)
+        {
+            Vector3 pos = origin + (dir * fwd * (i * stepDistance)) + (Vector3.up * up) + Physics.gravity * (i * stepDistance * 180);
+            calcs.Add(pos);
+
+            RaycastHit hit;
+            bool cast = Physics.Linecast(calcs[i-1], calcs[i], out hit, rMask);
+
+            if (hit.collider != null)
+            {
+                result = hit.point;
+                return result;
+            }
+        }
+
+        return result;
     }
 
     private bool CheckForInteractable() {

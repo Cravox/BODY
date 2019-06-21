@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 7794070536110762828}
   - component: {fileID: 7794070536110762829}
   - component: {fileID: 7794070536110762831}
+  - component: {fileID: 742949249}
   m_Layer: 0
   m_Name: PuzzleSide
   m_TagString: Untagged
@@ -238,6 +239,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPuzzleEntrance: 1
+--- !u!114 &742949249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794070536110762817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a519441f532df704798f27005b62ddfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyObject: 0
+  renderDisable: {fileID: 7794070536110762828}
 --- !u!1 &7794070536512315446
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +266,7 @@ GameObject:
   - component: {fileID: 7794070536512315441}
   - component: {fileID: 7794070536512315442}
   - component: {fileID: 7794070536512315444}
+  - component: {fileID: 55403966}
   m_Layer: 0
   m_Name: HubSide
   m_TagString: Untagged
@@ -343,3 +359,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPuzzleEntrance: 0
+--- !u!114 &55403966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794070536512315446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a519441f532df704798f27005b62ddfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyObject: 0
+  renderDisable: {fileID: 7794070536512315441}

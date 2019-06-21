@@ -13,6 +13,8 @@ public class GameManager : SerializedMonoBehaviour {
 
     [SerializeField, TabGroup("References")]
     private PauseMenu pauseMenu;
+    
+    public bool inPauseMenu { get { return !pauseMenu.canControl; } }
 
     [SerializeField, TabGroup("Debugging")]
     public static PuzzleManager aktPuzzle;
@@ -20,6 +22,7 @@ public class GameManager : SerializedMonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         instance = this;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class GameManager : SerializedMonoBehaviour {
     }
 
     void InputHandler() {
+
         if (Input.GetButtonDown("ButtonPause")) {
             pauseMenu.isActive = !pauseMenu.isActive;
 
@@ -37,6 +41,12 @@ public class GameManager : SerializedMonoBehaviour {
 
         if (Input.GetButtonDown("SelectButton")) {
             aktPuzzle.ResetObjects();
+        }
+
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        {
+            EventSystem es = EventSystem.current;
+            es.SetSelectedGameObject(pauseMenu.firstButton);
         }
     }
 }

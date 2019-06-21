@@ -8,25 +8,31 @@ public class PauseMenu : MonoBehaviour
 {
     public CanvasGroup panel;
     public bool isActive = false;
+    public bool canControl = false;
     public GameObject firstButton;
 
     [Range(0, 1)]
     public float fadeSpeed;
+
+    private float fade = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        canControl = (fade == 0);
         panel.interactable = isActive;
+        panel.alpha = fade;
 
-        if (panel.alpha != 1 && isActive ||panel.alpha != 0 && !isActive)
-            panel.alpha = Mathf.MoveTowards(panel.alpha, isActive ? 1 : 0, fadeSpeed);
+        if (fade != 1 && isActive || fade != 0 && !isActive)
+            fade = Mathf.MoveTowards(fade, isActive ? 1 : 0, fadeSpeed);
 
-        Time.timeScale = isActive ? 0 : 1;
+        Time.timeScale = canControl ? 1 : 0;
     }
 
     public void Button_Return()
