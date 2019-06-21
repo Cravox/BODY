@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 410688543021850631}
   - component: {fileID: 410688543021850630}
   - component: {fileID: 410688543021850625}
+  - component: {fileID: 1021531077}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -72,6 +73,21 @@ MonoBehaviour:
   isActive: 0
   firstButton: {fileID: 410688542412520027}
   fadeSpeed: 0.2
+--- !u!114 &1021531077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410688543021850624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 410688542412520027}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
 --- !u!1001 &410688542093908679
 PrefabInstance:
   m_ObjectHideFlags: 0
