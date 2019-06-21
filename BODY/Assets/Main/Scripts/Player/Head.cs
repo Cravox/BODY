@@ -4,20 +4,22 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Head : Limb {
-    [TabGroup("Balancing")]
-    public float maxDistancePlatform;
-    [TabGroup("Balancing")]
-    public float maxDistanceStasis;
+    [SerializeField, TabGroup("Balancing")]
+    private float maxDistancePlatform;
+
+    [SerializeField, TabGroup("Balancing")]
+    private float maxDistanceStasis;
 
     [SerializeField, TabGroup("Balancing")]
     private float maxStasisTime;
 
-    [TabGroup("References")]
-    public Animator anim1;
-    [TabGroup("References")]
-    public Animator anim2;
+    [SerializeField, TabGroup("References"), Required]
+    private Animator anim1;
 
-    [TabGroup("Debugging"), SerializeField]
+    [SerializeField, TabGroup("References"), Required]
+    private Animator anim2;
+
+    [SerializeField, TabGroup("Debugging")]
     private List<MovingPlatform> activatedPlatforms = new List<MovingPlatform>();
 
     private List<MovingPlatform> pInDistance;

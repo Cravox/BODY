@@ -4,14 +4,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Arms : Limb {
-    [SerializeField]
+    [SerializeField, TabGroup("Balancing")]
     private float interactRange = 1;
-
-    [SerializeField, TabGroup("References")]
-    private Transform topPosition;
-
-    [SerializeField, TabGroup("References")]
-    private Transform frontPosition;
 
     [SerializeField, TabGroup("Balancing")]
     private float throwForce = 5;
@@ -22,48 +16,56 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
     private float pushForce = 1000;
 
-    [SerializeField, TabGroup("References")]
+    [SerializeField, TabGroup("Balancing")]
+    private int impactIterations;
+
+    [SerializeField, TabGroup("Balancing")]
+    private float impactIterationLenght;
+
+    [SerializeField, TabGroup("References"), Required]
+    private Transform topPosition;
+
+    [SerializeField, TabGroup("References"), Required]
+    private Transform frontPosition;
+
+    [SerializeField, TabGroup("References"), Required]
     private Transform rayTrans;
+
+    [SerializeField, TabGroup("References"), Required]
+    private Transform ball;
 
     [SerializeField, TabGroup("Debugging")]
     private Transform box;
+
+    [SerializeField, TabGroup("Debugging")]
+    private LayerMask indicatorMask;
+
+    private bool isCarrying;
 
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
     private Rigidbody boxRb;
 
-    [HideInInspector]
-    public bool IsCarrying;
-
     private bool isChecking = true;
     private bool canInteract;
-
-
-    public Vector3 impactPos;
-    public int impactIterations;
-    public float impactIterationLenght;
-    public Transform ball;
-    public LayerMask rMask;
+    private Vector3 impactPos;
 
     protected override void LimbStart() {
 
     }
 
     protected override void LimbUpdate() {
-        if (!IsCarrying) {
+        if (!isCarrying) {
             canInteract = CheckForInteractable();
         } else {
+            if (chargeState == Enums.ChargeState.TIER_ONE) PredictRigidbody();
             canInteract = false;
         }
-
-        PredictRigidbody();
     }
 
-    public void PredictRigidbody()
-    {
-        if(!IsCarrying)
-        {
+    public void PredictRigidbody() {
+        if (!isCarrying) {
             impactPos = Vector3.zero;
             return;
         }
@@ -76,22 +78,19 @@ public class Arms : Limb {
         ball.position = impactPos;
     }
 
-    Vector3 CalcRigidPos(Vector3 origin, Vector3 dir, float fwd, float up, int iterations, float stepDistance)
-    {
+    Vector3 CalcRigidPos(Vector3 origin, Vector3 dir, float fwd, float up, int iterations, float stepDistance) {
         Vector3 result = Vector3.zero;
         List<Vector3> calcs = new List<Vector3>();
         calcs.Add(origin);
 
-        for (int i = 1; i < iterations + 1; i++)
-        {
+        for (int i = 1; i < iterations + 1; i++) {
             Vector3 pos = origin + (dir * fwd * (i * stepDistance)) + (Vector3.up * up) + Physics.gravity * (i * stepDistance * 180);
             calcs.Add(pos);
 
             RaycastHit hit;
-            bool cast = Physics.Linecast(calcs[i-1], calcs[i], out hit, rMask);
+            bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
 
-            if (hit.collider != null)
-            {
+            if (hit.collider != null) {
                 result = hit.point;
                 return result;
             }
@@ -117,17 +116,17 @@ public class Arms : Limb {
     public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
             AttachObject();
-        } else if (IsCarrying) {
+        } else if (isCarrying) {
             box.localPosition = frontPosition.localPosition;
             DetachObject();
         }
 
-        playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
+        playerCont.modelAnim.SetBool("IsPushing", isCarrying);
     }
 
     public override int TierOne() {
         int cost = 0;
-        if (IsCarrying) {
+        if (isCarrying) {
             DetachObject();
 
             var modelTrans = playerCont.modelAxis.transform;
@@ -135,13 +134,13 @@ public class Arms : Limb {
             boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
             cost = tierCosts[0];
         }
-        playerCont.modelAnim.SetBool("IsPushing", IsCarrying);
+        playerCont.modelAnim.SetBool("IsPushing", isCarrying);
         return cost;
     }
 
     public override int TierTwo() {
         int cost = 0;
-        if (canInteract && !IsCarrying) {
+        if (canInteract && !isCarrying) {
             PushBox pushBox = box.GetComponent<PushBox>();
             pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[1];
@@ -151,7 +150,7 @@ public class Arms : Limb {
 
     public override int TierThree() {
         int cost = 0;
-        if(canInteract && !IsCarrying) {
+        if (canInteract && !isCarrying) {
             PushBox pushBox = box.GetComponent<PushBox>();
             pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[2];
@@ -164,7 +163,7 @@ public class Arms : Limb {
             limbText.text = "Pick up";
         } else if (canInteract && box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_TWO) {
             limbText.text = "Push";
-        } else if (IsCarrying) {
+        } else if (isCarrying) {
             switch (chargeState) {
                 case Enums.ChargeState.NOT_CHARGED:
                     limbText.text = "Drop";
@@ -182,7 +181,7 @@ public class Arms : Limb {
     }
 
     private void AttachObject() {
-        IsCarrying = true;
+        isCarrying = true;
         box.parent = playerCont.modelAxis;
         constraint = boxRb.constraints;
         boxRb.constraints = RigidbodyConstraints.FreezeAll;
@@ -192,7 +191,7 @@ public class Arms : Limb {
 
     private void DetachObject() {
         box.parent = null;
-        IsCarrying = false;
+        isCarrying = false;
         boxRb.constraints = constraint;
     }
 }

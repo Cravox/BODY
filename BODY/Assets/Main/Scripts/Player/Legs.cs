@@ -4,35 +4,29 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 public class Legs : Limb {
-    [TabGroup("Balancing"), Header("Double Jump"), Tooltip("X = Sideways, Y = Up, Z = Forward")]
-    public Vector3 dJumpSpeed;
+    [SerializeField, TabGroup("Balancing"), Header("Double Jump"), Tooltip("X = Sideways, Y = Up, Z = Forward")]
+    private Vector3 dJumpSpeed;
 
-    [TabGroup("Balancing"), Header("Wall Jump"), Tooltip("X = Sideways, Y = Up, Z = Forward")]
-    public Vector3 wJumpSpeed;
-    [TabGroup("Balancing")]
-    public float wJumpDistanceToWall = 1f;
-    [TabGroup("Balancing"), Header("Hover")]
-    public float timeToHover;
+    [SerializeField, TabGroup("Balancing"), Header("Hover")]
+    private float timeToHover;
 
-    [TabGroup("References")]
-    public LayerMask rMask;
+    [SerializeField, TabGroup("Debugging")]
+    private bool jumping;
 
-    [TabGroup("Debugging")]
-    public bool jumping;
-    [TabGroup("Debugging")]
-    public bool doubleJumping;
-    [TabGroup("Debugging")]
-    public bool wallJumping;
+    [SerializeField, TabGroup("Debugging")]
+    private bool doubleJumping;
 
-    [TabGroup("Debugging")]
-    public Transform wallRay;
-    [TabGroup("Debugging")]
-    public bool hover;
+    [SerializeField, TabGroup("Debugging")]
+    private bool wallJumping;
+
+    [SerializeField, TabGroup("Debugging")]
+    private Transform wallRay;
+
+    [SerializeField, TabGroup("Debugging")]
+    private bool hover;
 
     private bool hasHovered;
     private Coroutine hoverCoroutine;
-
-    private bool wallJump { get { return Physics.OverlapSphere(wallRay.position, wJumpDistanceToWall, rMask).Length > 0; } }
 
     public override void BaselineAbility() {
         if (playerCont.isGrounded && !jumping && !hover) {
@@ -56,36 +50,25 @@ public class Legs : Limb {
         if (!playerCont.isGrounded && !hasHovered) {
             playerCont.StopAllForces();
             playerCont.rigid.velocity = Vector3.zero;
-            hoverCoroutine = StartCoroutine(hoverTime(timeToHover));
+            hoverCoroutine = StartCoroutine(HoverTime(timeToHover));
             hasHovered = true;
             return tierCosts[1];
         } else
             StopHover();
 
         return 0;
-        //if (!playerCont.isGrounded && wallJump && !hover) {
-        //    playerCont.StopAllForces(); //stop all forces to make walljump clean
-        //    playerCont.JumpOnce(wJumpSpeed, false, 2);
-        //    wallJumping = true;
-        //    return tierCosts[1];
-        //}
-        //return 0;
     }
 
     public override int TierThree() {
-        // hover
-
         if (!playerCont.isGrounded && !hasHovered) {
             playerCont.StopAllForces();
             playerCont.rigid.velocity = Vector3.zero;
-            hoverCoroutine = StartCoroutine(hoverTime(timeToHover));
+            hoverCoroutine = StartCoroutine(HoverTime(timeToHover));
             hasHovered = true;
         } else
             StopHover();
 
         return 0;
-
-        //playerCont.modelAnim.SetBool("IsDashing", wallJumping);
     }
 
     void StopHover() {
@@ -94,7 +77,7 @@ public class Legs : Limb {
         hover = false;
     }
 
-    IEnumerator hoverTime(float t) {
+    IEnumerator HoverTime(float t) {
         hover = true;
         yield return new WaitForSeconds(t);
         hover = false;

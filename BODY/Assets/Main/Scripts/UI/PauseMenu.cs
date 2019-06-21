@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
-{
+public class PauseMenu : MonoBehaviour {
     public CanvasGroup panel;
     public bool isActive = false;
     public bool canControl = false;
@@ -17,14 +16,12 @@ public class PauseMenu : MonoBehaviour
     private float fade = 0;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
 
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         canControl = (fade == 0);
         panel.interactable = isActive;
         panel.alpha = fade;
@@ -35,19 +32,17 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = canControl ? 1 : 0;
     }
 
-    public void Button_Return()
-    {
+    public void Button_Return() {
         isActive = false;
     }
-    public void Button_Reset()
-    {
+
+    public void Button_Reset() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     //Button_Options
 
-    public void Button_Exit()
-    {
+    public void Button_Exit() {
         SceneManager.LoadScene("Menu");
     }
 }
