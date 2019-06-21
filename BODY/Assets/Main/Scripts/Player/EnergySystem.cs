@@ -36,6 +36,7 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Update is called once per frame
     void Update() {
         Enums.LimbIndex? myIndex = null;
+        int eCost = 0;
 
         if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
         if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
@@ -57,12 +58,14 @@ public class EnergySystem : SerializedMonoBehaviour {
         var limb = PlayerLimbs[(int)myIndex];
 
         if(limb.chargeState == Enums.ChargeState.TIER_TWO) {
-            EnergyPoints -= limb.TierTwo();
+            eCost = limb.TierTwo();
         } else if (limb.chargeState == Enums.ChargeState.TIER_ONE) {
-            EnergyPoints -= limb.TierOne();
+            eCost = limb.TierOne();
         } else {
             limb.BaselineAbility();
         }
+
+        if(!GameManager.instance.playerInHub) EnergyPoints -= eCost;
 
         UpdateEnergyUI();
     }
