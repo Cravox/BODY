@@ -13,7 +13,9 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References")]
     private PauseMenu pauseMenu;
 
-    public bool inPauseMenu { get { return !pauseMenu.canControl; } }
+    //public bool inPauseMenu { get { return !pauseMenu.canControl; } }
+
+    public bool canControl;
 
     [SerializeField, TabGroup("Debugging")]
     public static PuzzleManager aktPuzzle;
@@ -30,8 +32,8 @@ public class GameManager : SerializedMonoBehaviour {
     }
 
     void InputHandler() {
-        if (Input.GetButtonDown("ButtonPause")) {
-            pauseMenu.isActive = !pauseMenu.isActive;
+        if (Input.GetButtonDown("ButtonStart")) {
+            pauseMenu.SetPauseMenu();
 
             EventSystem es = EventSystem.current;
             es.SetSelectedGameObject(pauseMenu.firstButton);

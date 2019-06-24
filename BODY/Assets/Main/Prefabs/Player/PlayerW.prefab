@@ -1264,7 +1264,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   energyPoints: 100
-  PlayerLimbs:
+  playerLimbs:
   - {fileID: 940651021042444897}
   - {fileID: 6996675974615068665}
   - {fileID: 9071744388173341594}
@@ -1540,6 +1540,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9071744386992386686}
     m_Modifications:
+    - target: {fileID: 9500000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1ba8a2b456741c34482fad3cc1414ace, type: 2}
+    - target: {fileID: 9500000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1587,14 +1595,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}
       propertyPath: m_Name
       value: android
-      objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1ba8a2b456741c34482fad3cc1414ace, type: 2}
-    - target: {fileID: 9500000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ce6fac119a2b674aa94328f76c3214b, type: 3}

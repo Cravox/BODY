@@ -9,7 +9,7 @@ public class EnergySystem : SerializedMonoBehaviour {
     private int energyPoints = 100;
 
     [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs"), TabGroup("References")]
-    private Limb[] PlayerLimbs = new Limb[3];
+    private Limb[] playerLimbs = new Limb[3];
 
     [SerializeField, TabGroup("References")]
     private Text energyText;
@@ -18,12 +18,11 @@ public class EnergySystem : SerializedMonoBehaviour {
     private Image stateImage;
 
     private int maxEnergy;
+    private int eCost = 0;
 
     private float leftTriggerInput;
     private float rightTriggerInput;
     
-    private string[] stateString = new string[3];
-
     // Start is called before the first frame update
     void Start() {
         maxEnergy = energyPoints;
@@ -33,17 +32,16 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Update is called once per frame
     void Update() {
         Enums.LimbIndex? myIndex = null;
-        int eCost = 0;
+        eCost = 0;
 
-        if (!GameManager.instance.inPauseMenu)
-        {
+        if (GameManager.instance.canControl) {
             if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
             if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
             if (Input.GetButtonDown("Jump")) myIndex = Enums.LimbIndex.LEGS;
-        }
 
-        leftTriggerInput = Input.GetAxis("LeftTrigger");
-        rightTriggerInput = Input.GetAxis("RightTrigger");
+            leftTriggerInput = Input.GetAxis("LeftTrigger");
+            rightTriggerInput = Input.GetAxis("RightTrigger");
+        }
 
         if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
             SetLimbState(Enums.ChargeState.TIER_TWO);
@@ -55,7 +53,7 @@ public class EnergySystem : SerializedMonoBehaviour {
 
         if (myIndex == null) return;
 
-        var limb = PlayerLimbs[(int)myIndex];
+        var limb = playerLimbs[(int)myIndex];
 
         if(limb.chargeState == Enums.ChargeState.TIER_TWO) {
             eCost = limb.TierTwo();
@@ -71,7 +69,7 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void SetLimbState(Enums.ChargeState cs) {
-        foreach (Limb limb in PlayerLimbs) {
+        foreach (Limb limb in playerLimbs) {
             limb.chargeState = cs;
         }
     }

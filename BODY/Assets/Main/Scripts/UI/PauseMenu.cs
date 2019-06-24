@@ -6,14 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
     public CanvasGroup panel;
-    public bool isActive = false;
-    public bool canControl = false;
     public GameObject firstButton;
-
-    [Range(0, 1)]
-    public float fadeSpeed;
-
-    private float fade = 0;
 
     // Start is called before the first frame update
     void Start() {
@@ -22,18 +15,19 @@ public class PauseMenu : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        canControl = (fade == 0);
-        panel.interactable = isActive;
-        panel.alpha = fade;
 
-        if (fade != 1 && isActive || fade != 0 && !isActive)
-            fade = Mathf.MoveTowards(fade, isActive ? 1 : 0, fadeSpeed);
-
-        Time.timeScale = canControl ? 1 : 0;
     }
 
+    public void SetPauseMenu() {
+        panel.interactable = !panel.interactable;
+        panel.alpha = panel.interactable ? 1 : 0;
+
+        GameManager.instance.canControl = !panel.interactable;
+        Time.timeScale = GameManager.instance.canControl ? 1 : 0;
+    }
+    
     public void Button_Return() {
-        isActive = false;
+        SetPauseMenu();
     }
 
     public void Button_Reset() {
