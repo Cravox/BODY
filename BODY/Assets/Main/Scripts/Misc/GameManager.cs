@@ -8,15 +8,16 @@ using UnityEngine.UI;
 public class GameManager : SerializedMonoBehaviour {
     public static GameManager instance;
 
-    public bool playerInHub = true;
-
     [SerializeField, TabGroup("References")]
     private PauseMenu pauseMenu;
 
-    //public bool inPauseMenu { get { return !pauseMenu.canControl; } }
+    [SerializeField]
+    private GameObject player;
 
-    public bool canControl;
+    public bool playerInHub = true;
 
+    public bool CanControl { set { player.GetComponent<EnergySystem>().enabled = value; player.GetComponent<PlayerController>().enabled = value; } }
+    
     [SerializeField, TabGroup("Debugging")]
     public static PuzzleManager aktPuzzle;
 

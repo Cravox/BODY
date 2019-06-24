@@ -22,7 +22,7 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     private float leftTriggerInput;
     private float rightTriggerInput;
-    
+
     // Start is called before the first frame update
     void Start() {
         maxEnergy = energyPoints;
@@ -32,16 +32,14 @@ public class EnergySystem : SerializedMonoBehaviour {
     // Update is called once per frame
     void Update() {
         Enums.LimbIndex? myIndex = null;
-        eCost = 0;
+        //eCost = 0;
 
-        if (GameManager.instance.canControl) {
-            if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
-            if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
-            if (Input.GetButtonDown("Jump")) myIndex = Enums.LimbIndex.LEGS;
+        if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
+        if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
+        if (Input.GetButtonDown("Jump")) myIndex = Enums.LimbIndex.LEGS;
 
-            leftTriggerInput = Input.GetAxis("LeftTrigger");
-            rightTriggerInput = Input.GetAxis("RightTrigger");
-        }
+        leftTriggerInput = Input.GetAxis("LeftTrigger");
+        rightTriggerInput = Input.GetAxis("RightTrigger");
 
         if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
             SetLimbState(Enums.ChargeState.TIER_TWO);
@@ -52,10 +50,11 @@ public class EnergySystem : SerializedMonoBehaviour {
         }
 
         if (myIndex == null) return;
+        eCost = 0;
 
         var limb = playerLimbs[(int)myIndex];
 
-        if(limb.chargeState == Enums.ChargeState.TIER_TWO) {
+        if (limb.chargeState == Enums.ChargeState.TIER_TWO) {
             eCost = limb.TierTwo();
         } else if (limb.chargeState == Enums.ChargeState.TIER_ONE) {
             eCost = limb.TierOne();
@@ -63,7 +62,7 @@ public class EnergySystem : SerializedMonoBehaviour {
             limb.BaselineAbility();
         }
 
-        if(!GameManager.instance.playerInHub) energyPoints -= eCost;
+        if (!GameManager.instance.playerInHub) energyPoints -= eCost;
 
         UpdateEnergyUI();
     }

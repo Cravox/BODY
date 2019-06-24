@@ -22,8 +22,8 @@ public class PauseMenu : MonoBehaviour {
         panel.interactable = !panel.interactable;
         panel.alpha = panel.interactable ? 1 : 0;
 
-        GameManager.instance.canControl = !panel.interactable;
-        Time.timeScale = GameManager.instance.canControl ? 1 : 0;
+        GameManager.instance.CanControl = !panel.interactable;
+        Time.timeScale = panel.interactable ? 0 : 1;
     }
     
     public void Button_Return() {

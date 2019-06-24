@@ -5,8 +5,6 @@ using Sirenix.OdinInspector;
 using System;
 
 public class PlayerController : SerializedMonoBehaviour {
-    public static PlayerController instance;
-
     [TabGroup("Balancing")]
     public float gravityModifier;
     [TabGroup("Balancing")]
@@ -61,15 +59,13 @@ public class PlayerController : SerializedMonoBehaviour {
     public bool stopGravity { get { return (hovering); } }
 
     void Awake() {
-        instance = this;
+
     }
 
     // Update is called once per frame
     void Update() {
         Forces();
-        if (GameManager.instance.canControl) {
-            InputCheck();
-        }
+        InputCheck();
         Move();
         GroundCheck();
         Animate();
