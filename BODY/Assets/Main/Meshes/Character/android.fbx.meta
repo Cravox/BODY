@@ -326,6 +326,48 @@ ModelImporter:
     100640: knee.L_end
     100642: knee.R
     100644: knee.R_end
+    100646: Arms_Exhaust_low
+    100648: exhaust_Arm.L
+    100650: exhaust_Arm.L_end
+    100652: exhaust_Arm.R
+    100654: exhaust_Arm.R_end
+    100656: Legs_Lower_Exhaust_low
+    100658: shin_exhaust.L
+    100660: shin_exhaust.L_end
+    100662: shin_exhaust.R
+    100664: shin_exhaust.R_end
+    100666: spine_01.001
+    100668: spine_01.001_end
+    100670: spine_02.001
+    100672: spine_02.001_end
+    100674: spine_03.001
+    100676: spine_03.001_end
+    100678: ACC1_low
+    100680: ACC2_low
+    100682: ACC3_low
+    100684: ACC4_low
+    100686: ACC5_low
+    100688: ACC6_low
+    100690: ACC7_low
+    100692: ACC8_low
+    100694: aNeck_low
+    100696: base_low
+    100698: bNeck_low
+    100700: feet_low
+    100702: hands_low
+    100704: head_low
+    100706: hips_low
+    100708: knees_low
+    100710: lowerBody_low
+    100712: midBody_low
+    100714: shoulder_low
+    100716: spine_01.002
+    100718: spine_01.002_end
+    100720: spine_01.003
+    100722: spine_01.003_end
+    100724: spine_02.002
+    100726: spine_02.002_end
+    100728: upperBody_low
     400000: //RootNode
     400002: BaseMesh.001
     400004: BaseMesh.003
@@ -649,6 +691,48 @@ ModelImporter:
     400640: knee.L_end
     400642: knee.R
     400644: knee.R_end
+    400646: Arms_Exhaust_low
+    400648: exhaust_Arm.L
+    400650: exhaust_Arm.L_end
+    400652: exhaust_Arm.R
+    400654: exhaust_Arm.R_end
+    400656: Legs_Lower_Exhaust_low
+    400658: shin_exhaust.L
+    400660: shin_exhaust.L_end
+    400662: shin_exhaust.R
+    400664: shin_exhaust.R_end
+    400666: spine_01.001
+    400668: spine_01.001_end
+    400670: spine_02.001
+    400672: spine_02.001_end
+    400674: spine_03.001
+    400676: spine_03.001_end
+    400678: ACC1_low
+    400680: ACC2_low
+    400682: ACC3_low
+    400684: ACC4_low
+    400686: ACC5_low
+    400688: ACC6_low
+    400690: ACC7_low
+    400692: ACC8_low
+    400694: aNeck_low
+    400696: base_low
+    400698: bNeck_low
+    400700: feet_low
+    400702: hands_low
+    400704: head_low
+    400706: hips_low
+    400708: knees_low
+    400710: lowerBody_low
+    400712: midBody_low
+    400714: shoulder_low
+    400716: spine_01.002
+    400718: spine_01.002_end
+    400720: spine_01.003
+    400722: spine_01.003_end
+    400724: spine_02.002
+    400726: spine_02.002_end
+    400728: upperBody_low
     2000000: Camera
     2100000: BodyBase
     2100002: Armor
@@ -1270,6 +1354,28 @@ ModelImporter:
     4300398: FingerRing_2_low
     4300400: Shoulders_low
     4300402: Head_low
+    4300404: Legs_Lower_Exhaust_low
+    4300406: Arms_Exhaust_low
+    4300408: hands_low
+    4300410: feet_low
+    4300412: knees_low
+    4300414: hips_low
+    4300416: midBody_low
+    4300418: shoulder_low
+    4300420: base_low
+    4300422: head_low
+    4300424: ACC8_low
+    4300426: ACC7_low
+    4300428: ACC6_low
+    4300430: ACC1_low
+    4300432: ACC4_low
+    4300434: ACC5_low
+    4300436: bNeck_low
+    4300438: aNeck_low
+    4300440: lowerBody_low
+    4300442: upperBody_low
+    4300444: ACC2_low
+    4300446: ACC3_low
     7400000: Rig|noAnim
     9500000: //RootNode
     10800000: Sun
@@ -1329,6 +1435,28 @@ ModelImporter:
     13700104: Rig_14_low
     13700106: Rig_15_low
     13700108: Shoulders_low
+    13700110: Arms_Exhaust_low
+    13700112: Legs_Lower_Exhaust_low
+    13700114: ACC1_low
+    13700116: ACC2_low
+    13700118: ACC3_low
+    13700120: ACC4_low
+    13700122: ACC5_low
+    13700124: ACC6_low
+    13700126: ACC7_low
+    13700128: ACC8_low
+    13700130: aNeck_low
+    13700132: base_low
+    13700134: bNeck_low
+    13700136: feet_low
+    13700138: hands_low
+    13700140: head_low
+    13700142: hips_low
+    13700144: knees_low
+    13700146: lowerBody_low
+    13700148: midBody_low
+    13700150: shoulder_low
+    13700152: upperBody_low
     2186277476908879412: ImportLogs
   externalObjects:
   - first:
@@ -1445,7 +1573,7 @@ ModelImporter:
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
