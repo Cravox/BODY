@@ -16,6 +16,8 @@ public class CarryBox : MonoBehaviour {
     [SerializeField]
     private List<Door> triggeredObjects;
 
+    public Vector3 velocity;
+
     // Start is called before the first frame update
     void Start() {
         rigid = GetComponent<Rigidbody>();
@@ -39,5 +41,8 @@ public class CarryBox : MonoBehaviour {
         }
         else
             platformOn = null;
+
+
+        velocity = rigid.velocity;
     }
 }

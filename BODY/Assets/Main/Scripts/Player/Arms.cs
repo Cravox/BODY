@@ -71,8 +71,8 @@ public class Arms : Limb {
         }
 
         Vector3 dir = playerCont.modelAxis.forward;
-        float vFwd = (pushForce / boxRb.mass);
-        float vUp = (upForce / boxRb.mass);
+        float vFwd = (throwForce / boxRb.mass) * Time.fixedDeltaTime;
+        float vUp = (upForce / boxRb.mass) * Time.fixedDeltaTime;
 
         impactPos = CalcRigidPos(topPosition.position, dir, vFwd, vUp, impactIterations, impactIterationLenght);
         ball.position = impactPos;
@@ -84,11 +84,15 @@ public class Arms : Limb {
         calcs.Add(origin);
 
         for (int i = 1; i < iterations + 1; i++) {
-            Vector3 pos = origin + (dir * fwd * (i * stepDistance)) + (Vector3.up * up) + Physics.gravity * (i * stepDistance * 180);
+            float t = i * stepDistance;
+            Vector3 pos = origin + ((Vector3.up * up * t) + (dir * fwd * t) + Physics.gravity / 2 * t * t);
             calcs.Add(pos);
 
             RaycastHit hit;
             bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
+
+            Debug.DrawLine(calcs[i - 1], calcs[i], new Color(1 / i * 10, 1 / i * 10, 1 / i * 10));
+            
 
             if (hit.collider != null) {
                 result = hit.point;

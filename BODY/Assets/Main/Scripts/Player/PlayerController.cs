@@ -4,10 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
 
-public class PlayerController : SerializedMonoBehaviour
-{
-    public static PlayerController instance;
-
+public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("Balancing")]
     public float gravityModifier;
     [TabGroup("Balancing")]
@@ -61,14 +58,12 @@ public class PlayerController : SerializedMonoBehaviour
 
     public bool stopGravity { get { return (hovering); } }
 
-    void Awake()
-    {
-        instance = this;
+    void Awake() {
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Forces();
         InputCheck();
         Move();
@@ -82,20 +77,17 @@ public class PlayerController : SerializedMonoBehaviour
             rigid.AddForce(new Vector3(0, Physics.gravity.y * gravityModifier, 0));
     }
 
-    void Animate()
-    {
+    void Animate() {
         Vector3 rigidvel = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
         modelAnim.SetFloat("Velocity", rigidvel.magnitude / walkSpeed);
         modelAnim.SetBool("IsGrounded", isGrounded);
     }
 
-    void InputCheck()
-    {
+    void InputCheck() {
         inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxis("Horizontal"), -Input.GetAxis("Vertical")), 9 * Time.deltaTime);
     }
 
-    void Move()
-    {
+    void Move() {
         //set direction vector of camera look rotation
         Vector3 camFwd = new Vector3(cam.transform.forward.x, 0, cam.transform.forward.z);
         Vector3 camRight = new Vector3(cam.transform.right.x, 0, cam.transform.right.z);
@@ -121,8 +113,7 @@ public class PlayerController : SerializedMonoBehaviour
         modelAxis.localRotation = Quaternion.RotateTowards(modelAxis.localRotation, Quaternion.Euler(new Vector3(0, modelRot, 0)), 20f);
     }
 
-    public void JumpOnce(Vector3 jumpForce, bool regular, int forceId)
-    {
+    public void JumpOnce(Vector3 jumpForce, bool regular, int forceId) {
         rigid.velocity = new Vector3(rigid.velocity.x, 0, rigid.velocity.z);
 
         Vector3 dirForceSide;
@@ -140,8 +131,7 @@ public class PlayerController : SerializedMonoBehaviour
         modelAnim.Play("Jump");
     }
 
-    void GroundCheck()
-    {
+    void GroundCheck() {
         Collider[] isGroundedOn = Physics.OverlapSphere(groundHolder.position, groundHoldRadius, checkCollisionOn);
 
         isGrounded = (isGroundedOn.Length > 0);
@@ -159,41 +149,33 @@ public class PlayerController : SerializedMonoBehaviour
             platform = null;
     }
 
-    public void AddForce(int id, Vector3 targetForce, float decay, bool isImpulse, bool endOnGround)
-    {
+    public void AddForce(int id, Vector3 targetForce, float decay, bool isImpulse, bool endOnGround) {
         forces.Add(new PlayerForce(id, targetForce, decay, isImpulse, endOnGround));
     }
 
-    public void AddForce(Vector3 targetForce, float decay, bool isImpulse, bool endOnGround)
-    {
+    public void AddForce(Vector3 targetForce, float decay, bool isImpulse, bool endOnGround) {
         forces.Add(new PlayerForce(0, targetForce, decay, isImpulse, endOnGround));
     }
-    public void StopAllForces()
-    {
+    public void StopAllForces() {
         foreach (PlayerForce pf in forces)
             pf.Stop();
     }
 
-    public void StopForces(int id)
-    {
-        foreach(PlayerForce f in forces)
-        {
+    public void StopForces(int id) {
+        foreach (PlayerForce f in forces) {
             if (f.typeId == id)
                 f.Stop();
         }
     }
-    void Forces()
-    {
+    void Forces() {
         //do not apply any forces when empty
         if (forces == null)
             return;
 
         //remove finished forces
         int forceAmount = forces.Count;
-        for (int i = 0; i < forceAmount; i++)
-        {
-            if(!forces[i].running)
-            {
+        for (int i = 0; i < forceAmount; i++) {
+            if (!forces[i].running) {
                 forces.RemoveAt(i);
                 i--;
                 forceAmount = forces.Count;
@@ -204,15 +186,13 @@ public class PlayerController : SerializedMonoBehaviour
         Vector3 eF = new Vector3();
 
         //force calculation for each force
-        foreach (PlayerForce pf in forces)
-        {
+        foreach (PlayerForce pf in forces) {
             //stop when on ground
             if (pf.cancelOnGround && isGrounded && pf.time > 0.5f)
                 pf.Stop();
 
             //control the force strenght amount
-            if (pf.time > pf.decay)
-            {
+            if (pf.time > pf.decay) {
                 if (pf.isImpulse)           //if force is impulse: decays after decay time is reached
                     pf.strenght *= 0.6f;
                 else
@@ -227,12 +207,10 @@ public class PlayerController : SerializedMonoBehaviour
                 pf.strenght = 0;
 
             //stop when force time is finished
-            if (pf.running)
-            {
+            if (pf.running) {
                 pf.time += Time.fixedDeltaTime;
                 eF += pf.force;
-            }
-            else
+            } else
                 pf.Stop();
         }
 
@@ -247,8 +225,7 @@ public class PlayerController : SerializedMonoBehaviour
 }
 
 [System.Serializable]
-public class PlayerForce
-{
+public class PlayerForce {
     public int typeId;
     public Vector3 initialForce;
     public Vector3 force;
@@ -259,8 +236,7 @@ public class PlayerForce
     public bool cancelOnGround;
     public bool running { get { return (this.force != Vector3.zero); } }
 
-    public PlayerForce(int typeId, Vector3 force, float decay, bool impulse, bool cancelOnGround)
-    {
+    public PlayerForce(int typeId, Vector3 force, float decay, bool impulse, bool cancelOnGround) {
         this.typeId = typeId;
         this.initialForce = force;
         this.force = force;
@@ -269,8 +245,7 @@ public class PlayerForce
         this.cancelOnGround = cancelOnGround;
     }
 
-    public void Stop()
-    {
+    public void Stop() {
         strenght = 0;
         force = Vector3.zero;
     }
