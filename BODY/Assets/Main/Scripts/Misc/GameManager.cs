@@ -19,7 +19,7 @@ public class GameManager : SerializedMonoBehaviour {
     public bool CanControl { set { player.GetComponent<EnergySystem>().enabled = value; player.GetComponent<PlayerController>().enabled = value; } }
     
     [SerializeField, TabGroup("Debugging")]
-    public static PuzzleManager aktPuzzle;
+    public PuzzleManager aktPuzzle;
 
     // Start is called before the first frame update
     void Start() {

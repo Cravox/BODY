@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CarryBox : MonoBehaviour {
-    [SerializeField]
-    private bool isTrigger;
     private Rigidbody rigid;
     public CollisionField groundTrigger;
 
-    [HideInInspector]
-    public bool FirstPickUp = false;
-    private bool pickedUp = false;
     public MovingPlatform platformOn;
-
-    [SerializeField]
-    private List<Door> triggeredObjects;
 
     public Vector3 velocity;
 
@@ -25,13 +17,6 @@ public class CarryBox : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (FirstPickUp && isTrigger && !pickedUp) {
-            foreach (var door in triggeredObjects) {
-                door.Open(true);
-                pickedUp = true;
-            }
-        }
-
         if(platformOn != null)
             rigid.velocity = platformOn.rigid.velocity;
 

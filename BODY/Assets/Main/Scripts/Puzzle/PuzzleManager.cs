@@ -10,6 +10,8 @@ public class PuzzleManager : SerializedMonoBehaviour {
     private Vector3[] startObjectPosition;
     private Vector3[] startObjectEulerAngles;
 
+    private GameObject puzzleDoor;
+
     // Start is called before the first frame update
     void Start() {
         startObjectPosition = new Vector3[resettableObjects.Length];

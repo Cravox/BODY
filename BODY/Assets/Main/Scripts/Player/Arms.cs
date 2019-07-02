@@ -40,6 +40,7 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Debugging")]
     private LayerMask indicatorMask;
 
+    [SerializeField, TabGroup("Debugging")]
     private bool isCarrying;
 
     private Ray ray;
@@ -47,7 +48,6 @@ public class Arms : Limb {
     private RigidbodyConstraints constraint;
     private Rigidbody boxRb;
 
-    private bool isChecking = true;
     private bool canInteract;
     private Vector3 impactPos;
 
@@ -93,7 +93,6 @@ public class Arms : Limb {
 
             Debug.DrawLine(calcs[i - 1], calcs[i], new Color(1 / i * 10, 1 / i * 10, 1 / i * 10));
             
-
             if (hit.collider != null) {
                 result = hit.point;
                 return result;
@@ -190,7 +189,6 @@ public class Arms : Limb {
         constraint = boxRb.constraints;
         boxRb.constraints = RigidbodyConstraints.FreezeAll;
         box.localPosition = topPosition.localPosition;
-        box.GetComponent<CarryBox>().FirstPickUp = true;
     }
 
     private void DetachObject() {
