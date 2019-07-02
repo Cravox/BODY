@@ -7,6 +7,9 @@ public class PuzzleDoor : MonoBehaviour {
     [SerializeField, TabGroup("References"), Required]
     private Animator doorAnim;
 
+    [SerializeField, TabGroup("References"), Required]
+    private ZoneBox[] zoneBoxes = new ZoneBox[2];
+
     // Start is called before the first frame update
     void Start() {
 

@@ -7,53 +7,72 @@ using System;
 public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("Balancing")]
     public float gravityModifier;
+
     [TabGroup("Balancing")]
     public float walkSpeed;
+
     [TabGroup("Balancing")]
     public float strafeSpeed;
+
     [TabGroup("Balancing")]
     public float jumpSpeed;
+
     [TabGroup("Balancing")]
     public float airSpeed;
 
     [TabGroup("References"), Required, Header("Requirements")]
     [InfoBox("Objects are required to run.")]
     public Rigidbody rigid;
+
     [TabGroup("References"), Required]
     public Camera cam;
 
-    [TabGroup("References"), Header("Ground")]
+    [TabGroup("References"), Header("Ground"), Required]
     public float groundHoldRadius;
-    [TabGroup("References")]
+
+    [TabGroup("References"), Required]
     public Transform groundHolder;
-    [TabGroup("References")]
+
+    [TabGroup("References"), Required]
     public LayerMask checkCollisionOn;
-    [TabGroup("References"), InfoBox("Required for turning a Model during Movement"), Header("Model")]
+
+    [TabGroup("References"), InfoBox("Required for turning a Model during Movement"), Header("Model"), Required]
     public Transform modelAxis;
-    [TabGroup("References")]
+
+    [TabGroup("References"), Required]
     public Animator modelAnim;
 
     [TabGroup("Debugging"), SerializeField]
     [InfoBox("<color='red'><b>Debug only: Do not change these values. \nMay disrupt Gameplay when changed.</b></color>")]
     private Vector2 inputAxis;
+
     [TabGroup("Debugging"), SerializeField]
     public Vector3 moveForce;  //used for movement direction
+
     [TabGroup("Debugging"), SerializeField]
     private Vector3 lastForce;  //used for rotation stance
+
     [TabGroup("Debugging"), SerializeField]
     private bool inputJump;
+
     [TabGroup("Debugging"), SerializeField]
     public bool isGrounded;
+
     [TabGroup("Debugging"), SerializeField]
     public bool hovering;
+
     [TabGroup("Debugging"), SerializeField]
     public Rigidbody platform;
+
     [TabGroup("Debugging"), SerializeField]
     public List<PlayerForce> forces;
+
     [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
+
     [TabGroup("Debugging"), SerializeField]
     public float modelRot;
+
     Vector3 platformNoY;
 
     public bool stopGravity { get { return (hovering); } }
