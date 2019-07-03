@@ -189,7 +189,6 @@ public class Arms : Limb {
         constraint = boxRb.constraints;
         boxRb.constraints = RigidbodyConstraints.FreezeAll;
         box.localPosition = topPosition.localPosition;
-        box.GetComponent<CarryBox>().FirstPickUp = true;
     }
 
     private void DetachObject() {
