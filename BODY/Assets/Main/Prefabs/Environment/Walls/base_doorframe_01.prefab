@@ -29,10 +29,6 @@ GameObject:
   - component: {fileID: 4237418845214734093}
   - component: {fileID: 3703891567180812468}
   - component: {fileID: 7340970727553451188}
-<<<<<<< Updated upstream:BODY/Assets/Main/Prefabs/Environment/Walls/base_doorframe_01.prefab
-  - component: {fileID: 1086117354452554860}
-=======
->>>>>>> Stashed changes:BODY/Assets/Main/Prefabs/Environment/Walls/base_doorframe_01 (1).prefab
   m_Layer: 0
   m_Name: base_doorframe_01
   m_TagString: Untagged
@@ -176,22 +172,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8, y: 4, z: 6}
   m_Center: {x: -2, y: 2, z: 0}
-<<<<<<< Updated upstream:BODY/Assets/Main/Prefabs/Environment/Walls/base_doorframe_01.prefab
---- !u!114 &1086117354452554860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863146953660676403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9eec4282cf50a44d8737aefd3d91f2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorAnim: {fileID: 3703891567180812468}
-=======
->>>>>>> Stashed changes:BODY/Assets/Main/Prefabs/Environment/Walls/base_doorframe_01 (1).prefab
 --- !u!65 &7766893427524846586
 BoxCollider:
   m_ObjectHideFlags: 0
