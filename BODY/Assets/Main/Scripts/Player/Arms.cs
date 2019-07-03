@@ -16,12 +16,6 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
     private float pushForce = 1000;
 
-    [SerializeField, TabGroup("Balancing")]
-    private int impactIterations;
-
-    [SerializeField, TabGroup("Balancing")]
-    private float impactIterationLenght;
-
     [SerializeField, TabGroup("References"), Required]
     private Transform topPosition;
 
@@ -42,6 +36,12 @@ public class Arms : Limb {
 
     [SerializeField, TabGroup("Debugging")]
     private bool isCarrying;
+
+    [SerializeField, TabGroup("Debugging"), Header("Range Indicator")]
+    private int impactIterations;
+
+    [SerializeField, TabGroup("Debugging")]
+    private float impactIterationLenght;
 
     private Ray ray;
     private RaycastHit hit;
@@ -83,6 +83,9 @@ public class Arms : Limb {
         List<Vector3> calcs = new List<Vector3>();
         calcs.Add(origin);
 
+        //*DEBUG*
+        float q = 0;    //*/
+
         for (int i = 1; i < iterations + 1; i++) {
             float t = i * stepDistance;
             Vector3 pos = origin + ((Vector3.up * up * t) + (dir * fwd * t) + Physics.gravity / 2 * t * t);
@@ -90,9 +93,13 @@ public class Arms : Limb {
 
             RaycastHit hit;
             bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
-
-            Debug.DrawLine(calcs[i - 1], calcs[i], new Color(1 / i * 10, 1 / i * 10, 1 / i * 10));
             
+            //*DEBUG*
+            Color col = new Color(q, 1f - q, 0.5f);
+            Debug.DrawLine(calcs[i - 1], calcs[i], col);
+            q += 0.25f;
+            //*/
+
             if (hit.collider != null) {
                 result = hit.point;
                 return result;
