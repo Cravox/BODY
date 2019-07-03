@@ -30,6 +30,7 @@ public class GameManager : SerializedMonoBehaviour {
     // Update is called once per frame
     void Update() {
         InputHandler();
+        EventHelper.FixEventSystem();
     }
 
     void InputHandler() {
@@ -42,11 +43,6 @@ public class GameManager : SerializedMonoBehaviour {
 
         if (Input.GetButtonDown("SelectButton")) {
             aktPuzzle.ResetObjects();
-        }
-
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) {
-            EventSystem es = EventSystem.current;
-            es.SetSelectedGameObject(pauseMenu.firstButton);
         }
     }
 }

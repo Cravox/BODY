@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        
     }
 
     public void SetPauseMenu() {
@@ -31,12 +31,14 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void Button_Reset() {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    //Button_Options
+    //Button_Options?
 
     public void Button_Exit() {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 }

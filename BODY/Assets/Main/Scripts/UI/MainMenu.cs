@@ -28,6 +28,8 @@ public class MainMenu : MonoBehaviour {
     private bool invAxisX = false;
     private bool invAxisY = false;
 
+    private GameObject currentActive;
+
     void Awake()
     {
         LoadSettings();
@@ -36,6 +38,7 @@ public class MainMenu : MonoBehaviour {
     void Update()
     {
         InputController();
+        EventHelper.FixEventSystem();
     }
 
     void InputController()
