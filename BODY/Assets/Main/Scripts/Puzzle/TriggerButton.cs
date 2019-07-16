@@ -16,7 +16,7 @@ public class TriggerButton : TriggerObject
     void Update()
     {
         if(buttonAnim)
-            buttonAnim.SetBool("Push", triggered);
+            buttonAnim.SetBool("Triggered", triggered);
     }
 
     private void OnTriggerStay(Collider other)

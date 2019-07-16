@@ -13,16 +13,18 @@ public class TriggerEventManager : MonoBehaviour
         {
             List<bool> triggerVals = new List<bool>();
 
-            foreach(TriggerObject o in t.triggers)
+            foreach (TriggerObject o in t.triggers)
             {
-                triggerVals.Add(o.triggered);
+                if(o != null)
+                    triggerVals.Add(o.triggered);
             }
 
             t.conditionsMet = (!triggerVals.Contains(false));
 
             foreach (TriggerContainer c in t.containers)
             {
-                c.gotActive = t.conditionsMet;
+                if (c != null)
+                    c.gotActive = t.conditionsMet;
             }
         }
     }

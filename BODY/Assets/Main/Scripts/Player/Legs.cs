@@ -92,7 +92,7 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-        playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
+        //playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
 
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
         {
