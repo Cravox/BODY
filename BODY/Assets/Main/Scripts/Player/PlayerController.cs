@@ -73,6 +73,8 @@ public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("Debugging"), SerializeField]
     public float modelRot;
 
+    private bool landed;
+
     Vector3 platformNoY;
 
     public bool stopGravity { get { return (hovering); } }
@@ -99,7 +101,7 @@ public class PlayerController : SerializedMonoBehaviour {
     void Animate() {
         Vector3 rigidvel = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
         modelAnim.SetFloat("Velocity", rigidvel.magnitude / walkSpeed);
-        modelAnim.SetBool("IsGrounded", isGrounded);
+        //modelAnim.SetBool("IsGrounded", isGrounded);
     }
 
     void InputCheck() {
@@ -147,7 +149,7 @@ public class PlayerController : SerializedMonoBehaviour {
         AddForce(dirForceUp, 0, true, true);
         AddForce(dirForceSide, 50, true, true);
 
-        modelAnim.Play("Jump");
+        //modelAnim.Play("Jump");
     }
 
     void GroundCheck() {
@@ -156,11 +158,14 @@ public class PlayerController : SerializedMonoBehaviour {
         isGrounded = (isGroundedOn.Length > 0);
 
         string tag = "";
-
-        if (isGrounded)
+        
+        if (isGrounded) {
             tag = isGroundedOn[0].gameObject.tag;
-        else
+            if(!landed) modelAnim.SetTrigger("Land");
+        } else {
             tag = "";
+            landed = false;
+        }
 
         if (tag == "MovingPlatform" || tag == "Carry")
             platform = isGroundedOn[0].gameObject.GetComponentInParent<Rigidbody>();

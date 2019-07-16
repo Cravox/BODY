@@ -4,6 +4,8 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PuzzleManager : SerializedMonoBehaviour {
+    public int EnergyPoints;
+
     [SerializeField, TabGroup("Balancing")]
     private Transform[] resettableObjects;
     

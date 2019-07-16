@@ -5,17 +5,17 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 
 public class EnergySystem : SerializedMonoBehaviour {
-    [SerializeField, TabGroup("Balancing")]
-    private int energyPoints = 100;
-
     [Required, SerializeField, Tooltip("From Top to Bottom: Head, Arms, Legs"), TabGroup("References")]
     private Limb[] playerLimbs = new Limb[3];
 
-    [SerializeField, TabGroup("References")]
+    [SerializeField, TabGroup("References"), Required]
     private Text energyText;
 
-    [SerializeField, TabGroup("References")]
+    [SerializeField, TabGroup("References"), Required]
     private Image stateImage;
+
+    [SerializeField, TabGroup("References"), Required]
+    private Animator playerAnim;
 
     private int maxEnergy;
     private int eCost = 0;
@@ -25,14 +25,12 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        maxEnergy = energyPoints;
         stateImage.enabled = true;
     }
 
     // Update is called once per frame
     void Update() {
         Enums.LimbIndex? myIndex = null;
-        //eCost = 0;
 
         if (Input.GetButtonDown("ButtonY")) myIndex = Enums.LimbIndex.HEAD;
         if (Input.GetButtonDown("ButtonX")) myIndex = Enums.LimbIndex.ARMS;
@@ -42,10 +40,13 @@ public class EnergySystem : SerializedMonoBehaviour {
         rightTriggerInput = Input.GetAxis("RightTrigger");
 
         if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
+            playerAnim.SetBool("isFullPower", true);
             SetLimbState(Enums.ChargeState.TIER_TWO);
         } else if (leftTriggerInput >= 0.9f) {
+            playerAnim.SetBool("isFullPower", false);
             SetLimbState(Enums.ChargeState.TIER_ONE);
         } else {
+            playerAnim.SetBool("isFullPower", false);
             SetLimbState(Enums.ChargeState.NOT_CHARGED);
         }
 
@@ -62,9 +63,11 @@ public class EnergySystem : SerializedMonoBehaviour {
             limb.BaselineAbility();
         }
 
-        if (!GameManager.instance.playerInHub) energyPoints -= eCost;
+        //if (!GameManager.instance.playerInHub) {
+        //    GameManager.instance.aktPuzzle.EnergyPoints += eCost;
+        //    UpdateEnergyUI();
+        //}
 
-        UpdateEnergyUI();
     }
 
     void SetLimbState(Enums.ChargeState cs) {
@@ -74,6 +77,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void UpdateEnergyUI() {
-        energyText.text = "Energy State: " + energyPoints + "%";
+        energyText.text = "Energy Used: " + GameManager.instance.aktPuzzle;
     }
 }

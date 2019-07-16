@@ -368,6 +368,20 @@ ModelImporter:
     100724: spine_02.002
     100726: spine_02.002_end
     100728: upperBody_low
+    100730: vfx_Arm_Left
+    100732: vfx_Arm_Right
+    100734: vfx_Foot_Left
+    100736: vfx_Foot_Right
+    100738: vfx_Hand_Left
+    100740: vfx_Hand_Right
+    100742: vfx_Leg_Left
+    100744: vfx_Leg_Right
+    100746: vfx_Shoulder_Left
+    100748: vfx_Shoulder_Right
+    100750: vfx_Toes_Left
+    100752: vfx_Toes_Right
+    100754: conector_carry
+    100756: conector_carry_end
     400000: //RootNode
     400002: BaseMesh.001
     400004: BaseMesh.003
@@ -733,6 +747,20 @@ ModelImporter:
     400724: spine_02.002
     400726: spine_02.002_end
     400728: upperBody_low
+    400730: vfx_Arm_Left
+    400732: vfx_Arm_Right
+    400734: vfx_Foot_Left
+    400736: vfx_Foot_Right
+    400738: vfx_Hand_Left
+    400740: vfx_Hand_Right
+    400742: vfx_Leg_Left
+    400744: vfx_Leg_Right
+    400746: vfx_Shoulder_Left
+    400748: vfx_Shoulder_Right
+    400750: vfx_Toes_Left
+    400752: vfx_Toes_Right
+    400754: conector_carry
+    400756: conector_carry_end
     2000000: Camera
     2100000: BodyBase
     2100002: Armor
@@ -1573,7 +1601,7 @@ ModelImporter:
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

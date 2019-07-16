@@ -125,9 +125,11 @@ public class Arms : Limb {
 
     public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
+            playerCont.modelAnim.SetBool("isCarrying", true);
             AttachObject();
         } else if (isCarrying) {
             box.localPosition = frontPosition.localPosition;
+            playerCont.modelAnim.SetBool("isCarrying", false);
             DetachObject();
         }
 
@@ -140,17 +142,17 @@ public class Arms : Limb {
             DetachObject();
 
             var modelTrans = playerCont.modelAxis.transform;
-
             boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
+            playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
         }
-        playerCont.modelAnim.SetBool("IsPushing", isCarrying);
         return cost;
     }
 
     public override int TierTwo() {
         int cost = 0;
         if (canInteract && !isCarrying) {
+            playerCont.modelAnim.SetTrigger("Push");
             PushBox pushBox = box.GetComponent<PushBox>();
             pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[1];
@@ -192,9 +194,11 @@ public class Arms : Limb {
 
     private void AttachObject() {
         isCarrying = true;
-        box.parent = playerCont.modelAxis;
+        var saveRota = box.localRotation;
+        box.parent = topPosition;
         constraint = boxRb.constraints;
         boxRb.constraints = RigidbodyConstraints.FreezeAll;
+        box.localRotation = saveRota;
         box.localPosition = topPosition.localPosition;
     }
 
