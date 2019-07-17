@@ -54,7 +54,7 @@ AvatarMask:
   - m_Path: midBody_low
     m_Weight: 0
   - m_Path: Rig
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Rig/root
     m_Weight: 0
   - m_Path: Rig/root/center
@@ -77,9 +77,15 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.L/shin.L/foot_01.L/foot_02.L/toe.L/toe.L_end
     m_Weight: 0
+  - m_Path: Rig/root/center/hip/thigh.L/shin.L/foot_01.L/foot_02.L/toe.L/vfx_Toes_Left
+    m_Weight: 0
+  - m_Path: Rig/root/center/hip/thigh.L/shin.L/foot_01.L/foot_02.L/vfx_Foot_Left
+    m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.L/shin.L/shin_exhaust.L
     m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.L/shin.L/shin_exhaust.L/shin_exhaust.L_end
+    m_Weight: 0
+  - m_Path: Rig/root/center/hip/thigh.L/shin.L/shin_exhaust.L/vfx_Leg_Left
     m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.R
     m_Weight: 0
@@ -97,9 +103,15 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.R/shin.R/foot_01.R/foot_02.R/toe.R/toe.R_end
     m_Weight: 0
+  - m_Path: Rig/root/center/hip/thigh.R/shin.R/foot_01.R/foot_02.R/toe.R/vfx_Toes_Right
+    m_Weight: 0
+  - m_Path: Rig/root/center/hip/thigh.R/shin.R/foot_01.R/foot_02.R/vfx_Foot_Right
+    m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.R/shin.R/shin_exhaust.R
     m_Weight: 0
   - m_Path: Rig/root/center/hip/thigh.R/shin.R/shin_exhaust.R/shin_exhaust.R_end
+    m_Weight: 0
+  - m_Path: Rig/root/center/hip/thigh.R/shin.R/shin_exhaust.R/vfx_Leg_Right
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01
     m_Weight: 0
@@ -116,6 +128,8 @@ AvatarMask:
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/forearm.L/exhaust_Arm.L
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/forearm.L/exhaust_Arm.L/exhaust_Arm.L_end
+    m_Weight: 0
+  - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/forearm.L/exhaust_Arm.L/vfx_Arm_Left
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/forearm.L/hand_01.L
     m_Weight: 0
@@ -163,9 +177,13 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/forearm.L/hand_01.L/hand_02.L/hand_03.L/thumb.01.L/thumb.02.L/thumb.03.L/thumb.03.L_end
     m_Weight: 0
+  - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/forearm.L/hand_01.L/hand_02.L/hand_03.L/vfx_Hand_Left
+    m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/shoulderHatch.L
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/shoulderHatch.L/shoulderHatch.L_end
+    m_Weight: 0
+  - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L/upper_arm.L/shoulderHatch.L/vfx_Shoulder_Left
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.L.001
     m_Weight: 0
@@ -180,6 +198,8 @@ AvatarMask:
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/forearm.R/exhaust_Arm.R
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/forearm.R/exhaust_Arm.R/exhaust_Arm.R_end
+    m_Weight: 0
+  - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/forearm.R/exhaust_Arm.R/vfx_Arm_Right
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/forearm.R/hand_01.R
     m_Weight: 1
@@ -227,9 +247,13 @@ AvatarMask:
     m_Weight: 1
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/forearm.R/hand_01.R/hand_02.R/hand_03.R/thumb.01.R/thumb.02.R/thumb.03.R/thumb.03.R_end
     m_Weight: 1
+  - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/forearm.R/hand_01.R/hand_02.R/hand_03.R/vfx_Hand_Right
+    m_Weight: 1
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/shoulderHatch.R
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/shoulderHatch.R/shoulderHatch.R_end
+    m_Weight: 0
+  - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R/upper_arm.R/shoulderHatch.R/vfx_Shoulder_Right
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/shoulder.R.001
     m_Weight: 0
@@ -251,6 +275,10 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Rig/root/center/spine_01/spine_02/spine_03/spine_04/neck_01/neck_02/head/Eye.R/Eye.R_end
     m_Weight: 0
+  - m_Path: Rig/root/conector_carry
+    m_Weight: 1
+  - m_Path: Rig/root/conector_carry/conector_carry_end
+    m_Weight: 1
   - m_Path: Rig/root/CTRL_Hip
     m_Weight: 0
   - m_Path: Rig/root/CTRL_Hip/CTRL_Hip_end

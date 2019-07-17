@@ -105,6 +105,8 @@ ModelImporter:
     100198: shin_exhaust.L_end
     100200: shin_exhaust.R
     100202: shin_exhaust.R_end
+    100204: conector_carry
+    100206: conector_carry_end
     400000: center
     400002: CTRL_Hip
     400004: CTRL_Hip_end
@@ -207,6 +209,8 @@ ModelImporter:
     400198: shin_exhaust.L_end
     400200: shin_exhaust.R
     400202: shin_exhaust.R_end
+    400204: conector_carry
+    400206: conector_carry_end
     7400000: Jump
     7400002: Jump
     9500000: //RootNode
