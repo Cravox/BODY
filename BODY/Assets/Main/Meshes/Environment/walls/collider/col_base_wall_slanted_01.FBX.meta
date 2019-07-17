@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: c03c4a6d56627ec4d9f30f62536f6908
+guid: edd181f4557087843a574e63d542985a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: No Name
-    2100002: Frame
-    2100004: Light
-    2100006: Rubber
+    2100000: emission
     2300000: //RootNode
     3300000: //RootNode
-    4300000: crate_heavy_01
+    4300000: col_base_wall_slanted_01
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -1,20 +1,17 @@
 fileFormatVersion: 2
-guid: c03c4a6d56627ec4d9f30f62536f6908
+guid: a213e6bd8aa37af45b61845cdb23f2bd
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
     2100000: No Name
-    2100002: Frame
-    2100004: Light
-    2100006: Rubber
     2300000: //RootNode
     3300000: //RootNode
-    4300000: crate_heavy_01
+    4300000: round_pillar_01_corneraligned
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
