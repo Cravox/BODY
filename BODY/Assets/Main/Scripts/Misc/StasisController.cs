@@ -4,40 +4,44 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class StasisController : SerializedMonoBehaviour {
-    private Rigidbody rigid;
-    private MovingPlatform platform;
 
-    private Vector3 savedVelocity;
-    private RigidbodyConstraints constrains;
-    public bool isPlatform;
+    //TO BE REMOVED
 
 
-    private void Start() {
-        rigid = GetComponent<Rigidbody>();
+    //private Rigidbody rigid;
+    //private MovingPlatform platform;
 
-        if (isPlatform)
-            platform = GetComponent<MovingPlatform>();
-    }
+    //private Vector3 savedVelocity;
+    //private RigidbodyConstraints constrains;
+    //public bool isPlatform;
 
-    public IEnumerator Stasis(float stasisTime) {
-        savedVelocity = rigid.velocity;
 
-        rigid.isKinematic = true;
-        //constrains = rigid.constraints;
-        //rigid.constraints = RigidbodyConstraints.FreezeAll;
+    //private void Start() {
+    //    rigid = GetComponent<Rigidbody>();
 
-        if (isPlatform)
-            platform.stasis = true;
+    //    if (isPlatform)
+    //        platform = GetComponent<MovingPlatform>();
+    //}
 
-        yield return new WaitForSecondsRealtime(stasisTime);
+    //public IEnumerator Stasis(float stasisTime) {
+    //    savedVelocity = rigid.velocity;
 
-        if (isPlatform)
-            platform.stasis = false;
-        else
-            rigid.isKinematic = false;
+    //    rigid.isKinematic = true;
+    //    //constrains = rigid.constraints;
+    //    //rigid.constraints = RigidbodyConstraints.FreezeAll;
 
-        //rigid.constraints = constrains;
+    //    if (isPlatform)
+    //        platform.stasis = true;
 
-        rigid.velocity = savedVelocity;
-    }
+    //    yield return new WaitForSecondsRealtime(stasisTime);
+
+    //    if (isPlatform)
+    //        platform.stasis = false;
+    //    else
+    //        rigid.isKinematic = false;
+
+    //    //rigid.constraints = constrains;
+
+    //    rigid.velocity = savedVelocity;
+    //}
 }
