@@ -18,6 +18,11 @@ public class CarryBox : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if(transform.position.y < -50f)
+        {
+            DestroyBox();
+        }
+
         if(platformOn != null)
             rigid.velocity = platformOn.rigid.velocity;
 

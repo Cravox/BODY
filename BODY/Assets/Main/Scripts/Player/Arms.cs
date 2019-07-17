@@ -72,7 +72,7 @@ public class Arms : Limb {
     }
 
     public void PredictRigidbody() {
-        if (!isCarrying) {
+        if (!isCarrying || box == null) {
             impactPos = Vector3.zero;
             return;
         }
@@ -154,6 +154,10 @@ public class Arms : Limb {
             playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
         }
+        else
+        {
+            DetachObject();
+        }
         return cost;
     }
 
@@ -211,7 +215,7 @@ public class Arms : Limb {
     }
 
     private void DetachObject() {
-        if (box != null)
+        if (box != null && boxRb != null)
         {
             box.parent = null;
             boxRb.constraints = constraint;
