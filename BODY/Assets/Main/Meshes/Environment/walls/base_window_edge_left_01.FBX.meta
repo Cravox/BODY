@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: c03c4a6d56627ec4d9f30f62536f6908
+guid: e8a08899135e9914f810ae498585c86b
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: No Name
-    2100002: Frame
-    2100004: Light
-    2100006: Rubber
+    2100000: Leiste
+    2100002: Basecolor
+    2100004: Leistenkante
+    2100006: 'Material #46 Slot #5'
     2300000: //RootNode
     3300000: //RootNode
-    4300000: crate_heavy_01
+    4300000: base_window_edge_left_01
   externalObjects: {}
   materials:
     importMaterials: 1
