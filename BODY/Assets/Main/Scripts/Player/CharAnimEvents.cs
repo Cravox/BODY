@@ -14,6 +14,7 @@ public class CharAnimEvents : MonoBehaviour
     public GameObject vfxRightToes;
     public GameObject vfxRightFoot;
 
+    public Transform[] handTransforms = new Transform[2];
     public GameObject vfxLeftHand;
     public GameObject vfxRightHand;
 
@@ -39,12 +40,22 @@ public class CharAnimEvents : MonoBehaviour
     public GameObject vfxLightLeftFoot;
     public GameObject vfxLightRightFoot;
 
+    public GameObject vfxCarry;
+    public GameObject vfxCarryBeamA;
+    public GameObject vfxCarryBeamB;
+    public GameObject vfxReceive;
+    public GameObject vfxThrow;
+    public GameObject vfxActivation;
+
     public GameObject charRoot;
 
     private bool isDoubleJumping;
-    private bool isPushing;
+    public bool isPushing;
 
     private Animator anim;
+
+    [SerializeField]
+    private Arms arms;
 
     void Start()
     {
@@ -53,6 +64,9 @@ public class CharAnimEvents : MonoBehaviour
 
     private void Update()
     {
+        vfxCarryBeamA.transform.LookAt(vfxReceive.transform);
+        vfxCarryBeamB.transform.LookAt(vfxReceive.transform);
+
         if (anim.GetBool("isHovering") == true)
         {
             vfxHover1.SetActive(true);
@@ -164,27 +178,36 @@ public class CharAnimEvents : MonoBehaviour
         vfxLightLeftHand.SetActive(true);
         vfxLightRightHand.SetActive(true);
 
-        GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
-        GameObject pushImpulseObj2 = Instantiate(pushImpulseVFX);
+        //GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
+        //GameObject pushImpulseObj2 = Instantiate(pushImpulseVFX);
 
-        pushImpulseObj1.transform.parent = charRoot.transform;      // Parent to root to get Character oriantation
-        pushImpulseObj2.transform.parent = charRoot.transform;
+        for (int i = 0; i < handTransforms.Length; i++) {
+            var vfx = Instantiate(pushImpulseVFX, handTransforms[i].position, Quaternion.identity);
+            vfx.transform.localEulerAngles = charRoot.transform.localEulerAngles;
+        }
 
-        pushImpulseObj1.transform.localRotation = Quaternion.Euler(90, 0, 0);       // set Rotation relative to character
-        pushImpulseObj2.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        arms.MoveBox();
 
-        pushImpulseObj1.transform.parent = vfxLeftHand.transform;       // Parent to VFX object
-        pushImpulseObj2.transform.parent = vfxRightHand.transform;
-
-        pushImpulseObj1.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);    // Get VFX object location
-        pushImpulseObj2.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-
-        pushImpulseObj1.transform.parent = charRoot.transform;          // Unparent from VFX to avoid weird movment
-        pushImpulseObj2.transform.parent = charRoot.transform;        
+        //pushImpulseObj1.transform.parent = charRoot.transform;      // Parent to root to get Character oriantation
+        //pushImpulseObj2.transform.parent = charRoot.transform;
+        //
+        //pushImpulseObj1.transform.localRotation = Quaternion.Euler(90, 0, 0);       // set Rotation relative to character
+        //pushImpulseObj2.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        //
+        //pushImpulseObj1.transform.parent = vfxLeftHand.transform;       // Parent to VFX object
+        //pushImpulseObj2.transform.parent = vfxRightHand.transform;
+        //
+        //pushImpulseObj1.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);    // Get VFX object location
+        //pushImpulseObj2.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        //
+        //pushImpulseObj1.transform.parent = charRoot.transform;          // Unparent from VFX to avoid weird movment
+        //pushImpulseObj2.transform.parent = charRoot.transform;        
     }
 
     void pickUp()
     {
+        vfxCarry.SetActive(true);
+        vfxReceive.SetActive(true);
         vfxLightRightHand.SetActive(true);
     }
 
@@ -192,12 +215,17 @@ public class CharAnimEvents : MonoBehaviour
     {
         if (isPushing == false)
         {
+            vfxCarry.SetActive(false);
+            vfxReceive.SetActive(false);
             vfxLightRightHand.SetActive(false);
         }
     }
 
     void throwImpulse()
     {
+        vfxCarry.SetActive(false);
+        vfxReceive.SetActive(false);
+
         GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
 
         pushImpulseObj1.transform.parent = charRoot.transform;      // Parent to root to get Character oriantation

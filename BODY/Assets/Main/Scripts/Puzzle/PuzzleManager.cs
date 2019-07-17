@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 
 public class PuzzleManager : SerializedMonoBehaviour {
-    public int EnergyPoints;
+    [HideInInspector]
+    public int UsedEnergyPoints;
+
+    [SerializeField, TabGroup("Balancing")]
+    private string puzzleTheme;
+
+    [SerializeField, TabGroup("Balancing")]
+    private int minEnergyPoints;
 
     [SerializeField, TabGroup("Balancing")]
     private Transform[] resettableObjects;
+
+    [SerializeField, TabGroup("References"), Required]
+    private TextMeshProUGUI textGUI;
     
     private Vector3[] startObjectPosition;
     private Vector3[] startObjectEulerAngles;
@@ -18,7 +29,9 @@ public class PuzzleManager : SerializedMonoBehaviour {
     void Start() {
         startObjectPosition = new Vector3[resettableObjects.Length];
         startObjectEulerAngles = new Vector3[resettableObjects.Length];
-        
+
+        textGUI.text = puzzleTheme + "\n" + "You've used:" + UsedEnergyPoints + ".\n" + "Minimum of Energypoints are:" + minEnergyPoints + ".\n";
+
         for (int i = 0; i < resettableObjects.Length; i++) {
             startObjectPosition[i] = resettableObjects[i].position;
             startObjectEulerAngles[i] = resettableObjects[i].eulerAngles;
@@ -35,5 +48,9 @@ public class PuzzleManager : SerializedMonoBehaviour {
             resettableObjects[i].position = startObjectPosition[i];
             resettableObjects[i].eulerAngles = startObjectEulerAngles[i];
         }
+    }
+
+    public void UpdateScreenUI() {
+        textGUI.text = puzzleTheme + "\n" + "You've used:" + UsedEnergyPoints + ".\n" + "Minimum of Energypoints are:" + minEnergyPoints + ".\n";
     }
 }

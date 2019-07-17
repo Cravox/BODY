@@ -43,6 +43,8 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Debugging")]
     private float impactIterationLenght;
 
+    private PushBox pushBox;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -51,11 +53,17 @@ public class Arms : Limb {
     private bool canInteract;
     private Vector3 impactPos;
 
+    RigidbodyConstraints constraints;
+
     protected override void LimbStart() {
 
     }
 
     protected override void LimbUpdate() {
+        if (!playerCont.animEvents.isPushing) {
+            playerCont.rigid.constraints = constraints;
+        }
+
         if (!isCarrying) {
             canInteract = CheckForInteractable();
         } else {
@@ -138,7 +146,7 @@ public class Arms : Limb {
                 isCarrying = false;
             else
             {
-                box.localPosition = frontPosition.localPosition;
+                //box.localPosition = frontPosition.localPosition;
                 DetachObject();
             }
         }
@@ -163,13 +171,18 @@ public class Arms : Limb {
 
     public override int TierTwo() {
         int cost = 0;
+        playerCont.rigid.constraints = RigidbodyConstraints.FreezeAll;
         if (canInteract && !isCarrying) {
             playerCont.modelAnim.SetTrigger("Push");
-            PushBox pushBox = box.GetComponent<PushBox>();
-            pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[1];
         }
         return cost;
+    }
+
+    public void MoveBox() {
+        pushBox = box.GetComponent<PushBox>();
+        pushBox.PushedBox(transform.position, pushForce);
+        //pushBox = null;
     }
 
     public override int TierThree() {
