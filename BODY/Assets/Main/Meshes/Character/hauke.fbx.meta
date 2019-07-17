@@ -1,0 +1,277 @@
+fileFormatVersion: 2
+guid: 909516bfa398dd240a8e75c70054b02d
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: antenna_1
+    100002: antenna_2
+    100004: antenna_3
+    100006: antenna_3_end
+    100008: antenna_base
+    100010: forearm.L
+    100012: forearm.R
+    100014: hand.L
+    100016: hand.R
+    100018: Hauke
+    100020: //RootNode
+    100022: head
+    100024: hip
+    100026: IK_Arm.L
+    100028: IK_Arm.L_end
+    100030: IK_Arm.R
+    100032: IK_Arm.R_end
+    100034: middleFinger.L
+    100036: middleFinger.L_end
+    100038: middleFinger.R
+    100040: middleFinger.R_end
+    100042: pinky.L
+    100044: pinky.L_end
+    100046: pinky.R
+    100048: pinky.R_end
+    100050: pointer.L
+    100052: pointer.L_end
+    100054: pointer.R
+    100056: pointer.R_end
+    100058: Rig
+    100060: root
+    100062: shin.L
+    100064: shin.L_end
+    100066: shin.R
+    100068: shin.R_end
+    100070: spine
+    100072: thigh.L
+    100074: thigh.R
+    100076: thumb.L
+    100078: thumb.L_end
+    100080: thumb.R
+    100082: thumb.R_end
+    100084: upper_arm.L
+    100086: upper_arm.R
+    400000: antenna_1
+    400002: antenna_2
+    400004: antenna_3
+    400006: antenna_3_end
+    400008: antenna_base
+    400010: forearm.L
+    400012: forearm.R
+    400014: hand.L
+    400016: hand.R
+    400018: Hauke
+    400020: //RootNode
+    400022: head
+    400024: hip
+    400026: IK_Arm.L
+    400028: IK_Arm.L_end
+    400030: IK_Arm.R
+    400032: IK_Arm.R_end
+    400034: middleFinger.L
+    400036: middleFinger.L_end
+    400038: middleFinger.R
+    400040: middleFinger.R_end
+    400042: pinky.L
+    400044: pinky.L_end
+    400046: pinky.R
+    400048: pinky.R_end
+    400050: pointer.L
+    400052: pointer.L_end
+    400054: pointer.R
+    400056: pointer.R_end
+    400058: Rig
+    400060: root
+    400062: shin.L
+    400064: shin.L_end
+    400066: shin.R
+    400068: shin.R_end
+    400070: spine
+    400072: thigh.L
+    400074: thigh.R
+    400076: thumb.L
+    400078: thumb.L_end
+    400080: thumb.R
+    400082: thumb.R_end
+    400084: upper_arm.L
+    400086: upper_arm.R
+    2100000: H4auk3_MK5_Base
+    2100002: H4auk3_MK5_Screen
+    2100004: H4auk3_MK5_Eye
+    2100006: H4auk3_MK5_Limbs
+    4300000: Hauke
+    7400000: noAnim
+    7400002: Walk
+    7400004: Run
+    7400006: Rig|noAnim
+    7400008: Rig|Run
+    7400010: Rig|Stand
+    7400012: Rig|Walk
+    9500000: //RootNode
+    13700000: Hauke
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Rig|Run
+      takeName: Rig|Run
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Rig|Stand
+      takeName: Rig|Stand
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Rig|Walk
+      takeName: Rig|Walk
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

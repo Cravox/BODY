@@ -22,7 +22,7 @@ public class Head : Limb {
     [SerializeField, TabGroup("Debugging")]
     private List<MovingPlatform> activatedPlatforms = new List<MovingPlatform>();
 
-    private List<MovingPlatform> pInDistance;
+    public List<MovingPlatform> pInDistance;
 
     public override void BaselineAbility() {
         //U BLIND BUT U SEE
@@ -57,19 +57,19 @@ public class Head : Limb {
     }
 
     public override int TierThree() {
-        List<StasisController> sInDistance = GetStasisObjects();
+        //List<StasisController> sInDistance = GetStasisObjects();
 
-        anim2.Play("anim", 0, 0);
+        //anim2.Play("anim", 0, 0);
 
-        foreach (StasisController sc in sInDistance) {
-            sc.StartCoroutine(sc.Stasis(maxStasisTime));
-        }
+        //foreach (StasisController sc in sInDistance) {
+        //    sc.StartCoroutine(sc.Stasis(maxStasisTime));
+        //}
 
-        if (sInDistance.Count > 0) {
-            return tierCosts[2];
-        }
+        //if (sInDistance.Count > 0) {
+        //    return tierCosts[2];
+        //}
 
-        playerCont.modelAnim.Play("Dance");
+        //playerCont.modelAnim.Play("Dance");
 
         return 0;
     }
@@ -82,8 +82,8 @@ public class Head : Limb {
         if (raySphere.Length <= 0) return t;
 
         foreach (Collider c in raySphere) {
-            if (c.tag == "MovingPlatform" && !c.GetComponent<MovingPlatform>().isActive) {
-                MovingPlatform mp = c.GetComponent<MovingPlatform>();
+            if (c.tag == "MovingPlatform" && !c.GetComponentInParent<MovingPlatform>().isActive) {
+                MovingPlatform mp = c.GetComponentInParent<MovingPlatform>();
                 t.Add(mp);
             }
         }
@@ -91,21 +91,21 @@ public class Head : Limb {
         return t;
     }
 
-    private List<StasisController> GetStasisObjects() {
-        List<StasisController> sc = new List<StasisController>();
+    //private List<StasisController> GetStasisObjects() {
+    //    List<StasisController> sc = new List<StasisController>();
 
-        Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform);
+    //    Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform);
 
-        foreach (Collider c in raySphere) {
-            StasisController s = c.GetComponent<StasisController>();
+    //    foreach (Collider c in raySphere) {
+    //        StasisController s = c.GetComponent<StasisController>();
 
-            if (s != null) {
-                sc.Add(s);
-            }
-        }
+    //        if (s != null) {
+    //            sc.Add(s);
+    //        }
+    //    }
 
-        return sc;
-    }
+    //    return sc;
+    //}
 
     protected override void LimbStart() {
 
@@ -113,6 +113,20 @@ public class Head : Limb {
 
     protected override void LimbUpdate() {
         pInDistance = GetPlatformColliders();
+
+        foreach (MovingPlatform t in activatedPlatforms)
+        {
+            t.stop = false;
+        }
+
+        for (int i = 0; i < activatedPlatforms.Count; i++)
+        {
+            if (!activatedPlatforms[i].isActive)
+            {
+                activatedPlatforms.Remove(activatedPlatforms[i]);
+                i--;
+            }
+        }
     }
 
     protected override void UpdateLimbUI() {

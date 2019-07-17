@@ -62,10 +62,17 @@ public class Arms : Limb {
             if (chargeState == Enums.ChargeState.TIER_ONE) PredictRigidbody();
             canInteract = false;
         }
+
+        if (box == null && isCarrying)
+        {
+            DetachObject();
+        }
+
+        playerCont.modelAnim.SetBool("isCarrying", isCarrying);
     }
 
     public void PredictRigidbody() {
-        if (!isCarrying) {
+        if (!isCarrying || box == null) {
             impactPos = Vector3.zero;
             return;
         }
@@ -125,15 +132,16 @@ public class Arms : Limb {
 
     public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
-            playerCont.modelAnim.SetBool("isCarrying", true);
             AttachObject();
         } else if (isCarrying) {
-            box.localPosition = frontPosition.localPosition;
-            playerCont.modelAnim.SetBool("isCarrying", false);
-            DetachObject();
+            if (box == null)
+                isCarrying = false;
+            else
+            {
+                box.localPosition = frontPosition.localPosition;
+                DetachObject();
+            }
         }
-
-        playerCont.modelAnim.SetBool("IsPushing", isCarrying);
     }
 
     public override int TierOne() {
@@ -145,6 +153,10 @@ public class Arms : Limb {
             boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
             playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
+        }
+        else
+        {
+            DetachObject();
         }
         return cost;
     }
@@ -194,17 +206,21 @@ public class Arms : Limb {
 
     private void AttachObject() {
         isCarrying = true;
-        var saveRota = box.localRotation;
+        //var saveRota = box.localRotation;
         box.parent = topPosition;
         constraint = boxRb.constraints;
         boxRb.constraints = RigidbodyConstraints.FreezeAll;
-        box.localRotation = saveRota;
-        box.localPosition = topPosition.localPosition;
+        box.localRotation = Quaternion.identity;
+        box.localPosition = Vector3.zero;
     }
 
     private void DetachObject() {
-        box.parent = null;
+        if (box != null && boxRb != null)
+        {
+            box.parent = null;
+            boxRb.constraints = constraint;
+        }
+
         isCarrying = false;
-        boxRb.constraints = constraint;
     }
 }

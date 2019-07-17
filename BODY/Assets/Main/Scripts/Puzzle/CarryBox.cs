@@ -10,6 +10,7 @@ public class CarryBox : MonoBehaviour {
 
     public Vector3 velocity;
 
+
     // Start is called before the first frame update
     void Start() {
         rigid = GetComponent<Rigidbody>();
@@ -17,6 +18,11 @@ public class CarryBox : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if(transform.position.y < -50f)
+        {
+            DestroyBox();
+        }
+
         if(platformOn != null)
             rigid.velocity = platformOn.rigid.velocity;
 
@@ -29,5 +35,10 @@ public class CarryBox : MonoBehaviour {
 
 
         velocity = rigid.velocity;
+    }
+
+    public void DestroyBox()
+    {
+        Destroy(this.gameObject);
     }
 }
