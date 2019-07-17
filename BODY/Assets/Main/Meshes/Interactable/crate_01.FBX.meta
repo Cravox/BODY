@@ -6,9 +6,13 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: No Name
+    2100002: Light
+    2100004: Frame
+    2100006: Base
     2300000: //RootNode
     3300000: //RootNode
     4300000: crate_01
+    4300002: crate_02
   externalObjects: {}
   materials:
     importMaterials: 1
