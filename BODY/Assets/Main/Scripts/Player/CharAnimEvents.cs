@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharAnimEvents : MonoBehaviour
-{
+public class CharAnimEvents : MonoBehaviour {
     [SerializeField]
-    private ParticleSystem[] jumpThrusterVFXs = new ParticleSystem[8];
+    private ParticleSystem[] jumpThrusterVFXs;
+
+    [SerializeField]
+    private GameObject[] hoverVFXs;
 
     public GameObject pushImpulseVFX;
 
@@ -57,61 +59,40 @@ public class CharAnimEvents : MonoBehaviour
     [SerializeField]
     private Arms arms;
 
-    void Start()
-    {
+    void Start() {
         anim = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
+    private void Update() {
         vfxCarryBeamA.transform.LookAt(vfxReceive.transform);
         vfxCarryBeamB.transform.LookAt(vfxReceive.transform);
 
-        if (anim.GetBool("isHovering") == true)
-        {
-            vfxHover1.SetActive(true);
-            vfxHover2.SetActive(true);
-            vfxHover3.SetActive(true);
-            vfxHover4.SetActive(true);
-            vfxHover5.SetActive(true);
-            vfxHover6.SetActive(true);
-            vfxHover7.SetActive(true);
-            vfxHover8.SetActive(true);
+        if (anim.GetBool("isHovering") == true) {
+            foreach (GameObject vfx in hoverVFXs) {
+                vfx.SetActive(true);
+            }
 
             vfxLightLeftFoot.SetActive(true);
             vfxLightRightFoot.SetActive(true);
-        }
+        } else {
+            foreach (GameObject vfx in hoverVFXs) {
+                vfx.SetActive(false);
+            }
 
-        else
-        {
-            vfxHover1.SetActive(false);
-            vfxHover2.SetActive(false);
-            vfxHover3.SetActive(false);
-            vfxHover4.SetActive(false);
-            vfxHover5.SetActive(false);
-            vfxHover6.SetActive(false);
-            vfxHover7.SetActive(false);
-            vfxHover8.SetActive(false);
-
-            if (isDoubleJumping == false)
-            {
+            if (isDoubleJumping == false) {
                 vfxLightLeftFoot.SetActive(false);
                 vfxLightRightFoot.SetActive(false);
             }
         }
 
-        if (anim.GetBool("isFullPower") == true)
-        {
+        if (anim.GetBool("isFullPower") == true) {
             vfxShoulderLeft.SetActive(true);
             vfxShoulderRight.SetActive(true);
             vfxArmLeft.SetActive(true);
             vfxArmRight.SetActive(true);
             vfxLegLeft.SetActive(true);
             vfxLegRight.SetActive(true);
-        }
-
-        else
-        {
+        } else {
             vfxShoulderLeft.SetActive(false);
             vfxShoulderRight.SetActive(false);
             vfxArmLeft.SetActive(false);
@@ -121,8 +102,7 @@ public class CharAnimEvents : MonoBehaviour
         }
     }
 
-    void jumpThrusters()
-    {
+    void JumpThrusters() {
         isDoubleJumping = true;
 
         vfxLightLeftFoot.SetActive(true);
@@ -131,98 +111,37 @@ public class CharAnimEvents : MonoBehaviour
         foreach (ParticleSystem vfx in jumpThrusterVFXs) {
             vfx.Play();
         }
-
-        //GameObject jumpThrustersObj1 = Instantiate(jumpThrustersVFX);   //Spawn VFX
-        //GameObject jumpThrustersObj2 = Instantiate(jumpThrustersVFX);
-        //GameObject jumpThrustersObj3 = Instantiate(jumpThrustersVFX);
-        //GameObject jumpThrustersObj4 = Instantiate(jumpThrustersVFX);
-        //
-        //GameObject jumpThrustersObj5 = Instantiate(jumpThrustersVFX);
-        //GameObject jumpThrustersObj6 = Instantiate(jumpThrustersVFX);
-        //GameObject jumpThrustersObj7 = Instantiate(jumpThrustersVFX);
-        //GameObject jumpThrustersObj8 = Instantiate(jumpThrustersVFX);
-        //
-        //jumpThrustersObj1.transform.parent = vfxLeftToes.transform;     //Parent to VFX
-        //jumpThrustersObj2.transform.parent = vfxLeftToes.transform;
-        //jumpThrustersObj3.transform.parent = vfxLeftToes.transform;
-        //jumpThrustersObj4.transform.parent = vfxLeftFoot.transform;
-        //
-        //jumpThrustersObj1.transform.localPosition = new Vector3(0.0f, -0.03f, 0.0f);        //Set Rotation and Location relative to parent
-        //jumpThrustersObj1.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //jumpThrustersObj2.transform.localPosition = new Vector3(-0.02f, -0.03f, -0.03f);
-        //jumpThrustersObj2.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //jumpThrustersObj3.transform.localPosition = new Vector3(0.015f, -0.03f, -0.03f);
-        //jumpThrustersObj3.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //jumpThrustersObj4.transform.localPosition = new Vector3(0.0f, -0.08f, 0.0f);
-        //jumpThrustersObj4.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //
-        //jumpThrustersObj5.transform.parent = vfxRightToes.transform;
-        //jumpThrustersObj6.transform.parent = vfxRightToes.transform;
-        //jumpThrustersObj7.transform.parent = vfxRightToes.transform;
-        //jumpThrustersObj8.transform.parent = vfxRightFoot.transform;
-        //
-        //jumpThrustersObj5.transform.localPosition = new Vector3(0.0f, -0.03f, 0.0f);
-        //jumpThrustersObj5.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //jumpThrustersObj6.transform.localPosition = new Vector3(0.02f, -0.03f, -0.03f);
-        //jumpThrustersObj6.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //jumpThrustersObj7.transform.localPosition = new Vector3(-0.015f, -0.03f, -0.03f);
-        //jumpThrustersObj7.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //jumpThrustersObj8.transform.localPosition = new Vector3(0.0f, -0.08f, 0.0f);
-        //jumpThrustersObj8.transform.localRotation = Quaternion.Euler(90, 0, 0);        
     }
 
-    void pushImpulse()
-    {
+    void PushImpulse() {
         isPushing = true;
 
         vfxLightLeftHand.SetActive(true);
         vfxLightRightHand.SetActive(true);
-
-        //GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
-        //GameObject pushImpulseObj2 = Instantiate(pushImpulseVFX);
 
         for (int i = 0; i < handTransforms.Length; i++) {
             var vfx = Instantiate(pushImpulseVFX, handTransforms[i].position, Quaternion.identity);
             vfx.transform.localEulerAngles = charRoot.transform.localEulerAngles;
         }
 
-        arms.MoveBox();
-
-        //pushImpulseObj1.transform.parent = charRoot.transform;      // Parent to root to get Character oriantation
-        //pushImpulseObj2.transform.parent = charRoot.transform;
-        //
-        //pushImpulseObj1.transform.localRotation = Quaternion.Euler(90, 0, 0);       // set Rotation relative to character
-        //pushImpulseObj2.transform.localRotation = Quaternion.Euler(90, 0, 0);
-        //
-        //pushImpulseObj1.transform.parent = vfxLeftHand.transform;       // Parent to VFX object
-        //pushImpulseObj2.transform.parent = vfxRightHand.transform;
-        //
-        //pushImpulseObj1.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);    // Get VFX object location
-        //pushImpulseObj2.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        //
-        //pushImpulseObj1.transform.parent = charRoot.transform;          // Unparent from VFX to avoid weird movment
-        //pushImpulseObj2.transform.parent = charRoot.transform;        
+        arms.PushBox();
     }
 
-    void pickUp()
-    {
+    void PickUp() {
         vfxCarry.SetActive(true);
         vfxReceive.SetActive(true);
         vfxLightRightHand.SetActive(true);
     }
 
-    void drop()
-    {
-        if (isPushing == false)
-        {
+    void Drop() {
+        if (isPushing == false) {
             vfxCarry.SetActive(false);
             vfxReceive.SetActive(false);
             vfxLightRightHand.SetActive(false);
         }
     }
 
-    void throwImpulse()
-    {
+    void ThrowImpulse() {
         vfxCarry.SetActive(false);
         vfxReceive.SetActive(false);
 
@@ -238,31 +157,27 @@ public class CharAnimEvents : MonoBehaviour
 
         pushImpulseObj1.transform.parent = charRoot.transform;          // Unparent from VFX to avoid weird movment
 
-        if (isPushing == false)
-        {
+        if (isPushing == false) {
             vfxLightRightHand.SetActive(false);
         }
     }
 
-    void doubleJumpEnd()
-    {
+    void DoubleJumpEnd() {
         isDoubleJumping = false;
 
-        if (anim.GetBool("isHovering") == false)
-        {
+        if (anim.GetBool("isHovering") == false) {
             vfxLightLeftFoot.SetActive(false);
             vfxLightRightFoot.SetActive(false);
         }
     }
 
-    void PushEnd()
-    {
+    void PushEnd() {
         isPushing = false;
 
-        if (anim.GetBool("isCarrying") == false)
-        {
+        if (anim.GetBool("isCarrying") == false) {
             vfxLightLeftHand.SetActive(false);
             vfxLightRightHand.SetActive(false);
         }
+        GameManager.instance.CanControl = true;
     }
 }

@@ -8,6 +8,9 @@ public class PuzzleManager : SerializedMonoBehaviour {
     [HideInInspector]
     public int UsedEnergyPoints;
 
+    [HideInInspector]
+    public int BestPuzzleHighScore;
+
     [SerializeField, TabGroup("Balancing")]
     private string puzzleTheme;
 
@@ -30,7 +33,7 @@ public class PuzzleManager : SerializedMonoBehaviour {
         startObjectPosition = new Vector3[resettableObjects.Length];
         startObjectEulerAngles = new Vector3[resettableObjects.Length];
 
-        textGUI.text = puzzleTheme + "\n" + "You've used:" + UsedEnergyPoints + ".\n" + "Minimum of Energypoints are:" + minEnergyPoints + ".\n";
+        textGUI.text = "NO_DATA";
 
         for (int i = 0; i < resettableObjects.Length; i++) {
             startObjectPosition[i] = resettableObjects[i].position;
@@ -51,6 +54,6 @@ public class PuzzleManager : SerializedMonoBehaviour {
     }
 
     public void UpdateScreenUI() {
-        textGUI.text = puzzleTheme + "\n" + "You've used:" + UsedEnergyPoints + ".\n" + "Minimum of Energypoints are:" + minEnergyPoints + ".\n";
+        textGUI.text = puzzleTheme + "\n" + "Your best usage of batteries: " + BestPuzzleHighScore + ".\n" + "Minimum of Batteries are: " + minEnergyPoints + ".\n";
     }
 }

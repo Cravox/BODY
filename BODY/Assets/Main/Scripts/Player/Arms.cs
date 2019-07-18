@@ -171,15 +171,15 @@ public class Arms : Limb {
 
     public override int TierTwo() {
         int cost = 0;
-        playerCont.rigid.constraints = RigidbodyConstraints.FreezeAll;
         if (canInteract && !isCarrying) {
+            GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
             cost = tierCosts[1];
         }
         return cost;
     }
 
-    public void MoveBox() {
+    public void PushBox() {
         pushBox = box.GetComponent<PushBox>();
         pushBox.PushedBox(transform.position, pushForce);
         //pushBox = null;

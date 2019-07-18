@@ -266,14 +266,15 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: jumpThrusters
+        functionName: JumpThrusters
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 02b5596dc4902d64a83ab8eb5055e204,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.4161897
-        functionName: doubleJumpEnd
+        functionName: DoubleJumpEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

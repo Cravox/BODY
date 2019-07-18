@@ -262,16 +262,18 @@ ModelImporter:
       curves: []
       events:
       - time: 0.38392857
-        functionName: pushImpulse
+        functionName: PushImpulse
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 02b5596dc4902d64a83ab8eb5055e204,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.5327381
         functionName: PushEnd
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 02b5596dc4902d64a83ab8eb5055e204,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
