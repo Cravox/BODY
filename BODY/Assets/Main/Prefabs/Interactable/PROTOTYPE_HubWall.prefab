@@ -262,7 +262,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   pManager: {fileID: 0}
-  pExit: {fileID: 0}
+  pExit: {fileID: 2198262286106241190}
 --- !u!1 &7794070536512315446
 GameObject:
   m_ObjectHideFlags: 0

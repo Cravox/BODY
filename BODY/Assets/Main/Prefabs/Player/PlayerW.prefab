@@ -1327,8 +1327,8 @@ MonoBehaviour:
   chargeState: 0
   tierCosts: 050000000a0000000f000000
   interactRange: 1
-  throwForce: 300
-  upForce: 100
+  throwForce: 100
+  upForce: 300
   pushForce: 2000
   topPosition: {fileID: 4005588296990325742}
   frontPosition: {fileID: 4005588296990325742}
