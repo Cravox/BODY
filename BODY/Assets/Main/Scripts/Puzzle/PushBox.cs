@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PushBox : SerializedMonoBehaviour {
+
     struct AngleVector {
         public float Angle;
         public Vector3 Direction;
@@ -12,13 +13,13 @@ public class PushBox : SerializedMonoBehaviour {
     private Vector3[] directions;
 
     private Vector3 toPlayer;
-    private Rigidbody r;
+    private Rigidbody rigid;
 
     public Vector3 moveDir;
 
     // Start is called before the first frame update
     void Start() {
-        r = GetComponent<Rigidbody>();
+        rigid = GetComponent<Rigidbody>();
         directions = new Vector3[] {
             transform.forward,
             -transform.forward,
@@ -29,7 +30,7 @@ public class PushBox : SerializedMonoBehaviour {
 
     private void FixedUpdate()
     {
-        r.velocity = moveDir;
+        rigid.velocity = moveDir;
     }
 
     public void PushedBox(Vector3 playerPosition, float pushForce) {
@@ -57,6 +58,7 @@ public class PushBox : SerializedMonoBehaviour {
         if (collision.gameObject.CompareTag("Push"))
         {
             moveDir = Vector3.zero;
+            rigid.velocity = Vector3.zero;
         }
     }
 }

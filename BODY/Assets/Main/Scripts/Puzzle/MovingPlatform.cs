@@ -14,8 +14,6 @@ public class MovingPlatform : SerializedMonoBehaviour
     [TabGroup("References")]
     public Rigidbody rigid;
     [TabGroup("References")]
-    public MeshRenderer render;
-    [TabGroup("References")]
     public Animator animate;
     [TabGroup("References")]
     public LineRenderer line;

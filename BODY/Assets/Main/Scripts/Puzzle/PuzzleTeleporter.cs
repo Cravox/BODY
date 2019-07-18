@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PuzzleTeleporter : MonoBehaviour {
-    [SerializeField, TabGroup("References")]
+public class PuzzleTeleporter : TriggerContainer {
+    [SerializeField, TabGroup("References"), Required]
     private PuzzleManager pManager;
+
+    [SerializeField, TabGroup("References"), Required]
+    private ParticleSystem teleporterActiveVFX;
+
+    //[SerializeField, TabGroup("References"), Required]
+    //private ParticleSystem teleporterPortVFX;
+    
+    [SerializeField]
+    private bool activated = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -14,11 +23,14 @@ public class PuzzleTeleporter : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if (gotActive && !activated) {
+            teleporterActiveVFX.Play();
+            activated = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player") && gotActive) {
             pManager.CompletePuzzle();
         }
     }
