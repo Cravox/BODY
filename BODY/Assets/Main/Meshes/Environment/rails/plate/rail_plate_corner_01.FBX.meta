@@ -4,13 +4,17 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: rail_plate_corner_01
     400000: //RootNode
+    400002: rail_plate_corner_01
     2100000: Rahmen
     2100002: glow
     2100004: schiene
     2100006: plate
     2300000: //RootNode
+    2300002: rail_plate_corner_01
     3300000: //RootNode
+    3300002: rail_plate_corner_01
     4300000: rail_plate_corner_01
   externalObjects: {}
   materials:
