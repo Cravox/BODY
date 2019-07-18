@@ -20,7 +20,7 @@ public class Head : Limb {
     private Animator anim2;
 
     [SerializeField, TabGroup("Debugging")]
-    private List<MovingPlatform> activatedPlatforms = new List<MovingPlatform>();
+    public List<MovingPlatform> activatedPlatforms = new List<MovingPlatform>();
 
     public List<MovingPlatform> pInDistance;
 
@@ -114,7 +114,7 @@ public class Head : Limb {
     protected override void LimbUpdate() {
         pInDistance = GetPlatformColliders();
 
-        foreach (MovingPlatform t in activatedPlatforms)
+        /*foreach (MovingPlatform t in activatedPlatforms)
         {
             t.stop = false;
         }
@@ -126,7 +126,7 @@ public class Head : Limb {
                 activatedPlatforms.Remove(activatedPlatforms[i]);
                 i--;
             }
-        }
+        }*/
     }
 
     protected override void UpdateLimbUI() {
