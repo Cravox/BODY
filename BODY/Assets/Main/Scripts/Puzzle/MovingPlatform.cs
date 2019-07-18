@@ -71,7 +71,7 @@ public class MovingPlatform : SerializedMonoBehaviour
     {
         //0 = green, 1 = red
 
-        animate.SetBool("Triggered", !platCol.isTrigger);
+        //animate.SetBool("Triggered", !platCol.isTrigger);
         //render.enabled = !platCol.isTrigger;
     }
 
@@ -97,7 +97,7 @@ public class MovingPlatform : SerializedMonoBehaviour
         if (turning && currentPosition == 0)
         {
             stop = true;
-            platCol.isTrigger = true;
+            animate.SetTrigger("Triggered");
             turning = false;
         }
 

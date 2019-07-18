@@ -43,6 +43,8 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Debugging")]
     private float impactIterationLenght;
 
+    private LineRenderer line;
+
     private PushBox pushBox;
 
     private Ray ray;

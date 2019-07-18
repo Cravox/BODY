@@ -34,6 +34,7 @@ public class Head : Limb {
         foreach (MovingPlatform platform in pInDistance) {
             platform.platCol.isTrigger = false;
             activatedPlatforms.Add(platform);
+            platform.animate.SetTrigger("Triggered");
         }
 
         if (pInDistance.Count > 0) {
