@@ -16,7 +16,12 @@ public class GameManager : SerializedMonoBehaviour {
 
     public bool playerInHub = true;
 
-    public bool CanControl { set { player.GetComponent<EnergySystem>().enabled = value; player.GetComponent<PlayerController>().enabled = value; } }
+    public bool CanControl { set {
+            PlayerController cont = player.GetComponent<PlayerController>();
+            player.GetComponent<EnergySystem>().enabled = value;
+            cont.enabled = value;
+            cont.rigid.velocity = (value ? cont.rigid.velocity : Vector3.zero); 
+                } }
     
     [SerializeField, TabGroup("Debugging")]
     public PuzzleManager aktPuzzle;
