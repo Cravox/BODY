@@ -21,6 +21,7 @@ public class PuzzleExit : SerializedMonoBehaviour {
         if (other.CompareTag("Player")) {
             GameManager.instance.playerInHub = true;
             GameManager.instance.aktPuzzle = null;
+            pManager.player = null;
         }
     }
 

@@ -27,6 +27,7 @@ public class PuzzleEntrance : SerializedMonoBehaviour {
             if (!firstEntered) {
                 firstEntered = true;
             }
+            pManager.player = other.gameObject;
             GameManager.instance.aktPuzzle = pManager;
             GameManager.instance.playerInHub = false;
             pExit.gameObject.SetActive(true);

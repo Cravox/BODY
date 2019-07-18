@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5022713294878029391}
   - component: {fileID: 5022713294878832239}
   - component: {fileID: 5022713294879929519}
+  - component: {fileID: 2217357315109372849}
+  - component: {fileID: 180892687269259271}
   m_Layer: 0
   m_Name: teleporter_01
   m_TagString: Untagged
@@ -79,3 +81,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2217357315109372849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022713294877731439}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.28, z: 1}
+  m_Center: {x: -0.013327092, y: 0.16, z: 0.010602951}
+--- !u!114 &180892687269259271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022713294877731439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e2113d964bb944eaad6d5c0223cca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pManager: {fileID: 0}

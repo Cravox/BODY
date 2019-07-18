@@ -5,7 +5,8 @@ using TMPro;
 using UnityEngine;
 
 public class PuzzleManager : SerializedMonoBehaviour {
-    private GameObject player;
+    [HideInInspector]
+    public GameObject player;
 
     [HideInInspector]
     public int UsedEnergyPoints = 0;
@@ -80,6 +81,7 @@ public class PuzzleManager : SerializedMonoBehaviour {
         player.transform.position = levelEntrancePosition.position;
         player.transform.rotation = levelEntrancePosition.rotation;
         UpdateScreenUI();
+        UsedEnergyPoints = 0;
     }
 
     public void UpdateScreenUI() {
