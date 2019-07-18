@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3606497218565344826}
   - component: {fileID: 2869417235656637837}
   - component: {fileID: 8923386881463096815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Door_Base_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +83,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3606497218565344826}
     m_Modifications:
+    - target: {fileID: 863146953660676403, guid: 4aed0736cadef6e439f3892f29809a6d,
+        type: 3}
+      propertyPath: m_Name
+      value: base_door_01
+      objectReference: {fileID: 0}
     - target: {fileID: 863146953660179731, guid: 4aed0736cadef6e439f3892f29809a6d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -138,11 +143,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 863146953660676403, guid: 4aed0736cadef6e439f3892f29809a6d,
-        type: 3}
-      propertyPath: m_Name
-      value: base_door_01
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7340970727553451188, guid: 4aed0736cadef6e439f3892f29809a6d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4aed0736cadef6e439f3892f29809a6d, type: 3}
@@ -165,6 +165,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3606497218565344826}
     m_Modifications:
+    - target: {fileID: 7794070536096092443, guid: f82c5f80a7b219a44a4764cb2f85afcd,
+        type: 3}
+      propertyPath: m_Name
+      value: PROTOTYPE_HubWall
+      objectReference: {fileID: 0}
     - target: {fileID: 7794070536096092455, guid: f82c5f80a7b219a44a4764cb2f85afcd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -230,11 +235,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.50000036
       objectReference: {fileID: 0}
-    - target: {fileID: 7794070536096092443, guid: f82c5f80a7b219a44a4764cb2f85afcd,
-        type: 3}
-      propertyPath: m_Name
-      value: PROTOTYPE_HubWall
-      objectReference: {fileID: 0}
     - target: {fileID: 6793167171111068772, guid: f82c5f80a7b219a44a4764cb2f85afcd,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -268,6 +268,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3606497218565344826}
     m_Modifications:
+    - target: {fileID: 4769907819197077088, guid: d6180d5055ce7554997c8bbf14ac0146,
+        type: 3}
+      propertyPath: m_Name
+      value: base_doorframe_01
+      objectReference: {fileID: 0}
     - target: {fileID: 4769907819197368896, guid: d6180d5055ce7554997c8bbf14ac0146,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -323,11 +328,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4769907819197077088, guid: d6180d5055ce7554997c8bbf14ac0146,
-        type: 3}
-      propertyPath: m_Name
-      value: base_doorframe_01
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6180d5055ce7554997c8bbf14ac0146, type: 3}
 --- !u!4 &1373871861555535898 stripped
@@ -343,6 +343,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3606497218565344826}
     m_Modifications:
+    - target: {fileID: 4769907819197077088, guid: d6180d5055ce7554997c8bbf14ac0146,
+        type: 3}
+      propertyPath: m_Name
+      value: base_doorframe_01 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 4769907819197368896, guid: d6180d5055ce7554997c8bbf14ac0146,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -397,11 +402,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769907819197077088, guid: d6180d5055ce7554997c8bbf14ac0146,
-        type: 3}
-      propertyPath: m_Name
-      value: base_doorframe_01 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6180d5055ce7554997c8bbf14ac0146, type: 3}

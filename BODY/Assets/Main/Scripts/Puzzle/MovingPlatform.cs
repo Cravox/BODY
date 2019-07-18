@@ -6,29 +6,42 @@ using Sirenix.OdinInspector;
 
 public class MovingPlatform : SerializedMonoBehaviour
 {
-    public Transform platform;
-    public Rigidbody rigid;
-    public MeshRenderer render;
-    public LineRenderer line;
-    public Material[] mats;
-
-    public Transform currentPos { get { return positions[currentPosition]; } }
-
-    public List<Transform> positions = new List<Transform>();
-    public int currentPosition = 0;
-
+    [TabGroup("Balancing")]
     public float moveSpeed;
 
+    [TabGroup("References")]
+    public Transform platform;
+    [TabGroup("References")]
+    public Rigidbody rigid;
+    [TabGroup("References")]
+    public MeshRenderer render;
+    [TabGroup("References")]
+    public Animator animate;
+    [TabGroup("References")]
+    public LineRenderer line;
+
+    private Transform currentPos { get { return positions[currentPosition]; } }
+    private int currentPosition = 0;
+
+    [TabGroup("Debugging")]
     public bool stop = true;
     public bool isActive { get { return !platCol.isTrigger; } }
 
     [HideInInspector]
     public Collider platCol;
 
-    public static bool colliderEnabled;
-
-    public bool stopForTurn;
+    [TabGroup("Debugging")]
     public bool turning;
+
+    [Header("Positions"), InfoBox("Please keep the first position point on Root position.")]
+    public List<Transform> positions = new List<Transform>();
+
+
+    [Button(ButtonSizes.Large), GUIColor(0, 1, 0)]
+    private void UpdateLinesInEditor()
+    {
+        UpdateLineRenderer();
+    }
 
     //Vector3 posTo;
 
@@ -37,16 +50,7 @@ public class MovingPlatform : SerializedMonoBehaviour
         platCol = platform.GetComponent<BoxCollider>();
         platCol.isTrigger = true;
 
-        List<Vector3> posCoordinates = new List<Vector3>();
-
-        for (int i = 0; i < positions.Count; i++)
-        {
-            posCoordinates.Add(positions[i].localPosition);
-        }
-
-
-        line.positionCount = posCoordinates.Count;
-        line.SetPositions(posCoordinates.ToArray());
+        UpdateLineRenderer();
     }
 
     void Update()
@@ -54,7 +58,7 @@ public class MovingPlatform : SerializedMonoBehaviour
         if (positions == null)
             return;
 
-        ColorsFeedback();
+        Feedback();
     }
 
     void FixedUpdate()
@@ -65,14 +69,12 @@ public class MovingPlatform : SerializedMonoBehaviour
         Move();
     }
 
-    void ColorsFeedback()
+    void Feedback()
     {
         //0 = green, 1 = red
 
-        if (!platCol.isTrigger)
-            render.material = mats[0];
-        else 
-            render.material = mats[1];
+        animate.SetBool("Triggered", !platCol.isTrigger);
+        //render.enabled = !platCol.isTrigger;
     }
 
     void Move()
@@ -98,6 +100,7 @@ public class MovingPlatform : SerializedMonoBehaviour
         {
             stop = true;
             platCol.isTrigger = true;
+            turning = false;
         }
 
         if (turning && currentPosition > 0)
@@ -106,5 +109,19 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     public void EnablePlatformCollider(bool enable) {
         platCol.enabled = enable;
+    }
+
+    void UpdateLineRenderer()
+    {
+        List<Vector3> posCoordinates = new List<Vector3>();
+
+        for (int i = 0; i < positions.Count; i++)
+        {
+            posCoordinates.Add(positions[i].localPosition);
+        }
+
+
+        line.positionCount = posCoordinates.Count;
+        line.SetPositions(posCoordinates.ToArray());
     }
 }

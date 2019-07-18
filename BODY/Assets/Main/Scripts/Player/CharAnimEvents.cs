@@ -124,7 +124,7 @@ public class CharAnimEvents : MonoBehaviour {
             vfx.transform.localEulerAngles = charRoot.transform.localEulerAngles;
         }
 
-        arms.PushBox();
+        arms.PushBoxEvent();
     }
 
     void PickUp() {
@@ -144,6 +144,8 @@ public class CharAnimEvents : MonoBehaviour {
     void ThrowImpulse() {
         vfxCarry.SetActive(false);
         vfxReceive.SetActive(false);
+
+        arms.ThrowBoxEvent();
 
         GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
 
