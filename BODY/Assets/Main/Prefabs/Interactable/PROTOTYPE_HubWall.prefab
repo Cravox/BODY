@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7794070536096092441}
   - component: {fileID: 7794070536096092442}
   - component: {fileID: 7794070536096092454}
-  - component: {fileID: 6793167171111068772}
   m_Layer: 0
   m_Name: PROTOTYPE_HubWall
   m_TagString: KillBox
@@ -134,28 +133,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6793167171111068772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7794070536096092443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622880b793011b24c9e1c1460cd5af37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  pManager: {fileID: 0}
 --- !u!1 &7794070536110762817
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,8 +145,8 @@ GameObject:
   - component: {fileID: 7794070536110762827}
   - component: {fileID: 7794070536110762828}
   - component: {fileID: 7794070536110762829}
-  - component: {fileID: 7794070536110762831}
   - component: {fileID: 742949249}
+  - component: {fileID: 8651814654429856268}
   m_Layer: 0
   m_Name: PuzzleSide
   m_TagString: Untagged
@@ -248,29 +225,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7794070536110762831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7794070536110762817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622880b793011b24c9e1c1460cd5af37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  pManager: {fileID: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &742949249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +240,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyObject: 0
   renderDisable: {fileID: 7794070536110762828}
+--- !u!114 &8651814654429856268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794070536110762817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dae7b1a9596a7149b0f309be04b565b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  pManager: {fileID: 0}
+  pExit: {fileID: 0}
 --- !u!1 &7794070536512315446
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +275,8 @@ GameObject:
   - component: {fileID: 7794070536512315440}
   - component: {fileID: 7794070536512315441}
   - component: {fileID: 7794070536512315442}
-  - component: {fileID: 7794070536512315444}
   - component: {fileID: 55403966}
+  - component: {fileID: 2198262286106241190}
   m_Layer: 0
   m_Name: HubSide
   m_TagString: Untagged
@@ -377,29 +355,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7794070536512315444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7794070536512315446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622880b793011b24c9e1c1460cd5af37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  pManager: {fileID: 0}
+  m_Center: {x: 0, y: -0.7, z: 0}
 --- !u!114 &55403966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,3 +370,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyObject: 0
   renderDisable: {fileID: 7794070536512315441}
+--- !u!114 &2198262286106241190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794070536512315446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04a0637b7c0c364b8f903c697c059d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  pManager: {fileID: 0}

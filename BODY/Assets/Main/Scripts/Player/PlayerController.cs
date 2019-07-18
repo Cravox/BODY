@@ -165,7 +165,8 @@ public class PlayerController : SerializedMonoBehaviour {
         if (isGrounded) {
             tag = isGroundedOn[0].gameObject.tag;
             if (!landed) {
-                modelAnim.SetTrigger("Land");
+                print("Trigger");
+                //modelAnim.SetTrigger("Land");
                 landed = true;
             }
         } else {

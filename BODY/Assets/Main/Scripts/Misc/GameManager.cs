@@ -42,7 +42,7 @@ public class GameManager : SerializedMonoBehaviour {
         }
 
         if (Input.GetButtonDown("SelectButton")) {
-            aktPuzzle.ResetObjects();
+            aktPuzzle.ResetPuzzle(true);
         }
     }
 }

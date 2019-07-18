@@ -4,16 +4,10 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PuzzleDoor : TriggerContainer {
-
     public bool isHubDoor;
 
     [SerializeField, TabGroup("References"), Required]
     private Animator doorAnim;
-
-    [SerializeField, TabGroup("References"), Required]
-    private ZoneBox[] zoneBoxes = new ZoneBox[2];
-
-    
 
     // Start is called before the first frame update
     void Start() {

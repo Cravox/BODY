@@ -5,11 +5,13 @@ using TMPro;
 using UnityEngine;
 
 public class PuzzleManager : SerializedMonoBehaviour {
+    private GameObject player;
+
     [HideInInspector]
     public int UsedEnergyPoints = 0;
 
-    [HideInInspector]
-    public int BestPuzzleHighScore = 0;
+    [TabGroup("Balancing")]
+    public int bestPuzzleScore = 0;
 
     [SerializeField, TabGroup("Balancing")]
     private string puzzleTheme;
@@ -22,9 +24,24 @@ public class PuzzleManager : SerializedMonoBehaviour {
 
     [SerializeField, TabGroup("References"), Required]
     private TextMeshProUGUI textGUI;
-    
+
+    [SerializeField, TabGroup("References"), Required]
+    private Transform playerReset;
+
+    [SerializeField, TabGroup("References"), Required]
+    private PuzzleEntrance puzzleEntrance;
+
+    [SerializeField, TabGroup("References"), Required]
+    private PuzzleExit puzzleExit;
+
+    [SerializeField, TabGroup("References"), Required]
+    private Transform levelEntrancePosition;
+
     private Vector3[] startObjectPosition;
     private Vector3[] startObjectEulerAngles;
+
+    [HideInInspector]
+    public bool puzzleCompleted;
 
     // Start is called before the first frame update
     void Start() {
@@ -41,17 +58,34 @@ public class PuzzleManager : SerializedMonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if (puzzleCompleted) {
+            puzzleCompleted = false;
+        }
     }
 
-    public void ResetObjects() {
+    public void ResetPuzzle(bool withPlayer) {
+        if (withPlayer) {
+            player.transform.position = playerReset.position;
+            player.transform.rotation = playerReset.rotation;
+        }
+
         for (int i = 0; i < resettableObjects.Length; i++) {
             resettableObjects[i].position = startObjectPosition[i];
             resettableObjects[i].eulerAngles = startObjectEulerAngles[i];
         }
     }
 
+    public void CompletePuzzle() {
+        ResetPuzzle(false);
+        player.transform.position = levelEntrancePosition.position;
+        player.transform.rotation = levelEntrancePosition.rotation;
+        UpdateScreenUI();
+    }
+
     public void UpdateScreenUI() {
-        textGUI.text = puzzleTheme + "\n" + "Your best usage of batteries: " + BestPuzzleHighScore + ".\n" + "Minimum of Batteries are: " + minEnergyPoints + ".\n";
+        if(UsedEnergyPoints < bestPuzzleScore) {
+            bestPuzzleScore = UsedEnergyPoints;
+        }
+        textGUI.text = puzzleTheme + "\n" + "Your best usage of batteries: " + UsedEnergyPoints + ".\n" + "Minimum of Batteries are: " + minEnergyPoints + ".\n";
     }
 }
