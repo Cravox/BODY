@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8687012856758891270}
   - component: {fileID: 8687012856759661350}
   - component: {fileID: 8687012856760660454}
-  - component: {fileID: 3938121769212814586}
+  - component: {fileID: 8719993420205018452}
   m_Layer: 0
   m_Name: platform_01
   m_TagString: Untagged
@@ -58,7 +58,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 545ed842a31e6ec418cd5f68995ab6d0, type: 3}
+  - {fileID: 2100000, guid: 2d5ada04b2e4e8c4db5203d928e0c6e3, type: 3}
+  - {fileID: 2100000, guid: aadb9f7eb59c8e149b64d418b2f4874c, type: 2}
+  - {fileID: 2100002, guid: 889a91228007a204b85819ac91cac1bc, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3938121769212814586
+--- !u!65 &8719993420205018452
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,5 +91,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25, z: 2}
-  m_Center: {x: 0, y: -0.125, z: 0}
+  m_Size: {x: 0.8596334, y: 0.63309306, z: 0.8657696}
+  m_Center: {x: 0, y: -0.12605482, z: -0.000000074505806}
