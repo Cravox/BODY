@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1259115950174744884}
   - component: {fileID: 8961901179861982959}
   - component: {fileID: 1573222017537284184}
+  - component: {fileID: 4913594927705852891}
   m_Layer: 0
   m_Name: button_base_push_01
   m_TagString: Untagged
@@ -126,6 +127,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6393466, y: 0.702546, z: 1.7397166}
   m_Center: {x: 0.026295424, y: 0.351273, z: -0.006663859}
+--- !u!114 &4913594927705852891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890212734108536132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38004298deba8844cbd2b41bc4a3fdd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  triggerOnce: 0
+  triggered: 0
+  buttonAnim: {fileID: 8961901179861982959}
 --- !u!65 &5092462825952453410
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -33,6 +33,7 @@ public class Legs : Limb {
             Vector3 jumpSpeed = playerCont.moveForce * (playerCont.walkSpeed - playerCont.airSpeed) + new Vector3(0, playerCont.jumpSpeed, 0);
             playerCont.JumpOnce(jumpSpeed, true, 0);
             jumping = true;
+            playerCont.modelAnim.SetTrigger("Jump");
         }
     }
 
@@ -40,6 +41,7 @@ public class Legs : Limb {
         if (!playerCont.isGrounded && !doubleJumping && !hover) {
             playerCont.JumpOnce(dJumpSpeed, false, 1);
             doubleJumping = true;
+            playerCont.modelAnim.SetTrigger("DoubleJump");
             return tierCosts[0];
         }
 
@@ -52,6 +54,7 @@ public class Legs : Limb {
             playerCont.rigid.velocity = Vector3.zero;
             hoverCoroutine = StartCoroutine(HoverTime(timeToHover));
             hasHovered = true;
+            playerCont.modelAnim.SetBool("isHovering", true);
             return tierCosts[1];
         } else
             StopHover();
@@ -74,6 +77,7 @@ public class Legs : Limb {
     void StopHover() {
         if(hoverCoroutine != null)
             StopCoroutine(hoverCoroutine);
+        playerCont.modelAnim.SetBool("isHovering", false);
         hover = false;
     }
 
@@ -88,7 +92,7 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-        playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
+        //playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
 
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
         {

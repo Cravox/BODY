@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1625918250}
   - component: {fileID: 1618022166}
   m_Layer: 9
-  m_Name: Crate
+  m_Name: Pickup-Crate
   m_TagString: Carry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,11 +202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ccace6498349241af4d7779917df7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrigger: 0
   groundTrigger: {fileID: 621926658}
-  FirstPickUp: 0
   platformOn: {fileID: 0}
-  triggeredObjects: []
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1618022166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,5 +217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbe2ca177147874fa3e4711c063a371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 1625918249}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   isPlatform: 0

@@ -9,6 +9,7 @@ TagManager:
   - Carry
   - Push
   - WallJump
+  - KillBox
   layers:
   - Default
   - TransparentFX

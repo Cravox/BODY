@@ -3,42 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[System.Serializable]
-public class MovePos
-{
-    public Transform obj;
-    public Vector3 pos;
-    public float time;
-    public bool stay;
-
-    public void SetPos()
-    {
-        this.pos = this.obj.position;
-    }
-
-    public void SetPos(Vector3 vec)
-    {
-        this.pos = vec;
-    }
-}
 
 public class MovingPlatform : SerializedMonoBehaviour
 {
+    public Transform platform;
     public Rigidbody rigid;
-    public MeshRenderer renderer;
+    public MeshRenderer render;
+    public LineRenderer line;
     public Material[] mats;
 
-    public MovePos currentPos;
-    public Vector3 distancePosition;
+    public Transform currentPos { get { return positions[currentPosition]; } }
 
-    public List<MovePos> positions = new List<MovePos>();
+    public List<Transform> positions = new List<Transform>();
     public int currentPosition = 0;
 
-    public MovePos dirChangePos;
-    public bool dirChangeActive = false;
-    public bool stasis = false;
-    public bool stop = true;
+    public float moveSpeed;
 
+    public bool stop = true;
     public bool isActive { get { return !platCol.isTrigger; } }
 
     [HideInInspector]
@@ -46,27 +27,26 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     public static bool colliderEnabled;
 
-    public bool canChangeDirection { get { return (dirChangePos.obj != null); } }
+    public bool stopForTurn;
+    public bool turning;
 
-    bool upwards;
-    bool waitNext;
     //Vector3 posTo;
 
     void Start()
     {
-        if (positions != null)
-        {
-            foreach (MovePos p in positions)
-            {
-                p.SetPos();
-            }
-
-            dirChangePos.pos = dirChangePos.obj.position;
-
-            Next();
-        }
-        platCol = GetComponent<BoxCollider>();
+        platCol = platform.GetComponent<BoxCollider>();
         platCol.isTrigger = true;
+
+        List<Vector3> posCoordinates = new List<Vector3>();
+
+        for (int i = 0; i < positions.Count; i++)
+        {
+            posCoordinates.Add(positions[i].localPosition);
+        }
+
+
+        line.positionCount = posCoordinates.Count;
+        line.SetPositions(posCoordinates.ToArray());
     }
 
     void Update()
@@ -79,7 +59,7 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     void FixedUpdate()
     {
-        if (positions == null || stop || stasis)
+        if (positions == null || stop)
             return;
 
         Move();
@@ -87,76 +67,41 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     void ColorsFeedback()
     {
-        //0 = green, 1 = yellow, 2 = red
+        //0 = green, 1 = red
 
-        if (canChangeDirection && dirChangeActive)
-        {
-            if (upwards)
-                renderer.material = mats[2];
-            else
-                renderer.material = mats[1];
-        }
-        else if(!platCol.isTrigger)
-            renderer.material = mats[0];
-        else if (platCol.isTrigger) {
-            renderer.material = mats[3];
-        }
+        if (!platCol.isTrigger)
+            render.material = mats[0];
+        else 
+            render.material = mats[1];
     }
 
     void Move()
     {
-        if (transform.position != currentPos.pos && !currentPos.stay)
+        if (platform.position != currentPos.position)
         {
-            float dist = Vector3.Distance(distancePosition, currentPos.pos);
-            Vector3 newPos = Vector3.MoveTowards(transform.position, currentPos.pos, (dist / currentPos.time) * Time.fixedDeltaTime);
+            Vector3 newPos = Vector3.MoveTowards(platform.position, currentPos.position, moveSpeed * Time.fixedDeltaTime);
             rigid.MovePosition(newPos);
         }
 
-        if (transform.position == currentPos.pos)
-        {
-            upwards = (canChangeDirection && dirChangeActive);
-
-            if (upwards)
-                NextUp();
-            else
+        if (platform.position == currentPos.position)
                 Next();
-        }
     }
 
     void Next()
     {
-        distancePosition = transform.position;
-
-        if (!waitNext)
-        {
-            if (currentPosition >= positions.Count - 1)
-                currentPosition = 0;
-            else
-                currentPosition++;
-        }
+        if (!turning && currentPosition < positions.Count - 1)
+            currentPosition++;
         else
-            waitNext = false;
+            turning = true;
 
-        currentPos = positions[currentPosition];
-    }
-
-    void NextUp()
-    {
-        distancePosition = transform.position;
-        dirChangePos.SetPos(new Vector3(positions[currentPosition].pos.x, dirChangePos.pos.y, positions[currentPosition].pos.z));
-
-        ///////////////////////////////////////////////
-        if (transform.position == dirChangePos.pos)
+        if (turning && currentPosition == 0)
         {
-            currentPos = positions[currentPosition];
-            waitNext = false;
+            stop = true;
+            platCol.isTrigger = true;
         }
-        else
-        {
-            waitNext = true;
-            currentPos = dirChangePos;
-        }
-        ///////////////////////////////////////////////
+
+        if (turning && currentPosition > 0)
+            currentPosition--;
     }
 
     public void EnablePlatformCollider(bool enable) {

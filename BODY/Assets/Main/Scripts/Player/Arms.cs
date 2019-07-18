@@ -16,12 +16,6 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
     private float pushForce = 1000;
 
-    [SerializeField, TabGroup("Balancing")]
-    private int impactIterations;
-
-    [SerializeField, TabGroup("Balancing")]
-    private float impactIterationLenght;
-
     [SerializeField, TabGroup("References"), Required]
     private Transform topPosition;
 
@@ -43,6 +37,14 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Debugging")]
     private bool isCarrying;
 
+    [SerializeField, TabGroup("Debugging"), Header("Range Indicator")]
+    private int impactIterations;
+
+    [SerializeField, TabGroup("Debugging")]
+    private float impactIterationLenght;
+
+    private PushBox pushBox;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -51,21 +53,34 @@ public class Arms : Limb {
     private bool canInteract;
     private Vector3 impactPos;
 
+    RigidbodyConstraints constraints;
+
     protected override void LimbStart() {
 
     }
 
     protected override void LimbUpdate() {
+        if (!playerCont.animEvents.isPushing) {
+            playerCont.rigid.constraints = constraints;
+        }
+
         if (!isCarrying) {
             canInteract = CheckForInteractable();
         } else {
             if (chargeState == Enums.ChargeState.TIER_ONE) PredictRigidbody();
             canInteract = false;
         }
+
+        if (box == null && isCarrying)
+        {
+            DetachObject();
+        }
+
+        playerCont.modelAnim.SetBool("isCarrying", isCarrying);
     }
 
     public void PredictRigidbody() {
-        if (!isCarrying) {
+        if (!isCarrying || box == null) {
             impactPos = Vector3.zero;
             return;
         }
@@ -83,6 +98,9 @@ public class Arms : Limb {
         List<Vector3> calcs = new List<Vector3>();
         calcs.Add(origin);
 
+        //*DEBUG*
+        float q = 0;    //*/
+
         for (int i = 1; i < iterations + 1; i++) {
             float t = i * stepDistance;
             Vector3 pos = origin + ((Vector3.up * up * t) + (dir * fwd * t) + Physics.gravity / 2 * t * t);
@@ -90,9 +108,13 @@ public class Arms : Limb {
 
             RaycastHit hit;
             bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
-
-            Debug.DrawLine(calcs[i - 1], calcs[i], new Color(1 / i * 10, 1 / i * 10, 1 / i * 10));
             
+            //*DEBUG*
+            Color col = new Color(q, 1f - q, 0.5f);
+            Debug.DrawLine(calcs[i - 1], calcs[i], col);
+            q += 0.25f;
+            //*/
+
             if (hit.collider != null) {
                 result = hit.point;
                 return result;
@@ -120,11 +142,14 @@ public class Arms : Limb {
         if (canInteract && box.CompareTag("Carry")) {
             AttachObject();
         } else if (isCarrying) {
-            box.localPosition = frontPosition.localPosition;
-            DetachObject();
+            if (box == null)
+                isCarrying = false;
+            else
+            {
+                //box.localPosition = frontPosition.localPosition;
+                DetachObject();
+            }
         }
-
-        playerCont.modelAnim.SetBool("IsPushing", isCarrying);
     }
 
     public override int TierOne() {
@@ -133,22 +158,31 @@ public class Arms : Limb {
             DetachObject();
 
             var modelTrans = playerCont.modelAxis.transform;
-
             boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
+            playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
         }
-        playerCont.modelAnim.SetBool("IsPushing", isCarrying);
+        else
+        {
+            DetachObject();
+        }
         return cost;
     }
 
     public override int TierTwo() {
         int cost = 0;
         if (canInteract && !isCarrying) {
-            PushBox pushBox = box.GetComponent<PushBox>();
-            pushBox.PushedBox(transform.position, pushForce);
+            GameManager.instance.CanControl = false;
+            playerCont.modelAnim.SetTrigger("Push");
             cost = tierCosts[1];
         }
         return cost;
+    }
+
+    public void PushBox() {
+        pushBox = box.GetComponent<PushBox>();
+        pushBox.PushedBox(transform.position, pushForce);
+        //pushBox = null;
     }
 
     public override int TierThree() {
@@ -185,15 +219,21 @@ public class Arms : Limb {
 
     private void AttachObject() {
         isCarrying = true;
-        box.parent = playerCont.modelAxis;
+        //var saveRota = box.localRotation;
+        box.parent = topPosition;
         constraint = boxRb.constraints;
         boxRb.constraints = RigidbodyConstraints.FreezeAll;
-        box.localPosition = topPosition.localPosition;
+        box.localRotation = Quaternion.identity;
+        box.localPosition = Vector3.zero;
     }
 
     private void DetachObject() {
-        box.parent = null;
+        if (box != null && boxRb != null)
+        {
+            box.parent = null;
+            boxRb.constraints = constraint;
+        }
+
         isCarrying = false;
-        boxRb.constraints = constraint;
     }
 }

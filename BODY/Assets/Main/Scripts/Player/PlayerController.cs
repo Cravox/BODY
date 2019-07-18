@@ -7,53 +7,77 @@ using System;
 public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("Balancing")]
     public float gravityModifier;
+
     [TabGroup("Balancing")]
     public float walkSpeed;
+
     [TabGroup("Balancing")]
     public float strafeSpeed;
+
     [TabGroup("Balancing")]
     public float jumpSpeed;
+
     [TabGroup("Balancing")]
     public float airSpeed;
 
     [TabGroup("References"), Required, Header("Requirements")]
     [InfoBox("Objects are required to run.")]
     public Rigidbody rigid;
+
     [TabGroup("References"), Required]
     public Camera cam;
 
-    [TabGroup("References"), Header("Ground")]
+    [TabGroup("References"), Header("Ground"), Required]
     public float groundHoldRadius;
-    [TabGroup("References")]
+
+    [TabGroup("References"), Required]
     public Transform groundHolder;
-    [TabGroup("References")]
+
+    [TabGroup("References"), Required]
     public LayerMask checkCollisionOn;
-    [TabGroup("References"), InfoBox("Required for turning a Model during Movement"), Header("Model")]
+
+    [TabGroup("References"), InfoBox("Required for turning a Model during Movement"), Header("Model"), Required]
     public Transform modelAxis;
-    [TabGroup("References")]
+
+    [TabGroup("References"), Required]
     public Animator modelAnim;
 
     [TabGroup("Debugging"), SerializeField]
     [InfoBox("<color='red'><b>Debug only: Do not change these values. \nMay disrupt Gameplay when changed.</b></color>")]
     private Vector2 inputAxis;
+
     [TabGroup("Debugging"), SerializeField]
     public Vector3 moveForce;  //used for movement direction
+
     [TabGroup("Debugging"), SerializeField]
     private Vector3 lastForce;  //used for rotation stance
+
     [TabGroup("Debugging"), SerializeField]
     private bool inputJump;
+
     [TabGroup("Debugging"), SerializeField]
     public bool isGrounded;
+
     [TabGroup("Debugging"), SerializeField]
     public bool hovering;
+
     [TabGroup("Debugging"), SerializeField]
     public Rigidbody platform;
+
     [TabGroup("Debugging"), SerializeField]
     public List<PlayerForce> forces;
+
     [TabGroup("Debugging"), SerializeField]
     public Vector3 extraForce;
+
     [TabGroup("Debugging"), SerializeField]
     public float modelRot;
+
+    [TabGroup("References"), Required]
+    public CharAnimEvents animEvents;
+
+    private bool landed;
+
     Vector3 platformNoY;
 
     public bool stopGravity { get { return (hovering); } }
@@ -80,7 +104,7 @@ public class PlayerController : SerializedMonoBehaviour {
     void Animate() {
         Vector3 rigidvel = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
         modelAnim.SetFloat("Velocity", rigidvel.magnitude / walkSpeed);
-        modelAnim.SetBool("IsGrounded", isGrounded);
+        //modelAnim.SetBool("IsGrounded", isGrounded);
     }
 
     void InputCheck() {
@@ -128,7 +152,7 @@ public class PlayerController : SerializedMonoBehaviour {
         AddForce(dirForceUp, 0, true, true);
         AddForce(dirForceSide, 50, true, true);
 
-        modelAnim.Play("Jump");
+        //modelAnim.Play("Jump");
     }
 
     void GroundCheck() {
@@ -138,10 +162,16 @@ public class PlayerController : SerializedMonoBehaviour {
 
         string tag = "";
 
-        if (isGrounded)
+        if (isGrounded) {
             tag = isGroundedOn[0].gameObject.tag;
-        else
+            if (!landed) {
+                modelAnim.SetTrigger("Land");
+                landed = true;
+            }
+        } else {
             tag = "";
+            landed = false;
+        }
 
         if (tag == "MovingPlatform" || tag == "Carry")
             platform = isGroundedOn[0].gameObject.GetComponentInParent<Rigidbody>();

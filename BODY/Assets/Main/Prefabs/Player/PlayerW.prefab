@@ -1242,6 +1242,7 @@ MonoBehaviour:
   forces: []
   extraForce: {x: 0, y: 0, z: 0}
   modelRot: 0
+  animEvents: {fileID: 1933846844593143433}
 --- !u!114 &9071744388173341595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,13 +1264,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  energyPoints: 100
   playerLimbs:
   - {fileID: 940651021042444897}
   - {fileID: 6996675974615068665}
   - {fileID: 9071744388173341594}
   energyText: {fileID: 0}
   stateImage: {fileID: 0}
+  playerAnim: {fileID: 4005588296981222396}
 --- !u!114 &9071744388173341594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1329,8 +1330,6 @@ MonoBehaviour:
   throwForce: 300
   upForce: 100
   pushForce: 2000
-  impactIterations: 8
-  impactIterationLenght: 0.2
   topPosition: {fileID: 2025864847}
   frontPosition: {fileID: 1883752840}
   rayTrans: {fileID: 1796004482}
@@ -1340,6 +1339,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147486775
   isCarrying: 0
+  impactIterations: 8
+  impactIterationLenght: 0.2
 --- !u!114 &940651021042444897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,6 +1371,7 @@ MonoBehaviour:
   anim1: {fileID: 486627370}
   anim2: {fileID: 810052589}
   activatedPlatforms: []
+  pInDistance: []
 --- !u!114 &4502315206112840769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,11 +1605,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8124879615514505554, guid: 9986a771914ed3d42955846b64e2467c,
         type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 1ba8a2b456741c34482fad3cc1414ace, type: 2}
-    - target: {fileID: 8124879615514505554, guid: 9986a771914ed3d42955846b64e2467c,
-        type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -1625,3 +1622,15 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 5140836585440993966}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1933846844593143433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6737821370797857831, guid: 9986a771914ed3d42955846b64e2467c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5140836585440993966}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b5596dc4902d64a83ab8eb5055e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
