@@ -155,10 +155,6 @@ public class Arms : Limb {
     public override int TierOne() {
         int cost = 0;
         if (isCarrying) {
-            DetachObject();
-
-            var modelTrans = playerCont.modelAxis.transform;
-            boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
             playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
         }
@@ -179,10 +175,16 @@ public class Arms : Limb {
         return cost;
     }
 
-    public void PushBox() {
+    public void PushBoxEvent() {
         pushBox = box.GetComponent<PushBox>();
         pushBox.PushedBox(transform.position, pushForce);
         //pushBox = null;
+    }
+
+    public void ThrowBoxEvent() {
+        var modelTrans = playerCont.modelAxis.transform;
+        boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
+        DetachObject();
     }
 
     public override int TierThree() {

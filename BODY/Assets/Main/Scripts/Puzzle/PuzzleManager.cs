@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class PuzzleManager : SerializedMonoBehaviour {
     [HideInInspector]
-    public int UsedEnergyPoints;
+    public int UsedEnergyPoints = 0;
 
     [HideInInspector]
-    public int BestPuzzleHighScore;
+    public int BestPuzzleHighScore = 0;
 
     [SerializeField, TabGroup("Balancing")]
     private string puzzleTheme;
@@ -26,14 +26,12 @@ public class PuzzleManager : SerializedMonoBehaviour {
     private Vector3[] startObjectPosition;
     private Vector3[] startObjectEulerAngles;
 
-    private GameObject puzzleDoor;
-
     // Start is called before the first frame update
     void Start() {
         startObjectPosition = new Vector3[resettableObjects.Length];
         startObjectEulerAngles = new Vector3[resettableObjects.Length];
 
-        textGUI.text = "NO_DATA";
+        textGUI.text = puzzleTheme + " \n NO_DATA";
 
         for (int i = 0; i < resettableObjects.Length; i++) {
             startObjectPosition[i] = resettableObjects[i].position;
