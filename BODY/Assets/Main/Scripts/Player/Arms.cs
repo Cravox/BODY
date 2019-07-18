@@ -43,6 +43,8 @@ public class Arms : Limb {
     [SerializeField, TabGroup("Debugging")]
     private float impactIterationLenght;
 
+    private PushBox pushBox;
+
     private Ray ray;
     private RaycastHit hit;
     private RigidbodyConstraints constraint;
@@ -51,11 +53,17 @@ public class Arms : Limb {
     private bool canInteract;
     private Vector3 impactPos;
 
+    RigidbodyConstraints constraints;
+
     protected override void LimbStart() {
 
     }
 
     protected override void LimbUpdate() {
+        if (!playerCont.animEvents.isPushing) {
+            playerCont.rigid.constraints = constraints;
+        }
+
         if (!isCarrying) {
             canInteract = CheckForInteractable();
         } else {
@@ -138,7 +146,7 @@ public class Arms : Limb {
                 isCarrying = false;
             else
             {
-                box.localPosition = frontPosition.localPosition;
+                //box.localPosition = frontPosition.localPosition;
                 DetachObject();
             }
         }
@@ -147,10 +155,6 @@ public class Arms : Limb {
     public override int TierOne() {
         int cost = 0;
         if (isCarrying) {
-            DetachObject();
-
-            var modelTrans = playerCont.modelAxis.transform;
-            boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
             playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
         }
@@ -164,12 +168,23 @@ public class Arms : Limb {
     public override int TierTwo() {
         int cost = 0;
         if (canInteract && !isCarrying) {
+            GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
-            PushBox pushBox = box.GetComponent<PushBox>();
-            pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[1];
         }
         return cost;
+    }
+
+    public void PushBoxEvent() {
+        pushBox = box.GetComponent<PushBox>();
+        pushBox.PushedBox(transform.position, pushForce);
+        //pushBox = null;
+    }
+
+    public void ThrowBoxEvent() {
+        var modelTrans = playerCont.modelAxis.transform;
+        boxRb.AddForce(modelTrans.forward * throwForce + modelTrans.up * upForce);
+        DetachObject();
     }
 
     public override int TierThree() {

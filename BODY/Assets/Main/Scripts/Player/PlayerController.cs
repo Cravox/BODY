@@ -73,6 +73,9 @@ public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("Debugging"), SerializeField]
     public float modelRot;
 
+    [TabGroup("References"), Required]
+    public CharAnimEvents animEvents;
+
     private bool landed;
 
     Vector3 platformNoY;
@@ -158,10 +161,13 @@ public class PlayerController : SerializedMonoBehaviour {
         isGrounded = (isGroundedOn.Length > 0);
 
         string tag = "";
-        
+
         if (isGrounded) {
             tag = isGroundedOn[0].gameObject.tag;
-            if(!landed) modelAnim.SetTrigger("Land");
+            if (!landed) {
+                modelAnim.SetTrigger("Land");
+                landed = true;
+            }
         } else {
             tag = "";
             landed = false;

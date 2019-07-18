@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 4987964750472950643}
   - component: {fileID: 4987964750473753427}
   - component: {fileID: 4987964750474850707}
+  - component: {fileID: 3000708813822568159}
+  - component: {fileID: 4269233037577915046}
+  - component: {fileID: 8398935533190091050}
   m_Layer: 0
   m_Name: pressure_plate_base_heavy_straight_01
   m_TagString: Untagged
@@ -57,7 +60,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74ff0725db1e46a4c89dcf4f55d6600f, type: 3}
+  - {fileID: 2100000, guid: aadb9f7eb59c8e149b64d418b2f4874c, type: 2}
+  - {fileID: 2100004, guid: 7dd73ad6dfdcf6a4b8c3bf36eb342445, type: 3}
+  - {fileID: 2100006, guid: c7eafe69166a9b54587ccac08f40a86c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,3 +82,42 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3000708813822568159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987964750472916819}
+  m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.0016623, y: 0.02295044, z: 4.0004077}
+  m_Center: {x: -0.00083088875, y: -0.11314061, z: -0.00020384789}
+--- !u!65 &4269233037577915046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987964750472916819}
+  m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.27961233, z: 0.99275184}
+  m_Center: {x: -0.00083088875, y: 0.039806098, z: -1.5}
+--- !u!65 &8398935533190091050
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4987964750472916819}
+  m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.27961233, z: 0.99275184}
+  m_Center: {x: -0.00083088875, y: 0.039806098, z: 1.5}

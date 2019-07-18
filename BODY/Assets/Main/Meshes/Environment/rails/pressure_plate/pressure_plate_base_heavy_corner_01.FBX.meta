@@ -4,11 +4,73 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: pressure_plate_base_01
+    100004: pressure_plate_base_01 1
+    100006: pressure_plate_base_bauteil
+    100008: pressure_plate_base_heavy_01
+    100010: pressure_plate_base_heavy_corner_01
+    100012: pressure_plate_base_heavy_cross_01
+    100014: pressure_plate_base_heavy_straight_01
+    100016: pressure_plate_base_heavy_t_junction_01
+    100018: rail_corner_01
+    100020: rail_cross_01
+    100022: rail_straight_01
+    100024: rail_t_junction_01
     400000: //RootNode
+    400002: pressure_plate_base_01
+    400004: pressure_plate_base_01 1
+    400006: pressure_plate_base_bauteil
+    400008: pressure_plate_base_heavy_01
+    400010: pressure_plate_base_heavy_corner_01
+    400012: pressure_plate_base_heavy_cross_01
+    400014: pressure_plate_base_heavy_straight_01
+    400016: pressure_plate_base_heavy_t_junction_01
+    400018: rail_corner_01
+    400020: rail_cross_01
+    400022: rail_straight_01
+    400024: rail_t_junction_01
     2100000: No Name
+    2100002: glow
+    2100004: schiene
+    2100006: Rahmen
     2300000: //RootNode
+    2300002: pressure_plate_base_01
+    2300004: pressure_plate_base_01 1
+    2300006: pressure_plate_base_bauteil
+    2300008: pressure_plate_base_heavy_01
+    2300010: pressure_plate_base_heavy_corner_01
+    2300012: pressure_plate_base_heavy_cross_01
+    2300014: pressure_plate_base_heavy_straight_01
+    2300016: pressure_plate_base_heavy_t_junction_01
+    2300018: rail_corner_01
+    2300020: rail_cross_01
+    2300022: rail_straight_01
+    2300024: rail_t_junction_01
     3300000: //RootNode
+    3300002: pressure_plate_base_01
+    3300004: pressure_plate_base_01 1
+    3300006: pressure_plate_base_bauteil
+    3300008: pressure_plate_base_heavy_01
+    3300010: pressure_plate_base_heavy_corner_01
+    3300012: pressure_plate_base_heavy_cross_01
+    3300014: pressure_plate_base_heavy_straight_01
+    3300016: pressure_plate_base_heavy_t_junction_01
+    3300018: rail_corner_01
+    3300020: rail_cross_01
+    3300022: rail_straight_01
+    3300024: rail_t_junction_01
     4300000: pressure_plate_base_heavy_corner_01
+    4300002: pressure_plate_base_01
+    4300004: rail_straight_01
+    4300006: rail_corner_01
+    4300008: rail_t_junction_01
+    4300010: rail_cross_01
+    4300012: pressure_plate_base_bauteil
+    4300014: pressure_plate_base_heavy_straight_01
+    4300016: pressure_plate_base_heavy_01
+    4300018: pressure_plate_base_heavy_t_junction_01
+    4300020: pressure_plate_base_heavy_cross_01
+    4300022: pressure_plate_base_01
   externalObjects: {}
   materials:
     importMaterials: 1

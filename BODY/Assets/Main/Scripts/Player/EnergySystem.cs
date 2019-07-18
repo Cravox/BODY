@@ -63,11 +63,10 @@ public class EnergySystem : SerializedMonoBehaviour {
             limb.BaselineAbility();
         }
 
-        //if (!GameManager.instance.playerInHub) {
-        //    GameManager.instance.aktPuzzle.EnergyPoints += eCost;
-        //    UpdateEnergyUI();
-        //}
-
+        if (!GameManager.instance.playerInHub) {
+            GameManager.instance.aktPuzzle.UsedEnergyPoints += eCost;
+            UpdateEnergyUI();
+        }
     }
 
     void SetLimbState(Enums.ChargeState cs) {
@@ -77,6 +76,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     }
 
     void UpdateEnergyUI() {
-        energyText.text = "Energy Used: " + GameManager.instance.aktPuzzle;
+        energyText.text = "Batteries used: " + GameManager.instance.aktPuzzle.UsedEnergyPoints;
     }
 }

@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: d3b4fc184533b4c49a54eedd379be084
+guid: 0055fac34cd77f645a6c54714d0de79c
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
     2100000: Leiste
-    2100002: emission
-    2100004: Leistenkante
-    2100006: Basecolor
+    2100002: Leistenkante
+    2100004: Basecolor
+    2100006: emission
     2300000: //RootNode
     3300000: //RootNode
     4300000: base_pillar_01_corneraligned
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
