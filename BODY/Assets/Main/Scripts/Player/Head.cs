@@ -57,19 +57,6 @@ public class Head : Limb {
     }
 
     public override int TierThree() {
-        //List<StasisController> sInDistance = GetStasisObjects();
-
-        //anim2.Play("anim", 0, 0);
-
-        //foreach (StasisController sc in sInDistance) {
-        //    sc.StartCoroutine(sc.Stasis(maxStasisTime));
-        //}
-
-        //if (sInDistance.Count > 0) {
-        //    return tierCosts[2];
-        //}
-
-        //playerCont.modelAnim.Play("Dance");
 
         return 0;
     }
@@ -91,42 +78,12 @@ public class Head : Limb {
         return t;
     }
 
-    //private List<StasisController> GetStasisObjects() {
-    //    List<StasisController> sc = new List<StasisController>();
-
-    //    Collider[] raySphere = Physics.OverlapSphere(transform.position, maxDistancePlatform);
-
-    //    foreach (Collider c in raySphere) {
-    //        StasisController s = c.GetComponent<StasisController>();
-
-    //        if (s != null) {
-    //            sc.Add(s);
-    //        }
-    //    }
-
-    //    return sc;
-    //}
-
     protected override void LimbStart() {
 
     }
 
     protected override void LimbUpdate() {
         pInDistance = GetPlatformColliders();
-
-        /*foreach (MovingPlatform t in activatedPlatforms)
-        {
-            t.stop = false;
-        }
-
-        for (int i = 0; i < activatedPlatforms.Count; i++)
-        {
-            if (!activatedPlatforms[i].isActive)
-            {
-                activatedPlatforms.Remove(activatedPlatforms[i]);
-                i--;
-            }
-        }*/
     }
 
     protected override void UpdateLimbUI() {

@@ -167,7 +167,7 @@ public class Arms : Limb {
 
     public override int TierTwo() {
         int cost = 0;
-        if (canInteract && !isCarrying) {
+        if (canInteract && !isCarrying && playerCont.isGrounded) {
             GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
             cost = tierCosts[1];
