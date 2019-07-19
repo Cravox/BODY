@@ -21,7 +21,7 @@ public class PuzzleManager : SerializedMonoBehaviour {
     private int minEnergyPoints;
 
     [SerializeField, TabGroup("Balancing")]
-    private Transform[] resettableObjects;
+    private GameObject[] resettableObjects;
 
     [SerializeField, TabGroup("References"), Required]
     private TextMeshProUGUI textGUI;
@@ -51,9 +51,11 @@ public class PuzzleManager : SerializedMonoBehaviour {
 
         textGUI.text = puzzleTheme + " \n NO_DATA";
 
-        for (int i = 0; i < resettableObjects.Length; i++) {
-            startObjectPosition[i] = resettableObjects[i].position;
-            startObjectEulerAngles[i] = resettableObjects[i].eulerAngles;
+        if(resettableObjects.Length > 0) {
+            for (int i = 0; i < resettableObjects.Length; i++) {
+                startObjectPosition[i] = resettableObjects[i].transform.position;
+                startObjectEulerAngles[i] = resettableObjects[i].transform.eulerAngles;
+            }
         }
     }
 
@@ -64,23 +66,28 @@ public class PuzzleManager : SerializedMonoBehaviour {
         }
     }
 
-    public void ResetPuzzle(bool withPlayer) {
-        if (withPlayer) {
+    public IEnumerator ResetPuzzle(bool completed) {
+        player.GetComponent<EnergySystem>().UpdateEnergyUI();
+        GameManager.instance.fadeAnim.SetTrigger("Fade");
+        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < resettableObjects.Length; i++) {
+            if(resettableObjects[i].GetComponent<PushBox>() != null) {
+                resettableObjects[i].GetComponent<PushBox>().moveDir = Vector3.zero;
+            }
+            resettableObjects[i].transform.position = startObjectPosition[i];
+            resettableObjects[i].transform.eulerAngles = startObjectEulerAngles[i];
+        }
+
+        if (completed) {
+            player.transform.position = levelEntrancePosition.position;
+            player.transform.rotation = levelEntrancePosition.rotation;
+        } else {
             player.transform.position = playerReset.position;
             player.transform.rotation = playerReset.rotation;
         }
-
-        for (int i = 0; i < resettableObjects.Length; i++) {
-            resettableObjects[i].position = startObjectPosition[i];
-            resettableObjects[i].eulerAngles = startObjectEulerAngles[i];
-        }
-    }
-
-    public void CompletePuzzle() {
-        ResetPuzzle(false);
-        player.transform.position = levelEntrancePosition.position;
-        player.transform.rotation = levelEntrancePosition.rotation;
-        UpdateScreenUI();
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.fadeAnim.SetTrigger("Fade");
+        if (completed) UpdateScreenUI();
         UsedEnergyPoints = 0;
     }
 

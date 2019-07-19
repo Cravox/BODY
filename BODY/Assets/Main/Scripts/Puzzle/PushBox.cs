@@ -28,8 +28,7 @@ public class PushBox : SerializedMonoBehaviour {
         };
     }
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         rigid.velocity = moveDir;
     }
 
@@ -53,12 +52,9 @@ public class PushBox : SerializedMonoBehaviour {
         moveDir = -angleVectors[0].Direction.normalized * pushForce;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Push"))
-        {
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.CompareTag("Push")) {
             moveDir = Vector3.zero;
-            rigid.velocity = Vector3.zero;
         }
     }
 }

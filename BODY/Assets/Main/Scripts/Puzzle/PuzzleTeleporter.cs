@@ -26,12 +26,15 @@ public class PuzzleTeleporter : TriggerContainer {
         if (gotActive && !activated) {
             teleporterActiveVFX.Play();
             activated = true;
+        } else if (!gotActive) {
+            teleporterActiveVFX.Stop();
+            activated = false;
         }
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player") && gotActive) {
-            pManager.CompletePuzzle();
+            pManager.StartCoroutine(pManager.ResetPuzzle(true));
         }
     }
 }

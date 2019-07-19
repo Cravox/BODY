@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Sirenix.OdinInspector;
 
 // head, arms and legs inherit from limb
 [RequireComponent(typeof(PlayerController))]
 public abstract class Limb : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References"), Required]
-    protected Text limbText;
+    protected TextMeshProUGUI limbText;
 
     [HideInInspector]
     public Enums.ChargeState chargeState;

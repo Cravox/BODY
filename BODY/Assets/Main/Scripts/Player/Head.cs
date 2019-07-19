@@ -94,14 +94,14 @@ public class Head : Limb {
                 break;
             case Enums.ChargeState.TIER_ONE:
                 if (pInDistance.Count > 0) {
-                    limbText.text = "Send Energy";
+                    limbText.text = "Activate Platform";
                 } else {
                     limbText.text = "";
                 }
                 break;
             case Enums.ChargeState.TIER_TWO:
                 if (activatedPlatforms.Count > 0) {
-                    limbText.text = "Manipulate Energy";
+                    limbText.text = "Move Platform";
                 } else {
                     limbText.text = "";
                 }

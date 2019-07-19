@@ -134,7 +134,7 @@ public class Arms : Limb {
         if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
             interactable = true;
             box = hit.transform;
-            boxRb = box.GetComponent<Rigidbody>();
+            if(box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
         }
 
         return interactable;

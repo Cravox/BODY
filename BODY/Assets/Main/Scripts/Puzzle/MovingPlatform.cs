@@ -98,6 +98,7 @@ public class MovingPlatform : SerializedMonoBehaviour
         {
             stop = true;
             animate.SetTrigger("Triggered");
+            platCol.isTrigger = true;
             turning = false;
         }
 

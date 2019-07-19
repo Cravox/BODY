@@ -11,8 +11,15 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References")]
     private PauseMenu pauseMenu;
 
+    [SerializeField, TabGroup("References")]
+    public Animator fadeAnim;
+
     [SerializeField]
     private GameObject player;
+
+    [SerializeField]
+    private AudioSource audioSource;
+    private float audioMaxValue;
 
     public bool playerInHub = true;
 
@@ -30,12 +37,18 @@ public class GameManager : SerializedMonoBehaviour {
     void Start() {
         instance = this;
         Cursor.visible = false;
+        audioMaxValue = audioSource.volume;
     }
 
     // Update is called once per frame
     void Update() {
         InputHandler();
         EventHelper.FixEventSystem();
+        if (playerInHub) {
+            audioSource.volume = audioMaxValue;
+        } else {
+            audioSource.volume = audioMaxValue/3;
+        }
     }
 
     void InputHandler() {
@@ -46,8 +59,9 @@ public class GameManager : SerializedMonoBehaviour {
             es.SetSelectedGameObject(pauseMenu.firstButton);
         }
 
-        if (Input.GetButtonDown("SelectButton")) {
-            aktPuzzle.ResetPuzzle(true);
+        if (Input.GetButtonDown("SelectButton") && aktPuzzle != null) {
+            //aktPuzzle.ResetPuzzle(true);
+            aktPuzzle.StartCoroutine(aktPuzzle.ResetPuzzle(false));
         }
     }
 }

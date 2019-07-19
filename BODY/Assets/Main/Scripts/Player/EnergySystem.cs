@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Sirenix.OdinInspector;
 
 public class EnergySystem : SerializedMonoBehaviour {
@@ -9,10 +10,10 @@ public class EnergySystem : SerializedMonoBehaviour {
     private Limb[] playerLimbs = new Limb[3];
 
     [SerializeField, TabGroup("References"), Required]
-    private Text energyText;
+    private TextMeshProUGUI energyText;
 
-    [SerializeField, TabGroup("References"), Required]
-    private Image stateImage;
+    //[SerializeField, TabGroup("References"), Required]
+    //private Image stateImage;
 
     [SerializeField, TabGroup("References"), Required]
     private Animator playerAnim;
@@ -25,7 +26,7 @@ public class EnergySystem : SerializedMonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        stateImage.enabled = true;
+        //stateImage.enabled = true;
     }
 
     // Update is called once per frame
@@ -75,7 +76,7 @@ public class EnergySystem : SerializedMonoBehaviour {
         }
     }
 
-    void UpdateEnergyUI() {
-        energyText.text = "Batteries used: " + GameManager.instance.aktPuzzle.UsedEnergyPoints;
+    public void UpdateEnergyUI() {
+        energyText.text = "Energycharges used: " + GameManager.instance.aktPuzzle.UsedEnergyPoints;
     }
 }
