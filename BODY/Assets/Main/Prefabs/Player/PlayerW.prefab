@@ -1269,7 +1269,6 @@ MonoBehaviour:
   - {fileID: 6996675974615068665}
   - {fileID: 9071744388173341594}
   energyText: {fileID: 0}
-  stateImage: {fileID: 0}
   playerAnim: {fileID: 4005588296981222396}
 --- !u!114 &9071744388173341594
 MonoBehaviour:
@@ -1294,7 +1293,7 @@ MonoBehaviour:
     SerializationNodes: []
   limbText: {fileID: 0}
   chargeState: 0
-  tierCosts: 050000000a0000000f000000
+  tierCosts: 01000000020000000f000000
   dJumpSpeed: {x: 0, y: 5, z: 1}
   timeToHover: 4
   jumping: 0
@@ -1325,11 +1324,11 @@ MonoBehaviour:
     SerializationNodes: []
   limbText: {fileID: 0}
   chargeState: 0
-  tierCosts: 050000000a0000000f000000
+  tierCosts: 01000000020000000f000000
   interactRange: 1
   throwForce: 100
   upForce: 300
-  pushForce: 2000
+  pushForce: 8
   topPosition: {fileID: 4005588296990325742}
   frontPosition: {fileID: 4005588296990325742}
   rayTrans: {fileID: 1796004482}
@@ -1364,7 +1363,7 @@ MonoBehaviour:
     SerializationNodes: []
   limbText: {fileID: 0}
   chargeState: 0
-  tierCosts: 050000000a0000000f000000
+  tierCosts: 01000000020000000f000000
   maxDistancePlatform: 3
   maxDistanceStasis: 6
   maxStasisTime: 3
@@ -1698,6 +1697,11 @@ PrefabInstance:
       propertyPath: handTransforms.Array.data[1]
       value: 
       objectReference: {fileID: 4005588296990325752}
+    - target: {fileID: 6737821370797857831, guid: 9986a771914ed3d42955846b64e2467c,
+        type: 3}
+      propertyPath: charRoot
+      value: 
+      objectReference: {fileID: 9071744386992386687}
     - target: {fileID: 6737821370797857831, guid: 9986a771914ed3d42955846b64e2467c,
         type: 3}
       propertyPath: arms

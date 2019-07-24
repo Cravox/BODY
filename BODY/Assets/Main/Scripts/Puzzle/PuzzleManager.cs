@@ -54,7 +54,7 @@ public class PuzzleManager : SerializedMonoBehaviour {
 
         textGUI.text = puzzleTheme + " \n NO_DATA";
 
-        if(resettableObjects.Length > 0) {
+        if(resettableObjects != null) {
             for (int i = 0; i < resettableObjects.Length; i++) {
                 startObjectPosition[i] = resettableObjects[i].transform.position;
                 startObjectEulerAngles[i] = resettableObjects[i].transform.eulerAngles;
