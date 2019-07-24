@@ -29,8 +29,13 @@ public class PuzzleEntrance : SerializedMonoBehaviour {
             }
             pManager.player = other.gameObject;
             GameManager.instance.aktPuzzle = pManager;
+            EnableCamera();
             GameManager.instance.playerInHub = false;
             pExit.gameObject.SetActive(true);
         }
+    }
+
+    private void EnableCamera() {
+        pManager.PuzzleCamera.enabled = true;
     }
 }

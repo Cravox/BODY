@@ -7,7 +7,6 @@ public class StasisController : SerializedMonoBehaviour {
 
     //TO BE REMOVED
 
-
     //private Rigidbody rigid;
     //private MovingPlatform platform;
 

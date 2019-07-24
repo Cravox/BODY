@@ -25,7 +25,9 @@ public class Head : Limb {
     public List<MovingPlatform> pInDistance;
 
     public override void BaselineAbility() {
-        //U BLIND BUT U SEE
+        if(GameManager.instance.aktPuzzle != null) {
+            GameManager.instance.camImage.enabled = !GameManager.instance.camImage.enabled;
+        }
     }
 
     public override int TierOne() {

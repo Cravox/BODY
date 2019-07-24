@@ -14,11 +14,15 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References")]
     public Animator fadeAnim;
 
+    [TabGroup("References"), Required]
+    public RawImage camImage;
+
+    [SerializeField, TabGroup("References"), Required]
+    private AudioSource audioSource;
+
     [SerializeField]
     private GameObject player;
 
-    [SerializeField]
-    private AudioSource audioSource;
     private float audioMaxValue;
 
     public bool playerInHub = true;
@@ -44,11 +48,11 @@ public class GameManager : SerializedMonoBehaviour {
     void Update() {
         InputHandler();
         EventHelper.FixEventSystem();
-        if (playerInHub) {
-            audioSource.volume = audioMaxValue;
-        } else {
-            audioSource.volume = audioMaxValue/3;
-        }
+        //if (playerInHub) {
+        //    audioSource.volume = audioMaxValue;
+        //} else {
+        //    audioSource.volume = audioMaxValue/3;
+        //}
     }
 
     void InputHandler() {

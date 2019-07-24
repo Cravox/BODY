@@ -20,7 +20,9 @@ public class PuzzleExit : SerializedMonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             GameManager.instance.playerInHub = true;
+            GameManager.instance.camImage.enabled = false;
             GameManager.instance.aktPuzzle = null;
+            pManager.PuzzleCamera.enabled = false;
             pManager.player = null;
         }
     }

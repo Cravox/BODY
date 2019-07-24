@@ -38,6 +38,9 @@ public class PuzzleManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References"), Required]
     private Transform levelEntrancePosition;
 
+    [TabGroup("References"), Required]
+    public Camera PuzzleCamera;
+
     private Vector3[] startObjectPosition;
     private Vector3[] startObjectEulerAngles;
 
@@ -67,7 +70,6 @@ public class PuzzleManager : SerializedMonoBehaviour {
     }
 
     public IEnumerator ResetPuzzle(bool completed) {
-        player.GetComponent<EnergySystem>().UpdateEnergyUI();
         GameManager.instance.fadeAnim.SetTrigger("Fade");
         yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < resettableObjects.Length; i++) {
@@ -87,8 +89,12 @@ public class PuzzleManager : SerializedMonoBehaviour {
         }
         yield return new WaitForSeconds(0.5f);
         GameManager.instance.fadeAnim.SetTrigger("Fade");
-        if (completed) UpdateScreenUI();
+        if (completed) {
+            UpdateScreenUI();
+            GameManager.instance.playerInHub = true;
+        }
         UsedEnergyPoints = 0;
+        player.GetComponent<EnergySystem>().UpdateEnergyUI();
     }
 
     public void UpdateScreenUI() {
