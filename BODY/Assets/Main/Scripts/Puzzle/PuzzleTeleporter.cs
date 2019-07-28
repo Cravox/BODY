@@ -4,16 +4,15 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PuzzleTeleporter : TriggerContainer {
-    [SerializeField, TabGroup("References"), Required]
-    private PuzzleManager pManager;
+    //[SerializeField, TabGroup("References"), Required]
+    //private PuzzleManager pManager;
 
     [SerializeField, TabGroup("References"), Required]
     private ParticleSystem teleporterActiveVFX;
 
-    //[SerializeField, TabGroup("References"), Required]
-    //private ParticleSystem teleporterPortVFX;
+    [SerializeField, TabGroup("References"), Required]
+    private Transform playerPosTrans;
     
-    [SerializeField]
     private bool activated = false;
 
     // Start is called before the first frame update
@@ -34,7 +33,15 @@ public class PuzzleTeleporter : TriggerContainer {
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player") && gotActive) {
-            pManager.StartCoroutine(pManager.ResetPuzzle(true));
+            StartCoroutine(TeleportPlayer(other.gameObject.GetComponent<PlayerController>()));
         }
+    }
+
+    private IEnumerator TeleportPlayer(PlayerController playerCont) {
+        GameManager.instance.fadeAnim.SetTrigger("Fade");
+        yield return new WaitForSeconds(0.5f);
+        playerCont.gameObject.transform.position = playerPosTrans.position;
+        playerCont.modelAxis.Rotate(playerPosTrans.eulerAngles);
+        GameManager.instance.fadeAnim.SetTrigger("Fade");
     }
 }
