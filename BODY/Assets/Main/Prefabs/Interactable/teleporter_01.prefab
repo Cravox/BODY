@@ -107,9 +107,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e2113d964bb944eaad6d5c0223cca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pManager: {fileID: 0}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  gotActive: 1
   teleporterActiveVFX: {fileID: 0}
-  teleporterPortVFX: {fileID: 0}
+  playerPosTrans: {fileID: 3857306153840717185}
 --- !u!1001 &4018248233741280491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121,11 +130,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TeleporterActiveVFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 163335716731341163, guid: a1936c7168adab545b4ebcb233174e67,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 163335716731341162, guid: a1936c7168adab545b4ebcb233174e67,
         type: 3}
@@ -184,18 +188,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 163335716731341160, guid: a1936c7168adab545b4ebcb233174e67,
         type: 3}
-      propertyPath: prewarm
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 163335716731341160, guid: a1936c7168adab545b4ebcb233174e67,
-        type: 3}
       propertyPath: playOnAwake
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 163335716731341160, guid: a1936c7168adab545b4ebcb233174e67,
-        type: 3}
-      propertyPath: scalingMode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3293025001212288345, guid: a1936c7168adab545b4ebcb233174e67,
         type: 3}
