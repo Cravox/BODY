@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 4987964750472950643}
   - component: {fileID: 4987964750473753427}
   - component: {fileID: 4987964750474850707}
-  - component: {fileID: 3000708813822568159}
-  - component: {fileID: 4269233037577915046}
-  - component: {fileID: 8398935533190091050}
+  - component: {fileID: 2818056191950754827}
   m_Layer: 0
   m_Name: pressure_plate_base_heavy_straight_01
   m_TagString: Untagged
@@ -82,42 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3000708813822568159
-BoxCollider:
+--- !u!64 &2818056191950754827
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4987964750472916819}
-  m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.0016623, y: 0.02295044, z: 4.0004077}
-  m_Center: {x: -0.00083088875, y: -0.11314061, z: -0.00020384789}
---- !u!65 &4269233037577915046
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4987964750472916819}
-  m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4, y: 0.27961233, z: 0.99275184}
-  m_Center: {x: -0.00083088875, y: 0.039806098, z: -1.5}
---- !u!65 &8398935533190091050
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4987964750472916819}
-  m_Material: {fileID: 13400000, guid: 8fa5f97d8ea99564097887d60a1fe0f6, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4, y: 0.27961233, z: 0.99275184}
-  m_Center: {x: -0.00083088875, y: 0.039806098, z: 1.5}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 74ff0725db1e46a4c89dcf4f55d6600f, type: 3}
