@@ -15,11 +15,17 @@ public class PushBox : SerializedMonoBehaviour {
     [SerializeField]
     private bool pushed = false;
 
+    [SerializeField]
+    private float timeTreshold = 8;
+
     private Vector3 toPlayer;
     private Rigidbody rigid;
 
     public Vector3 moveDir;
     private RigidbodyConstraints constraints;
+
+    [SerializeField]
+    private float collisionTimer = 0;
 
 
     // Start is called before the first frame update
@@ -37,17 +43,23 @@ public class PushBox : SerializedMonoBehaviour {
     private void Update() {
         if (pushed) {
             rigid.constraints = constraints;
-        } else {
+        }
+
+        if (rigid.velocity == Vector3.zero && !pushed) {
             rigid.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 
     private void FixedUpdate() {
-
-        rigid.velocity = moveDir;
+        if (pushed) {
+            rigid.velocity = moveDir;
+        } else {
+            rigid.velocity = Vector3.zero;
+        }
     }
 
     public void PushedBox(Vector3 playerPosition, float pushForce) {
+        collisionTimer = 0;
         pushed = true;
         toPlayer = playerPosition - transform.position;
 
@@ -69,9 +81,21 @@ public class PushBox : SerializedMonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Push")) {
-            moveDir = Vector3.zero;
-            pushed = false;
+
+    }
+
+    private void OnCollisionStay(Collision collision) {
+        if (collision.gameObject.tag != "Player") {
+            collisionTimer += Time.deltaTime;
+            if (collisionTimer >= timeTreshold) {
+                pushed = false;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision) {
+        if (collision.gameObject.tag != "Player") {
+            collisionTimer = 0;
         }
     }
 }
