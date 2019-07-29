@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 
 public class PuzzleManager : SerializedMonoBehaviour {
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject player;
 
     [HideInInspector]
@@ -52,7 +52,7 @@ public class PuzzleManager : SerializedMonoBehaviour {
         startObjectPosition = new Vector3[resettableObjects.Length];
         startObjectEulerAngles = new Vector3[resettableObjects.Length];
 
-        textGUI.text = puzzleTheme + " \n NO_DATA";
+        //textGUI.text = puzzleTheme + " \n NO_DATA";
 
         if(resettableObjects != null) {
             for (int i = 0; i < resettableObjects.Length; i++) {
