@@ -32,13 +32,13 @@ public class PushBox : SerializedMonoBehaviour {
     private float lerpF = 0;
 
     [SerializeField]
-    private float speed;
+    private float speed = 1;
 
 
     // Start is called before the first frame update
     void Start() {
-        rigid = GetComponent<Rigidbody>();
-        constraints = rigid.constraints;
+        //rigid = GetComponent<Rigidbody>();
+        //constraints = rigid.constraints;
         directions = new Vector3[] {
             transform.forward,
             -transform.forward,

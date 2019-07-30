@@ -156,7 +156,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  pushed: 0
+  rayTrans: {fileID: 1349121548149993995}
+  desiredTrans: {fileID: 0}
   moveDir: {x: 0, y: 0, z: 0}
+  lerpF: 0
+  speed: 0
 --- !u!54 &1504938071986146810
 Rigidbody:
   m_ObjectHideFlags: 0
