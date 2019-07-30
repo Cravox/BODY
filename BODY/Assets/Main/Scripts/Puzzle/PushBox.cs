@@ -21,12 +21,17 @@ public class PushBox : SerializedMonoBehaviour {
     [SerializeField]
     private Transform desiredTrans;
 
+    [SerializeField]
+    private LayerMask layerMask;
+
     private Vector3 toPlayer;
     private Vector3 aktPos;
     private Rigidbody rigid;
 
     public Vector3 moveDir;
     private RigidbodyConstraints constraints;
+
+    private float distance;
 
     [SerializeField]
     private float lerpF = 0;
@@ -50,7 +55,7 @@ public class PushBox : SerializedMonoBehaviour {
     private void Update() {
         if (pushed && desiredTrans != null) {
             lerpF += Time.deltaTime * speed;
-            transform.position = Vector3.Lerp(aktPos, desiredTrans.position, lerpF);
+            transform.position = Vector3.Lerp(aktPos, desiredTrans.position, lerpF/distance);
             if (lerpF >= 1) {
                 desiredTrans = null;
                 pushed = false;
@@ -86,8 +91,9 @@ public class PushBox : SerializedMonoBehaviour {
         ray.origin = rayTrans.position;
         ray.direction = -angleVectors[0].Direction.normalized;
 
-        if(Physics.Raycast(ray.origin, ray.direction, out hit, LayerMask.GetMask("RailWall"))) {
-            if(hit.transform.gameObject != null) {
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 100000, layerMask.value)) {
+            if (hit.transform != null && hit.distance > 1.5f) {
+                distance = hit.distance;
                 pushed = true;
                 desiredTrans = hit.transform;
             }
@@ -98,25 +104,7 @@ public class PushBox : SerializedMonoBehaviour {
         if (collision.gameObject.CompareTag("Push")) {
             pushed = false;
             desiredTrans = null;
+            lerpF = 0;
         }
     }
-
-    //private void OnCollisionEnter(Collision collision) {
-    //
-    //}
-    //
-    //private void OnCollisionStay(Collision collision) {
-    //    if (collision.gameObject.tag != "Player") {
-    //        collisionTimer += Time.deltaTime;
-    //        if (collisionTimer >= timeTreshold) {
-    //            pushed = false;
-    //        }
-    //    }
-    //}
-    //
-    //private void OnCollisionExit(Collision collision) {
-    //    if (collision.gameObject.tag != "Player") {
-    //        collisionTimer = 0;
-    //    }
-    //}
 }

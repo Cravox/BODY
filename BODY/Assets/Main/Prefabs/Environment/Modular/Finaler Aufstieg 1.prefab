@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1278751342875987059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1677983049649141178}
+  m_Layer: 9
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1677983049649141178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278751342875987059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.73, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 186935597286920098}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8136502209091190848
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +159,7 @@ Transform:
   - {fileID: 4243080763621136923}
   - {fileID: 9021463784070530700}
   - {fileID: 5340314019710849669}
+  - {fileID: 1677983049649141178}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -154,9 +185,11 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   pushed: 0
-  timeTreshold: 8
+  rayTrans: {fileID: 1677983049649141178}
+  desiredTrans: {fileID: 0}
   moveDir: {x: 0, y: 0, z: 0}
-  collisionTimer: 0
+  lerpF: 0
+  speed: 1
 --- !u!54 &4916193415233885660
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -171,7 +204,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &627912014515609982
 PrefabInstance:
