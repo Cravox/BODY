@@ -18,6 +18,9 @@ public class PushBox : SerializedMonoBehaviour {
     [SerializeField]
     private float timeTreshold = 8;
 
+    [SerializeField]
+    private Transform desiredTrans;
+
     private Vector3 toPlayer;
     private Rigidbody rigid;
 
@@ -51,11 +54,11 @@ public class PushBox : SerializedMonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (pushed) {
-            rigid.velocity = moveDir;
-        } else {
-            rigid.velocity = Vector3.zero;
-        }
+        //if (pushed) {
+        //    rigid.velocity = moveDir;
+        //} else {
+        //    rigid.velocity = Vector3.zero;
+        //}
     }
 
     public void PushedBox(Vector3 playerPosition, float pushForce) {

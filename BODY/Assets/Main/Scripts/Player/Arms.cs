@@ -135,6 +135,8 @@ public class Arms : Limb {
             interactable = true;
             box = hit.transform;
             if(box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
+        } else {
+            box = null;
         }
 
         return interactable;
@@ -169,7 +171,7 @@ public class Arms : Limb {
 
     public override int TierTwo() {
         int cost = 0;
-        if (canInteract && !isCarrying && playerCont.isGrounded) {
+        if (canInteract && !isCarrying && playerCont.isGrounded && box.GetComponent<PushBox>() != null) {
             GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
             cost = tierCosts[1];
