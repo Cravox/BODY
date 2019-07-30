@@ -16,19 +16,23 @@ public class PushBox : SerializedMonoBehaviour {
     private bool pushed = false;
 
     [SerializeField]
-    private float timeTreshold = 8;
+    private Transform rayTrans;
 
     [SerializeField]
     private Transform desiredTrans;
 
     private Vector3 toPlayer;
+    private Vector3 aktPos;
     private Rigidbody rigid;
 
     public Vector3 moveDir;
     private RigidbodyConstraints constraints;
 
     [SerializeField]
-    private float collisionTimer = 0;
+    private float lerpF = 0;
+
+    [SerializeField]
+    private float speed;
 
 
     // Start is called before the first frame update
@@ -44,28 +48,24 @@ public class PushBox : SerializedMonoBehaviour {
     }
 
     private void Update() {
-        if (pushed) {
-            rigid.constraints = constraints;
-        }
-
-        if (rigid.velocity == Vector3.zero && !pushed) {
-            rigid.constraints = RigidbodyConstraints.FreezeAll;
+        if (pushed && desiredTrans != null) {
+            lerpF += Time.deltaTime * speed;
+            transform.position = Vector3.Lerp(aktPos, desiredTrans.position, lerpF);
+            if (lerpF >= 1) {
+                desiredTrans = null;
+                pushed = false;
+                lerpF = 0;
+            }
         }
     }
 
     private void FixedUpdate() {
-        //if (pushed) {
-        //    rigid.velocity = moveDir;
-        //} else {
-        //    rigid.velocity = Vector3.zero;
-        //}
+
     }
 
     public void PushedBox(Vector3 playerPosition, float pushForce) {
-        collisionTimer = 0;
-        pushed = true;
         toPlayer = playerPosition - transform.position;
-
+        aktPos = transform.position;
         List<AngleVector> angleVectors = new List<AngleVector>(directions.Length);
 
         for (int i = 0; i < directions.Length; i++) {
@@ -80,25 +80,43 @@ public class PushBox : SerializedMonoBehaviour {
 
         angleVectors.Sort((av1, av2) => av1.Angle.CompareTo(av2.Angle));
 
-        moveDir = -angleVectors[0].Direction.normalized * pushForce;
-    }
+        //moveDir = -angleVectors[0].Direction.normalized * pushForce;
+        Ray ray = new Ray();
+        RaycastHit hit;
+        ray.origin = rayTrans.position;
+        ray.direction = -angleVectors[0].Direction.normalized;
 
-    private void OnCollisionEnter(Collision collision) {
-
-    }
-
-    private void OnCollisionStay(Collision collision) {
-        if (collision.gameObject.tag != "Player") {
-            collisionTimer += Time.deltaTime;
-            if (collisionTimer >= timeTreshold) {
-                pushed = false;
+        if(Physics.Raycast(ray.origin, ray.direction, out hit, LayerMask.GetMask("RailWall"))) {
+            if(hit.transform.gameObject != null) {
+                pushed = true;
+                desiredTrans = hit.transform;
             }
         }
     }
 
-    private void OnCollisionExit(Collision collision) {
-        if (collision.gameObject.tag != "Player") {
-            collisionTimer = 0;
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.CompareTag("Push")) {
+            pushed = false;
+            desiredTrans = null;
         }
     }
+
+    //private void OnCollisionEnter(Collision collision) {
+    //
+    //}
+    //
+    //private void OnCollisionStay(Collision collision) {
+    //    if (collision.gameObject.tag != "Player") {
+    //        collisionTimer += Time.deltaTime;
+    //        if (collisionTimer >= timeTreshold) {
+    //            pushed = false;
+    //        }
+    //    }
+    //}
+    //
+    //private void OnCollisionExit(Collision collision) {
+    //    if (collision.gameObject.tag != "Player") {
+    //        collisionTimer = 0;
+    //    }
+    //}
 }
