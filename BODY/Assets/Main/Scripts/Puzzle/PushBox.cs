@@ -10,7 +10,8 @@ public class PushBox : SerializedMonoBehaviour {
         public Vector3 Direction;
     };
 
-    private Vector3[] directions;
+    [SerializeField]
+    private float speed = 1;
 
     [SerializeField]
     private bool pushed = false;
@@ -19,25 +20,18 @@ public class PushBox : SerializedMonoBehaviour {
     private Transform rayTrans;
 
     [SerializeField]
-    private Transform desiredTrans;
-
-    [SerializeField]
     private LayerMask layerMask;
+
+    private Vector3[] directions;
+
+    private Transform desiredTrans;
 
     private Vector3 toPlayer;
     private Vector3 aktPos;
-    private Rigidbody rigid;
-
-    public Vector3 moveDir;
-    private RigidbodyConstraints constraints;
 
     private float distance;
 
-    [SerializeField]
     private float lerpF = 0;
-
-    [SerializeField]
-    private float speed = 1;
 
 
     // Start is called before the first frame update
@@ -56,7 +50,7 @@ public class PushBox : SerializedMonoBehaviour {
         if (pushed && desiredTrans != null) {
             lerpF += Time.deltaTime * speed;
             transform.position = Vector3.Lerp(aktPos, desiredTrans.position, lerpF/distance);
-            if (lerpF >= 1) {
+            if (lerpF/distance >= 1) {
                 desiredTrans = null;
                 pushed = false;
                 lerpF = 0;
@@ -102,9 +96,13 @@ public class PushBox : SerializedMonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("Push")) {
-            pushed = false;
-            desiredTrans = null;
-            lerpF = 0;
+            ResetBox();
         }
+    }
+
+    public void ResetBox() {
+        pushed = false;
+        desiredTrans = null;
+        lerpF = 0;
     }
 }

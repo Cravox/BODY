@@ -74,7 +74,7 @@ public class PuzzleManager : SerializedMonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < resettableObjects.Length; i++) {
             if(resettableObjects[i].GetComponent<PushBox>() != null) {
-                resettableObjects[i].GetComponent<PushBox>().moveDir = Vector3.zero;
+                resettableObjects[i].GetComponent<PushBox>().ResetBox();
             }
             resettableObjects[i].transform.position = startObjectPosition[i];
             resettableObjects[i].transform.eulerAngles = startObjectEulerAngles[i];
