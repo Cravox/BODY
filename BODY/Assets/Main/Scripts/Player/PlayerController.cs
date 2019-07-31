@@ -109,8 +109,6 @@ public class PlayerController : SerializedMonoBehaviour {
         } else {
             modelAnim.SetFloat("Velocity", 0);
         }
-
-        //modelAnim.SetBool("IsGrounded", isGrounded);
     }
 
     void InputCheck() {
@@ -157,8 +155,6 @@ public class PlayerController : SerializedMonoBehaviour {
 
         AddForce(dirForceUp, 0, true, true);
         AddForce(dirForceSide, 50, true, true);
-
-        //modelAnim.Play("Jump");
     }
 
     void GroundCheck() {
