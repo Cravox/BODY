@@ -12,7 +12,7 @@ public class PuzzleTeleporter : TriggerContainer {
 
     [SerializeField, TabGroup("References"), Required]
     private Transform playerPosTrans;
-    
+
     private bool activated = false;
 
     // Start is called before the first frame update

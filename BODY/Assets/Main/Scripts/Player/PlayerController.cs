@@ -103,7 +103,13 @@ public class PlayerController : SerializedMonoBehaviour {
 
     void Animate() {
         Vector3 rigidvel = rigid.velocity - (platform != null ? platform.velocity : Vector3.zero);
-        modelAnim.SetFloat("Velocity", rigidvel.magnitude / walkSpeed);
+
+        if(rigidvel.magnitude/walkSpeed >= 0.08f) {
+            modelAnim.SetFloat("Velocity", rigidvel.magnitude / walkSpeed);
+        } else {
+            modelAnim.SetFloat("Velocity", 0);
+        }
+
         //modelAnim.SetBool("IsGrounded", isGrounded);
     }
 

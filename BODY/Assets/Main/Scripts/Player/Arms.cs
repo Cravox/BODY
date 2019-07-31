@@ -78,7 +78,7 @@ public class Arms : Limb {
             DetachObject();
         }
 
-        playerCont.modelAnim.SetBool("isCarrying", isCarrying);
+        //playerCont.modelAnim.SetBool("isCarrying", isCarrying);
     }
 
     public void PredictRigidbody() {
@@ -144,7 +144,8 @@ public class Arms : Limb {
 
     public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
-            AttachObject();
+            playerCont.modelAnim.SetBool("isCarrying", true);
+            //AttachObject();
         } else if (isCarrying) {
             if (box == null)
                 isCarrying = false;
@@ -223,7 +224,7 @@ public class Arms : Limb {
         } else limbText.text = "";
     }
 
-    private void AttachObject() {
+    public void AttachObject() {
         isCarrying = true;
         //var saveRota = box.localRotation;
         box.parent = topPosition;
@@ -236,6 +237,7 @@ public class Arms : Limb {
     private void DetachObject() {
         if (box != null && boxRb != null)
         {
+            playerCont.modelAnim.SetBool("isCarrying", false);
             box.parent = null;
             boxRb.constraints = constraint;
         }

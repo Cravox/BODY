@@ -128,6 +128,7 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void PickUp() {
+        arms.AttachObject();
         vfxCarry.SetActive(true);
         vfxReceive.SetActive(true);
         vfxLightRightHand.SetActive(true);

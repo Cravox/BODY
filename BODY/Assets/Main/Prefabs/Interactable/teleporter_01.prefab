@@ -117,7 +117,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   gotActive: 1
-  teleporterActiveVFX: {fileID: 0}
+  teleporterActiveVFX: {fileID: 3857306153840717187}
   playerPosTrans: {fileID: 3857306153840717185}
 --- !u!1001 &4018248233741280491
 PrefabInstance:
@@ -201,6 +201,12 @@ PrefabInstance:
 --- !u!4 &3857306153840717185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 163335716731341162, guid: a1936c7168adab545b4ebcb233174e67,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018248233741280491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3857306153840717187 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 163335716731341160, guid: a1936c7168adab545b4ebcb233174e67,
     type: 3}
   m_PrefabInstance: {fileID: 4018248233741280491}
   m_PrefabAsset: {fileID: 0}
