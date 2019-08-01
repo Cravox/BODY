@@ -9,6 +9,8 @@ ModelImporter:
     2100002: glow
     2100004: schiene
     2100006: Rahmen
+    2100008: Basecolor
+    2100010: Leiste
     2300000: //RootNode
     3300000: //RootNode
     4300000: pressure_plate_base_heavy_t_junction_01

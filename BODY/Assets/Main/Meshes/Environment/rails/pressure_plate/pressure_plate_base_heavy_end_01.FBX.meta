@@ -8,6 +8,8 @@ ModelImporter:
     2100000: Rahmen
     2100002: glow
     2100004: schiene
+    2100006: Basecolor
+    2100008: Leiste
     2300000: //RootNode
     3300000: //RootNode
     4300000: pressure_plate_base_heavy_end_01

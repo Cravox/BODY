@@ -27,13 +27,13 @@ public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("References"), Required]
     public Camera cam;
 
-    [TabGroup("References"), Header("Ground"), Required]
+    [TabGroup("References"), Header("Ground")]
     public float groundHoldRadius;
 
     [TabGroup("References"), Required]
     public Transform groundHolder;
 
-    [TabGroup("References"), Required]
+    [TabGroup("References")]
     public LayerMask checkCollisionOn;
 
     [TabGroup("References"), InfoBox("Required for turning a Model during Movement"), Header("Model"), Required]

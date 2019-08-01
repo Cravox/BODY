@@ -16,8 +16,8 @@ public class PuzzleDoor : TriggerContainer {
 
     // Update is called once per frame
     void Update() {
-        if(!isHubDoor)
-            doorAnim.SetBool("Open", gotActive);
+        //if(!isHubDoor)
+        //    doorAnim.SetBool("Open", gotActive);
     }
 
     private void OnTriggerEnter(Collider col) {

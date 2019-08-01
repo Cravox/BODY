@@ -6,6 +6,9 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: No Name
+    2100002: emission
+    2100004: Basecolor
+    2100006: Leiste
     2300000: //RootNode
     3300000: //RootNode
     4300000: ramp_01

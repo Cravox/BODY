@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Cinemachine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -23,6 +24,8 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField]
     private GameObject player;
 
+    private Animator elevatorAnim;
+
     private float audioMaxValue;
 
     public bool playerInHub = true;
@@ -42,6 +45,8 @@ public class GameManager : SerializedMonoBehaviour {
         instance = this;
         Cursor.visible = false;
         audioMaxValue = audioSource.volume;
+
+        ScreenShakeManager.Instance.Shake(0.1f, 2, 5);
     }
 
     // Update is called once per frame
