@@ -12,9 +12,6 @@ public class EnergySystem : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References"), Required]
     private TextMeshProUGUI energyText;
 
-    //[SerializeField, TabGroup("References"), Required]
-    //private Image stateImage;
-
     [SerializeField, TabGroup("References"), Required]
     private Animator playerAnim;
 
@@ -38,18 +35,18 @@ public class EnergySystem : SerializedMonoBehaviour {
         if (Input.GetButtonDown("Jump")) myIndex = Enums.LimbIndex.LEGS;
 
         leftTriggerInput = Input.GetAxis("LeftTrigger");
-        rightTriggerInput = Input.GetAxis("RightTrigger");
+        //rightTriggerInput = Input.GetAxis("RightTrigger");
 
-        if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
-            playerAnim.SetBool("isFullPower", true);
-            SetLimbState(Enums.ChargeState.TIER_TWO);
-        } else if (leftTriggerInput >= 0.9f) {
-            playerAnim.SetBool("isFullPower", false);
-            SetLimbState(Enums.ChargeState.TIER_ONE);
-        } else {
-            playerAnim.SetBool("isFullPower", false);
-            SetLimbState(Enums.ChargeState.NOT_CHARGED);
-        }
+        //if (rightTriggerInput >= 0.9f && leftTriggerInput >= 0.9f) {
+        //    playerAnim.SetBool("isFullPower", true);
+        //    SetLimbState(Enums.ChargeState.TIER_TWO);
+        //} else if (leftTriggerInput >= 0.9f) {
+        //    playerAnim.SetBool("isFullPower", false);
+        //    SetLimbState(Enums.ChargeState.TIER_ONE);
+        //} else {
+        //    playerAnim.SetBool("isFullPower", false);
+        //    SetLimbState(Enums.ChargeState.NOT_CHARGED);
+        //}
 
         if (myIndex == null) return;
         eCost = 0;

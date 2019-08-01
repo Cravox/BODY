@@ -62,6 +62,20 @@ public class Arms : Limb {
     }
 
     protected override void LimbUpdate() {
+        if (Input.GetButtonDown("ButtonX") && box != null) {
+            if (box.GetComponent<PushBox>() != null) {
+                TierTwo();
+            } else {
+                if (isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {
+                    TierOne();
+                } else if(!isCarrying){
+                    BaselineAbility();
+                } else {
+                    BaselineAbility();
+                }
+            }
+        }
+
         if (!playerCont.animEvents.isPushing) {
             playerCont.rigid.constraints = constraints;
         }
