@@ -4,14 +4,25 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: platform_01
+    100004: platform_01_extend
     400000: //RootNode
+    400002: platform_01
+    400004: platform_01_extend
     2100000: No Name
     2100002: base
     2100004: glow
     2100006: glowkante
+    2100008: platform_01
+    2100010: Platform_01_extend
     2300000: //RootNode
+    2300002: platform_01
+    2300004: platform_01_extend
     3300000: //RootNode
+    3300002: platform_01
+    3300004: platform_01_extend
     4300000: platform_01
+    4300002: platform_01_extend
   externalObjects: {}
   materials:
     importMaterials: 1

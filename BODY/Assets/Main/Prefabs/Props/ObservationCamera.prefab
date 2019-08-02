@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5291913168022330989}
   - component: {fileID: 5291913168021003853}
   - component: {fileID: 5291913168020036749}
-  - component: {fileID: 4167055099615323606}
+  - component: {fileID: 6696020553102570937}
   m_Layer: 0
   m_Name: ObservationCamera
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4167055099615323606
+--- !u!65 &6696020553102570937
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,8 +90,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2777731, y: 1.2797222, z: 1.2700118}
-  m_Center: {x: 0, y: 3, z: -1.0968242}
+  m_Size: {x: 1.2777731, y: 1.2797225, z: 1.2700118}
+  m_Center: {x: 0, y: 0, z: 0.6350058}
 --- !u!1 &5291913168021963343
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5291913168021963343}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 3, z: -0.9580921}
+  m_LocalPosition: {x: -0, y: -0.00000023841858, z: 0.7737379}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5291913168022330989}

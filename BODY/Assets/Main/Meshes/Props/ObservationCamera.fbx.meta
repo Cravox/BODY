@@ -5,15 +5,21 @@ ModelImporter:
   fileIDToRecycleName:
     100000: ObservationCamera
     100002: //RootNode
+    100004: ObservationCamera_high
     400000: ObservationCamera
     400002: //RootNode
+    400004: ObservationCamera_high
     2100000: ObservationCamera
     2300000: ObservationCamera
     2300002: //RootNode
+    2300004: ObservationCamera_high
     3300000: ObservationCamera
     3300002: //RootNode
+    3300004: ObservationCamera_high
     4300000: ObservationCameraBase
     4300002: ObservationCamera
+    4300004: ObservationCameraBase_high
+    4300006: ObservationCamera_high
   externalObjects: {}
   materials:
     importMaterials: 0

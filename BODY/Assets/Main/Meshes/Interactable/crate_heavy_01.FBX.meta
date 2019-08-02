@@ -9,6 +9,7 @@ ModelImporter:
     2100002: Frame
     2100004: Light
     2100006: Rubber
+    2100008: HeavyCrate
     2300000: //RootNode
     3300000: //RootNode
     4300000: crate_heavy_01

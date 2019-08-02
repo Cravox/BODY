@@ -24,7 +24,8 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField]
     private GameObject player;
 
-    private Animator elevatorAnim;
+    [SerializeField]
+    private BoxCollider elevatorDoorCollider;
 
     private float audioMaxValue;
 
@@ -32,7 +33,10 @@ public class GameManager : SerializedMonoBehaviour {
 
     public bool CanControl { set {
             PlayerController cont = player.GetComponent<PlayerController>();
-            player.GetComponent<EnergySystem>().enabled = value;
+            var limbs = player.GetComponents<Limb>();
+            foreach (Limb limb in limbs) {
+                limb.enabled = value;
+            }
             cont.enabled = value;
             cont.rigid.velocity = (value ? cont.rigid.velocity : Vector3.zero); 
                 } }
@@ -45,8 +49,13 @@ public class GameManager : SerializedMonoBehaviour {
         instance = this;
         Cursor.visible = false;
         audioMaxValue = audioSource.volume;
+        StartCoroutine(Intro());
+    }
 
+    private IEnumerator Intro() {
         ScreenShakeManager.Instance.Shake(0.1f, 2, 5);
+        yield return new WaitForSeconds(5);
+        elevatorDoorCollider.enabled = true;
     }
 
     // Update is called once per frame

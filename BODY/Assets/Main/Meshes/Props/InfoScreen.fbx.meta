@@ -34,6 +34,8 @@ ModelImporter:
     100056: screen03.L_end
     100058: screen03.R
     100060: screen03.R_end
+    100062: Base_high
+    100064: Screen
     400000: base_01
     400002: base_02
     400004: base_03
@@ -65,6 +67,8 @@ ModelImporter:
     400056: screen03.L_end
     400058: screen03.R
     400060: screen03.R_end
+    400062: Base_high
+    400064: Screen
     2100000: InfoScreen
     4300000: Frame_low
     4300002: InnerParts_low
@@ -73,6 +77,8 @@ ModelImporter:
     4300008: MainStuff_low
     4300010: FirstRotator_low
     4300012: Base_low
+    4300014: Base_high
+    4300016: Screen
     7400000: Rig|BuildUp
     9500000: //RootNode
     13700000: Base_low
@@ -82,6 +88,8 @@ ModelImporter:
     13700008: InnerParts_low
     13700010: MainStuff_low
     13700012: OuterLights_low
+    13700014: Base_high
+    13700016: Screen
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -109,7 +117,85 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Rig|BuildUp
+      takeName: Rig|BuildUp
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Rig
+        weight: 0
+      - path: Rig/root
+        weight: 1
+      - path: Rig/root/base_01
+        weight: 1
+      - path: Rig/root/base_01/base_02
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/placeholder_Screen
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/Light01.L
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/Light01.L/Light01.L_end
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/screen02.L
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/screen02.L/Light02.L
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/screen02.L/Light02.L/Light02.L_end
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/screen02.L/screen03.L
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.L/screen02.L/screen03.L/screen03.L_end
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/Light01.R
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/Light01.R/Light01.R_end
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/screen02.R
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/screen02.R/Light02.R
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/screen02.R/Light02.R/Light02.R_end
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/screen02.R/screen03.R
+        weight: 1
+      - path: Rig/root/base_01/base_02/base_03/base_04/screen01.R/screen02.R/screen03.R/screen03.R_end
+        weight: 1
+      - path: Screen
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
