@@ -10,6 +10,7 @@ TagManager:
   - Push
   - WallJump
   - KillBox
+  - EnergyWall
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - wJump
   - Platform
   - RailWall
-  - EnergyWall
-  - 
+  - EnergyWallCube
+  - EnergyWallPlayer
   - 
   - 
   - 

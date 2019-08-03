@@ -9,7 +9,9 @@ public class CarryBox : MonoBehaviour {
     public MovingPlatform platformOn;
 
     public Vector3 velocity;
+    public bool gettingCarried;
 
+    public Arms playerArms;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,27 +20,29 @@ public class CarryBox : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(transform.position.y < -50f)
-        {
+        if (transform.position.y < -50f) {
             DestroyBox();
         }
 
-        if(platformOn != null)
+        if (platformOn != null) {
             rigid.velocity = platformOn.rigid.velocity;
-
-        if (groundTrigger.obj != null && groundTrigger.obj.gameObject.tag == "MovingPlatform")
-        {
-            platformOn = groundTrigger.obj.gameObject.GetComponent<MovingPlatform>();
         }
-        else
-            platformOn = null;
 
+        if (groundTrigger.obj != null && groundTrigger.obj.gameObject.tag == "MovingPlatform") {
+            platformOn = groundTrigger.obj.gameObject.GetComponent<MovingPlatform>();
+        } else
+            platformOn = null;
 
         velocity = rigid.velocity;
     }
 
-    public void DestroyBox()
-    {
+    public void DestroyBox() {
         Destroy(this.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.CompareTag("EnergyWall")) {
+            playerArms.DetachObject();
+        }
     }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 
-public class MovingPlatform : SerializedMonoBehaviour
-{
+public class MovingPlatform : SerializedMonoBehaviour {
     [TabGroup("Balancing")]
     public float moveSpeed;
 
@@ -37,47 +36,41 @@ public class MovingPlatform : SerializedMonoBehaviour
 
 
     [Button(ButtonSizes.Large), GUIColor(0, 1, 0)]
-    private void UpdateLinesInEditor()
-    {
+    private void UpdateLinesInEditor() {
         UpdateLineRenderer();
     }
 
     //Vector3 posTo;
 
-    void Start()
-    {
+    void Start() {
         platCol = platform.GetComponent<BoxCollider>();
-        if(playerPlatform) platCol.isTrigger = true;
+        if (playerPlatform) platCol.isTrigger = true;
 
         UpdateLineRenderer();
     }
 
-    void Update()
-    {
+    void Update() {
         if (positions == null)
             return;
 
         Feedback();
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         if (positions == null || stop)
             return;
 
         Move();
     }
 
-    void Feedback()
-    {
+    void Feedback() {
         //0 = green, 1 = red
 
         //animate.SetBool("Triggered", !platCol.isTrigger);
         //render.enabled = !platCol.isTrigger;
     }
 
-    void Move()
-    {
+    void Move() {
         if (playerPlatform) {
             if (platform.position != currentPos.position) {
                 Vector3 newPos = Vector3.MoveTowards(platform.position, currentPos.position, moveSpeed * Time.fixedDeltaTime);
@@ -92,22 +85,20 @@ public class MovingPlatform : SerializedMonoBehaviour
                 rigid.MovePosition(newPos);
             }
 
-            if(platform.position == currentPos.position) {
+            if (platform.position == currentPos.position) {
                 if (currentPosition == 0) currentPosition = 1;
                 else currentPosition = 0;
             }
         }
     }
 
-    void Next()
-    {
+    void Next() {
         if (!turning && currentPosition < positions.Count - 1)
             currentPosition++;
         else
             turning = true;
 
-        if (turning && currentPosition == 0)
-        {
+        if (turning && currentPosition == 0) {
             stop = true;
             animate.SetTrigger("Triggered");
             platCol.isTrigger = true;
@@ -122,12 +113,10 @@ public class MovingPlatform : SerializedMonoBehaviour
         platCol.enabled = enable;
     }
 
-    void UpdateLineRenderer()
-    {
+    void UpdateLineRenderer() {
         List<Vector3> posCoordinates = new List<Vector3>();
 
-        for (int i = 0; i < positions.Count; i++)
-        {
+        for (int i = 0; i < positions.Count; i++) {
             posCoordinates.Add(positions[i].localPosition);
         }
 

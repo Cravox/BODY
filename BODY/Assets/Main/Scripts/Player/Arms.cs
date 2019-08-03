@@ -143,6 +143,7 @@ public class Arms : Limb {
 
     public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
+            box.GetComponent<CarryBox>().playerArms = this;
             playerCont.modelAnim.SetBool("isCarrying", true);
             //AttachObject();
         } else if (isCarrying) {
@@ -223,17 +224,20 @@ public class Arms : Limb {
     public void AttachObject() {
         isCarrying = true;
         //var saveRota = box.localRotation;
-        box.parent = topPosition;
-        constraint = boxRb.constraints;
-        boxRb.constraints = RigidbodyConstraints.FreezeAll;
-        box.localRotation = Quaternion.identity;
-        box.localPosition = Vector3.zero;
+        if(box != null) {
+            box.parent = topPosition;
+            constraint = boxRb.constraints;
+            boxRb.constraints = RigidbodyConstraints.FreezeAll;
+            box.localRotation = Quaternion.identity;
+            box.localPosition = Vector3.zero;
+        }
     }
 
-    private void DetachObject() {
+    public void DetachObject() {
         if (box != null && boxRb != null) {
             playerCont.modelAnim.SetBool("isCarrying", false);
             box.parent = null;
+            box.GetComponent<CarryBox>().playerArms = null;
             boxRb.constraints = constraint;
         }
 

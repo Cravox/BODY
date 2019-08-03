@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 5291913168022330991}
   - component: {fileID: 5291913168021003855}
   - component: {fileID: 5291913168020036751}
+  - component: {fileID: 7881764416093418795}
   m_Layer: 0
   m_Name: ObservationCamera
   m_TagString: Untagged
@@ -169,3 +170,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7881764416093418795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5291913168021963343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe5cab65e3831e646a8094bdce98b7fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTrans: {fileID: 0}
