@@ -17,7 +17,7 @@ public abstract class Limb : SerializedMonoBehaviour {
     protected PlayerController playerCont;
 
     [HideInInspector]
-    public bool canControl;
+    public bool canControl = true;
 
     [SerializeField, TabGroup("Balancing"), Tooltip("From top to bottom: TierOne, TierTwo, TierThree")]
     protected int[] tierCosts = new int[3];

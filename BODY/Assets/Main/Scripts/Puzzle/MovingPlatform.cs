@@ -24,6 +24,7 @@ public class MovingPlatform : SerializedMonoBehaviour
     [TabGroup("Debugging")]
     public bool stop = true;
     public bool isActive { get { return !platCol.isTrigger; } }
+    public bool playerPlatform;
 
     [HideInInspector]
     public Collider platCol;
@@ -46,7 +47,7 @@ public class MovingPlatform : SerializedMonoBehaviour
     void Start()
     {
         platCol = platform.GetComponent<BoxCollider>();
-        platCol.isTrigger = true;
+        if(playerPlatform) platCol.isTrigger = true;
 
         UpdateLineRenderer();
     }
@@ -77,14 +78,25 @@ public class MovingPlatform : SerializedMonoBehaviour
 
     void Move()
     {
-        if (platform.position != currentPos.position)
-        {
-            Vector3 newPos = Vector3.MoveTowards(platform.position, currentPos.position, moveSpeed * Time.fixedDeltaTime);
-            rigid.MovePosition(newPos);
-        }
+        if (playerPlatform) {
+            if (platform.position != currentPos.position) {
+                Vector3 newPos = Vector3.MoveTowards(platform.position, currentPos.position, moveSpeed * Time.fixedDeltaTime);
+                rigid.MovePosition(newPos);
+            }
 
-        if (platform.position == currentPos.position)
+            if (platform.position == currentPos.position)
                 Next();
+        } else {
+            if (platform.position != currentPos.position) {
+                Vector3 newPos = Vector3.MoveTowards(platform.position, currentPos.position, moveSpeed * Time.fixedDeltaTime);
+                rigid.MovePosition(newPos);
+            }
+
+            if(platform.position == currentPos.position) {
+                if (currentPosition == 0) currentPosition = 1;
+                else currentPosition = 0;
+            }
+        }
     }
 
     void Next()

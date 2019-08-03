@@ -25,7 +25,7 @@ public class Head : Limb {
     public List<MovingPlatform> pInDistance;
 
     public override void BaselineAbility() {
-        if(GameManager.instance.aktPuzzle != null) {
+        if (GameManager.instance.aktPuzzle != null) {
             GameManager.instance.camImage.enabled = !GameManager.instance.camImage.enabled;
         }
     }
@@ -113,14 +113,10 @@ public class Head : Limb {
         }
     }
 
-    public override void InputCheck()
-    {
-        if (Input.GetButtonDown("ButtonY") && Input.GetAxis("LeftTrigger") >= 0.9f)
-        {
+    public override void InputCheck() {
+        if (Input.GetButtonDown("ButtonY") && Input.GetAxis("LeftTrigger") >= 0.9f) {
             TierTwo();
-        }
-        else if (Input.GetButtonDown("ButtonY"))
-        {
+        } else if (Input.GetButtonDown("ButtonY")) {
             BaselineAbility();
         }
     }

@@ -47,6 +47,10 @@ public class GameManager : SerializedMonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        var limbs = player.GetComponents<Limb>();
+        foreach (Limb limb in limbs) {
+            limb.canControl = true;
+        }
         instance = this;
         Cursor.visible = false;
         audioMaxValue = audioSource.volume;

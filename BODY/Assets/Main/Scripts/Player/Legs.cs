@@ -75,7 +75,7 @@ public class Legs : Limb {
     }
 
     void StopHover() {
-        if(hoverCoroutine != null)
+        if (hoverCoroutine != null)
             StopCoroutine(hoverCoroutine);
         playerCont.modelAnim.SetBool("isHovering", false);
         hover = false;
@@ -142,20 +142,13 @@ public class Legs : Limb {
         }
     }
 
-    public override void InputCheck()
-    {
-        if (Input.GetButtonDown("Jump") && (Input.GetAxis("LeftTrigger") >= 0.9f))
-        {
+    public override void InputCheck() {
+        if (Input.GetButtonDown("Jump") && (Input.GetAxis("LeftTrigger") >= 0.9f)) {
             TierTwo();
-        }
-        else if (Input.GetButtonDown("Jump"))
-        {
-            if (playerCont.isGrounded)
-            {
+        } else if (Input.GetButtonDown("Jump")) {
+            if (playerCont.isGrounded) {
                 BaselineAbility();
-            }
-            else
-            {
+            } else {
                 TierOne();
             }
         }

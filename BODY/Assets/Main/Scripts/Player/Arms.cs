@@ -73,8 +73,7 @@ public class Arms : Limb {
             canInteract = false;
         }
 
-        if (box == null && isCarrying)
-        {
+        if (box == null && isCarrying) {
             DetachObject();
         }
 
@@ -110,7 +109,7 @@ public class Arms : Limb {
 
             RaycastHit hit;
             bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
-            
+
             //*DEBUG*
             Color col = new Color(q, 1f - q, 0.5f);
             Debug.DrawLine(calcs[i - 1], calcs[i], col);
@@ -134,7 +133,7 @@ public class Arms : Limb {
         if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
             interactable = true;
             box = hit.transform;
-            if(box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
+            if (box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
         } else {
             box = null;
         }
@@ -149,8 +148,7 @@ public class Arms : Limb {
         } else if (isCarrying) {
             if (box == null)
                 isCarrying = false;
-            else
-            {
+            else {
                 //box.localPosition = frontPosition.localPosition;
                 DetachObject();
             }
@@ -162,9 +160,7 @@ public class Arms : Limb {
         if (isCarrying) {
             playerCont.modelAnim.SetTrigger("Throw");
             cost = tierCosts[0];
-        }
-        else
-        {
+        } else {
             DetachObject();
         }
         return cost;
@@ -235,8 +231,7 @@ public class Arms : Limb {
     }
 
     private void DetachObject() {
-        if (box != null && boxRb != null)
-        {
+        if (box != null && boxRb != null) {
             playerCont.modelAnim.SetBool("isCarrying", false);
             box.parent = null;
             boxRb.constraints = constraint;
@@ -245,26 +240,20 @@ public class Arms : Limb {
         isCarrying = false;
     }
 
-    public override void InputCheck()
-    {
-        if (Input.GetButtonDown("ButtonX") && box != null)
-        {
-            if (box.GetComponent<PushBox>() != null)
-            {
+    public override void InputCheck() {
+        if(Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying) {
+            PredictRigidbody();
+        }
+
+        if (Input.GetButtonDown("ButtonX") && box != null) {
+            if (box.GetComponent<PushBox>() != null) {
                 TierTwo();
-            }
-            else
-            {
-                if (isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f)
-                {
+            } else {
+                if (isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {
                     TierOne();
-                }
-                else if (!isCarrying)
-                {
+                } else if (!isCarrying) {
                     BaselineAbility();
-                }
-                else
-                {
+                } else {
                     BaselineAbility();
                 }
             }
