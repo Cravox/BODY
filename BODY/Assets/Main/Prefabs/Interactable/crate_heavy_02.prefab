@@ -63,7 +63,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100004, guid: 7dd73ad6dfdcf6a4b8c3bf36eb342445, type: 3}
   - {fileID: 2100000, guid: aadb9f7eb59c8e149b64d418b2f4874c, type: 2}
-  - {fileID: 2100002, guid: 889a91228007a204b85819ac91cac1bc, type: 3}
+  - {fileID: 2100000, guid: 3d7d3f10f1a230c44bad2f74d747f254, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,7 +104,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  moveDir: {x: 0, y: 0, z: 0}
+  speed: 1
+  pushed: 0
+  rayTrans: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &8540244605600564276
 Rigidbody:
   m_ObjectHideFlags: 0
