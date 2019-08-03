@@ -35,10 +35,11 @@ public class GameManager : SerializedMonoBehaviour {
             PlayerController cont = player.GetComponent<PlayerController>();
             var limbs = player.GetComponents<Limb>();
             foreach (Limb limb in limbs) {
-                limb.enabled = value;
+                limb.canControl = value;
             }
             cont.enabled = value;
-            cont.rigid.velocity = (value ? cont.rigid.velocity : Vector3.zero); 
+            cont.rigid.velocity = (value ? cont.rigid.velocity : Vector3.zero);
+            cont.rigid.constraints = RigidbodyConstraints.FreezeRotation;
                 } }
     
     [SerializeField, TabGroup("Debugging")]

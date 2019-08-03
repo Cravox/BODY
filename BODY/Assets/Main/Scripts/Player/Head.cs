@@ -87,12 +87,6 @@ public class Head : Limb {
 
     protected override void LimbUpdate() {
         pInDistance = GetPlatformColliders();
-
-        if (Input.GetButtonDown("ButtonY") && Input.GetAxis("LeftTrigger") >= 0.9f) {
-            TierTwo();
-        } else if (Input.GetButtonDown("ButtonY")) {
-            BaselineAbility();
-        }
     }
 
     protected override void UpdateLimbUI() {
@@ -116,6 +110,18 @@ public class Head : Limb {
                 break;
             default:
                 break;
+        }
+    }
+
+    public override void InputCheck()
+    {
+        if (Input.GetButtonDown("ButtonY") && Input.GetAxis("LeftTrigger") >= 0.9f)
+        {
+            TierTwo();
+        }
+        else if (Input.GetButtonDown("ButtonY"))
+        {
+            BaselineAbility();
         }
     }
 }

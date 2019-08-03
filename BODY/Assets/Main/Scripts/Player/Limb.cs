@@ -16,6 +16,9 @@ public abstract class Limb : SerializedMonoBehaviour {
 
     protected PlayerController playerCont;
 
+    [HideInInspector]
+    public bool canControl;
+
     [SerializeField, TabGroup("Balancing"), Tooltip("From top to bottom: TierOne, TierTwo, TierThree")]
     protected int[] tierCosts = new int[3];
 
@@ -25,10 +28,11 @@ public abstract class Limb : SerializedMonoBehaviour {
     }
 
     protected void Update() {
+        if (canControl) InputCheck();
         LimbUpdate();
         UpdateLimbUI();
     }
-
+    public abstract void InputCheck();
     public abstract void BaselineAbility();
     public abstract int TierOne();
     public abstract int TierTwo();

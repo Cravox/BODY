@@ -92,16 +92,6 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-        if (Input.GetButtonDown("Jump") && (Input.GetAxis("LeftTrigger") >= 0.9f)) {
-            TierTwo();
-        } else if(Input.GetButtonDown("Jump")) {
-            if (playerCont.isGrounded) {
-                BaselineAbility();
-            } else {
-                TierOne();
-            }
-        }
-
         //playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
 
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
@@ -149,6 +139,25 @@ public class Legs : Limb {
                 break;
             default:
                 break;
+        }
+    }
+
+    public override void InputCheck()
+    {
+        if (Input.GetButtonDown("Jump") && (Input.GetAxis("LeftTrigger") >= 0.9f))
+        {
+            TierTwo();
+        }
+        else if (Input.GetButtonDown("Jump"))
+        {
+            if (playerCont.isGrounded)
+            {
+                BaselineAbility();
+            }
+            else
+            {
+                TierOne();
+            }
         }
     }
 }
