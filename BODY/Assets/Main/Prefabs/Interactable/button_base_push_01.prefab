@@ -125,8 +125,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.86, y: 0.43, z: 1}
-  m_Center: {x: 0, y: 0.351273, z: 0}
+  m_Size: {x: 0.8, y: 0.702546, z: 0.8}
+  m_Center: {x: 0.026295424, y: 0.351273, z: -0.006663859}
 --- !u!114 &4913594927705852891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +151,9 @@ MonoBehaviour:
   triggerOnce: 0
   triggered: 0
   buttonAnim: {fileID: 8961901179861982959}
+  player: 0
+  carryBox: 1
+  pushBox: 0
 --- !u!1001 &6554934381844975475
 PrefabInstance:
   m_ObjectHideFlags: 0
