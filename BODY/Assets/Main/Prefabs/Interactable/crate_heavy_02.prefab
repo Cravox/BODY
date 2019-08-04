@@ -105,7 +105,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  speed: 100
+  speed: 10
   pushed: 0
   rayTrans: {fileID: 6125219810941831882}
   layerMask:
