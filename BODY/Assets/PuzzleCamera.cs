@@ -6,9 +6,14 @@ public class PuzzleCamera : MonoBehaviour {
     [SerializeField]
     private Transform playerTrans;
 
+    [SerializeField]
+    private bool watchesPlayer;
+
     // Start is called before the first frame update
     void Start() {
-        playerTrans = GameObject.Find("Player").transform;
+        if (watchesPlayer) {
+            playerTrans = GameObject.Find("Player").transform;
+        }
     }
 
     // Update is called once per frame

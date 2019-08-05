@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3879874877043663128}
   - component: {fileID: 3879874877042336056}
   - component: {fileID: 3879874877041370104}
+  - component: {fileID: 7791170006900073297}
   m_Layer: 0
   m_Name: base_wall_corner_inverted_0202
   m_TagString: Untagged
@@ -78,3 +79,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7791170006900073297
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879874877043375416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: a4df4eba133034547a8d7bb6baa7f7f0, type: 3}

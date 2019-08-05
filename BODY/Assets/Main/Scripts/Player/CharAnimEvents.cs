@@ -124,6 +124,8 @@ public class CharAnimEvents : MonoBehaviour {
             vfx.transform.localEulerAngles = charRoot.transform.localEulerAngles;
         }
 
+        //Time.timeScale = 0;
+
         arms.PushBoxEvent();
     }
 
@@ -136,6 +138,7 @@ public class CharAnimEvents : MonoBehaviour {
 
     void Drop() {
         if (isPushing == false) {
+            arms.DetachObject();
             vfxCarry.SetActive(false);
             vfxReceive.SetActive(false);
             vfxLightRightHand.SetActive(false);
@@ -148,7 +151,7 @@ public class CharAnimEvents : MonoBehaviour {
 
         arms.ThrowBoxEvent();
 
-        GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
+        GameObject pushImpulseObj1 = Instantiate(vfxThrow);   //Spawn vFX
 
         pushImpulseObj1.transform.parent = charRoot.transform;      // Parent to root to get Character oriantation
 

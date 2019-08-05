@@ -574,7 +574,7 @@ MonoBehaviour:
   rigid: {fileID: 2563448883163121090}
   animate: {fileID: 6623677057697197981}
   line: {fileID: 7447360254670857281}
-  stop: 1
+  stop: 0
   playerPlatform: 0
   platCol: {fileID: 0}
   turning: 0
@@ -770,7 +770,7 @@ PrefabInstance:
     - target: {fileID: 502669729679471596, guid: 3f01a7cdfba104a4485a03ade85f72d6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 502669729679634380, guid: 3f01a7cdfba104a4485a03ade85f72d6,
         type: 3}
@@ -854,11 +854,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7447360254462248851}
     m_Modifications:
-    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
-        type: 3}
-      propertyPath: m_Name
-      value: platform_01
-      objectReference: {fileID: 0}
     - target: {fileID: 8687012856758891270, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -912,6 +907,16 @@ PrefabInstance:
     - target: {fileID: 8687012856758891270, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
+        type: 3}
+      propertyPath: m_Name
+      value: platform_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

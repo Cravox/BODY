@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Cinemachine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : SerializedMonoBehaviour {
@@ -83,8 +84,9 @@ public class GameManager : SerializedMonoBehaviour {
         }
 
         if (Input.GetButtonDown("SelectButton") && aktPuzzle != null) {
+            SceneManager.LoadScene(0);
             //aktPuzzle.ResetPuzzle(true);
-            aktPuzzle.StartCoroutine(aktPuzzle.ResetPuzzle(false));
+            //aktPuzzle.StartCoroutine(aktPuzzle.ResetPuzzle(false));
         }
     }
 }

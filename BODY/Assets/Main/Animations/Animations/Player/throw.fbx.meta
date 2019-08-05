@@ -245,7 +245,7 @@ ModelImporter:
       name: Throw
       takeName: Scene
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

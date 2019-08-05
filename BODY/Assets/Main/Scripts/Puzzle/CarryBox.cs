@@ -11,6 +11,7 @@ public class CarryBox : MonoBehaviour {
     public Vector3 velocity;
     public bool gettingCarried;
 
+    [HideInInspector]
     public Arms playerArms;
 
     // Start is called before the first frame update
@@ -25,7 +26,7 @@ public class CarryBox : MonoBehaviour {
         }
 
         if (platformOn != null) {
-            rigid.velocity = platformOn.rigid.velocity;
+            rigid.velocity += platformOn.rigid.velocity;
         }
 
         if (groundTrigger.obj != null && groundTrigger.obj.gameObject.tag == "MovingPlatform") {
@@ -42,6 +43,14 @@ public class CarryBox : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("EnergyWall")) {
+            if(playerArms != null)
+            playerArms.DetachObject();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("EnergyWall")) {
+            if(playerArms != null)
             playerArms.DetachObject();
         }
     }

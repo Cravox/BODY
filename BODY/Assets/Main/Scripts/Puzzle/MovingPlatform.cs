@@ -86,9 +86,25 @@ public class MovingPlatform : SerializedMonoBehaviour {
             }
 
             if (platform.position == currentPos.position) {
-                if (currentPosition == 0) currentPosition = 1;
-                else currentPosition = 0;
+                if (currentPosition == 0) {
+                    StartCoroutine(Wait(true, 1));
+                    //currentPosition = 1;
+                }
+                else {
+                    StartCoroutine(Wait(false, 1));
+
+                    //currentPosition = 0;
+                }
             }
+        }
+    }
+
+    private IEnumerator Wait(bool firstPosition, float duration) {
+        yield return new WaitForSeconds(duration);
+        if (firstPosition) {
+            currentPosition = 1;
+        } else {
+            currentPosition = 0;
         }
     }
 

@@ -245,7 +245,7 @@ ModelImporter:
       name: Drop
       takeName: Scene
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -265,7 +265,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.08308605
+      - time: 0.79737175
         functionName: Drop
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 02b5596dc4902d64a83ab8eb5055e204,

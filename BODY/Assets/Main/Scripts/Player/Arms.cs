@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
@@ -129,6 +130,17 @@ public class Arms : Limb {
         ray.origin = rayTrans.position;
         ray.direction = playerCont.modelAxis.forward;
 
+        //var sphereObjects = Physics.OverlapSphere(rayTrans.position, interactRange, LayerMask.GetMask("Interactable"));
+        //
+        //if (sphereObjects.Length == 0) {
+        //    box = null;
+        //    return false;
+        //}
+        //
+        //sphereObjects.OrderBy(so => Vector3.Distance(so.transform.position, this.transform.position));
+        //
+        //box = sphereObjects[0].transform;
+        //if (box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
         var interactable = false;
         if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
             interactable = true;
@@ -145,13 +157,11 @@ public class Arms : Limb {
         if (canInteract && box.CompareTag("Carry")) {
             box.GetComponent<CarryBox>().playerArms = this;
             playerCont.modelAnim.SetBool("isCarrying", true);
-            //AttachObject();
         } else if (isCarrying) {
             if (box == null)
                 isCarrying = false;
             else {
-                //box.localPosition = frontPosition.localPosition;
-                DetachObject();
+                playerCont.modelAnim.SetBool("isCarrying", false);
             }
         }
     }
@@ -225,6 +235,7 @@ public class Arms : Limb {
         isCarrying = true;
         //var saveRota = box.localRotation;
         if(box != null) {
+            box.GetComponent<BoxCollider>().isTrigger = true;
             box.parent = topPosition;
             constraint = boxRb.constraints;
             boxRb.constraints = RigidbodyConstraints.FreezeAll;
@@ -235,6 +246,7 @@ public class Arms : Limb {
 
     public void DetachObject() {
         if (box != null && boxRb != null) {
+            box.GetComponent<BoxCollider>().isTrigger = false;
             playerCont.modelAnim.SetBool("isCarrying", false);
             box.parent = null;
             box.GetComponent<CarryBox>().playerArms = null;

@@ -144,7 +144,11 @@ public class Legs : Limb {
 
     public override void InputCheck() {
         if (Input.GetButtonDown("Jump") && (Input.GetAxis("LeftTrigger") >= 0.9f)) {
-            TierTwo();
+            if (!playerCont.isGrounded) {
+                TierTwo();
+            } else {
+                BaselineAbility();
+            }
         } else if (Input.GetButtonDown("Jump")) {
             if (playerCont.isGrounded) {
                 BaselineAbility();
