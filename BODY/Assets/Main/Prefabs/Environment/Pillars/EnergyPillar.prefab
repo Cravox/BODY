@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5053834262848767644}
   - component: {fileID: 5053834262851667644}
   - component: {fileID: 5053834262850667644}
+  - component: {fileID: 456854719831277381}
   m_Layer: 0
   m_Name: EnergyPillar
   m_TagString: Untagged
@@ -79,3 +80,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &456854719831277381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053834262848674492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9ef097a4ded324882c697b44706704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  gotActive: 0
+  energyMats:
+  - {fileID: 2100000, guid: 2c9f0dcf68708074b8859662b12400d0, type: 2}
+  - {fileID: 2100000, guid: ff76785c99b1efa4981f0d4303af6ac7, type: 2}
+  color: {r: 0.6784314, g: 1, b: 1, a: 0}
