@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &205293405
 Transform:
   m_ObjectHideFlags: 0
@@ -438,7 +438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7447360254175047556
 Transform:
   m_ObjectHideFlags: 0
@@ -581,8 +581,6 @@ MonoBehaviour:
   positions:
   - {fileID: 4574807806486658507}
   - {fileID: 4574807806090097051}
-  - {fileID: 7447360254175047556}
-  - {fileID: 205293405}
 --- !u!1 &7447360254670857287
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,8 +652,6 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: -0, y: 0, z: -6}
-  - {x: 0, y: 2, z: -6}
-  - {x: -5, y: 2, z: -6}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -827,6 +823,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4282446547844018532, guid: 3f01a7cdfba104a4485a03ade85f72d6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f01a7cdfba104a4485a03ade85f72d6, type: 3}
 --- !u!4 &7384669969369297205 stripped
@@ -854,6 +855,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7447360254462248851}
     m_Modifications:
+    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
+        type: 3}
+      propertyPath: m_Name
+      value: platform_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8687012856758891270, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -907,16 +918,6 @@ PrefabInstance:
     - target: {fileID: 8687012856758891270, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
-        type: 3}
-      propertyPath: m_Name
-      value: platform_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687012856758726438, guid: 876ad49c8e3034e4bb43270b8e6a5f0f,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
