@@ -26,7 +26,7 @@ public class GameManager : SerializedMonoBehaviour {
     private GameObject player;
 
     [SerializeField]
-    private BoxCollider elevatorDoorCollider;
+    private PuzzleDoor elevatorDoor;
 
     private float audioMaxValue;
 
@@ -62,7 +62,7 @@ public class GameManager : SerializedMonoBehaviour {
     private IEnumerator Intro() {
         ScreenShakeManager.Instance.Shake(0.1f, 2, 5);
         yield return new WaitForSeconds(5);
-        elevatorDoorCollider.enabled = true;
+        elevatorDoor.gotActive = true;
     }
 
     // Update is called once per frame

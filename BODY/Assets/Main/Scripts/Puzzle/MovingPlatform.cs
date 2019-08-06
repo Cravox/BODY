@@ -17,6 +17,9 @@ public class MovingPlatform : SerializedMonoBehaviour {
     [TabGroup("References")]
     public LineRenderer line;
 
+    [SerializeField]
+    private bool isCrateplate;
+
     private Transform currentPos { get { return positions[currentPosition]; } }
     private int currentPosition = 0;
 
@@ -136,8 +139,18 @@ public class MovingPlatform : SerializedMonoBehaviour {
             posCoordinates.Add(positions[i].localPosition);
         }
 
-
         line.positionCount = posCoordinates.Count;
         line.SetPositions(posCoordinates.ToArray());
+    }
+
+    void OnTriggerEnter(Collider col) {
+        if (isCrateplate) {
+            if (col.gameObject.CompareTag("Carry")) {
+                GameObject crate = col.transform.gameObject;
+                crate.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                crate.transform.parent = this.gameObject.transform;
+                crate.transform.position = transform.position;
+            }
+        }
     }
 }
