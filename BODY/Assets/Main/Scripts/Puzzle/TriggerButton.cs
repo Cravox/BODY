@@ -14,6 +14,12 @@ public class TriggerButton : TriggerObject {
     [SerializeField]
     private bool pushBox;
 
+    [SerializeField]
+    private MeshRenderer[] lineRenderers;
+
+    [SerializeField]
+    private Material[] lineMaterials;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -23,6 +29,32 @@ public class TriggerButton : TriggerObject {
     void Update() {
         if (buttonAnim)
             buttonAnim.SetBool("Triggered", triggered);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (player) {
+            if (other.gameObject.tag == "Player") {
+                foreach (var ren in lineRenderers) {
+                    ren.material = lineMaterials[1];
+                }
+            }
+        }
+
+        if (carryBox) {
+            if (other.gameObject.tag == "Carry") {
+                foreach (var ren in lineRenderers) {
+                    ren.material = lineMaterials[1];
+                }
+            }
+        }
+
+        if (pushBox) {
+            if (other.gameObject.tag == "Push") {
+                foreach (var ren in lineRenderers) {
+                    ren.material = lineMaterials[1];
+                }
+            }
+        }
     }
 
     private void OnTriggerStay(Collider other) {
@@ -49,18 +81,27 @@ public class TriggerButton : TriggerObject {
         if (player) {
             if (other.gameObject.tag == "Player") {
                 triggered = false;
+                foreach (var ren in lineRenderers) {
+                    ren.material = lineMaterials[1];
+                }
             }
         }
 
         if (carryBox) {
             if (other.gameObject.tag == "Carry") {
                 triggered = false;
+                foreach (var ren in lineRenderers) {
+                    ren.material = lineMaterials[0];
+                }
             }
         }
 
         if (pushBox) {
             if (other.gameObject.tag == "Push") {
                 triggered = false;
+                foreach (var ren in lineRenderers) {
+                    ren.material = lineMaterials[0];
+                }
             }
         }
     }
