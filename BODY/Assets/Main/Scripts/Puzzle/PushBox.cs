@@ -17,6 +17,9 @@ public class PushBox : SerializedMonoBehaviour {
     private bool pushed = false;
 
     [SerializeField]
+    private bool firstPushed = false;
+
+    [SerializeField]
     private Transform rayTrans;
 
     [SerializeField]
@@ -59,6 +62,11 @@ public class PushBox : SerializedMonoBehaviour {
                 pushed = false;
                 lerpF = 0;
             }
+        }
+
+        if(pushed && firstPushed) {
+            SoundController.Play(Camera.main.gameObject, SoundController.Voice.BIG_CUBE_03);
+            firstPushed = false;
         }
 
         aud.enabled = pushed;

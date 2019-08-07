@@ -33,37 +33,26 @@ public class SoundController : SerializedMonoBehaviour {
     }
 
     public enum Voice {
-        COMBAT_DRONE_DESTROYED,
-        COMBAT_EVAC_ACTIVE,
-        COMBAT_HEALTH_CRITICAL,
-        COMBAT_MODULE_READY,
-        COMBAT_OVERCHARGE_ACTIVE,
-        COMBAT_REPAIR_ACTIVE,
-        COMBAT_ROCKETS_READY,
-        COMBAT_SHIELD_DOWN,
-        COMBAT_SHIELD_RECHARGED,
-        COMBAT_STEALTH_ACTIVE,
-        COMBAT_WEAPON_OVERHEATED,
-        GENERAL_ACTIVATE_GENERATOR,
-        GENERAL_ACTIVATE_WORKSHOP,
-        GENERAL_CLUSTER_DESTROYED,
-        GENERAL_NCUS_OBTAINED,
-        GENERAL_START_GAME,
-        MISSION_ACTIVATE_TRANSMITTER,
-        MISSION_CLUSTER_DEACTIVATED,
-        MISSION_CLUSTER_SELF_DESTRUCT,
-        MISSION_CORE_OBTAINED,
-        MISSION_DEFEND_SHELTER,
-        MISSION_ENEMIES_DEFEATED,
-        MISSION_FIND_WATER,
-        MISSION_MATERIALS_OBTAINED,
-        MISSION_MISSION_2,
-        MISSION_MISSION_3,
-        MISSION_PREPARE_PLATFORM,
-        MISSION_REACTIVATE_SHIELD,
-        MISSION_SECURE_PATH,
-        MISSION_SECURE_SHELTER,
-        MISSION_SHELTER_UNDER_ATTACK,
+        INTRO_1,
+        INTRO_2,
+        INTRO_3,
+        CUBE_PICK_UP,
+        CONSOLE_01,
+        CONSOLE_02,
+        JUMP_TUT01,
+        JUMP_TUT02,
+        BARRIER_TUT01,
+        BARRIER_TUT02,
+        BUTTON_PRESSED,
+        BARRIER_TUT03,
+        BARRIER_TUT04,
+        PLATFORM_01,
+        PLATFORM_02,
+        BIG_CUBE_01,
+        BIG_CUBE_02,
+        BIG_CUBE_03,
+        TUT_END01,
+        TUT_END02
     }
     
     public static void Play(GameObject source, Sounds sound, int priority = 128, float volume = 1f) {
@@ -86,6 +75,10 @@ public class SoundController : SerializedMonoBehaviour {
 
     public static AudioClip GetClip(Sounds s) {
         return Instance.Clips[(int) s];
+    }
+
+    public static AudioClip GetClip(Voice v) {
+        return Instance.VoiceClips[(int)v];
     }
 
     private void Awake() {

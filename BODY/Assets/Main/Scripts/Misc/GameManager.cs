@@ -54,14 +54,20 @@ public class GameManager : SerializedMonoBehaviour {
         foreach (Limb limb in limbs) {
             limb.canControl = true;
         }
+
         Cursor.visible = false;
         audioMaxValue = audioSource.volume;
         StartCoroutine(Intro());
     }
 
-    private IEnumerator Intro() {
-        ScreenShakeManager.Instance.Shake(0.1f, 2, 5);
-        yield return new WaitForSeconds(5);
+    IEnumerator Intro() {
+        ScreenShakeManager.Instance.Shake(0.1f, 2, SoundController.GetClip(SoundController.Voice.INTRO_1).length+SoundController.GetClip(SoundController.Voice.INTRO_2).length+SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
+        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_1);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_1).length);
+        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_2);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_2).length);
+        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_3);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
         elevatorDoor.gotActive = true;
     }
 

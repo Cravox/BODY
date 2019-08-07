@@ -14,6 +14,9 @@ public class CarryBox : MonoBehaviour {
     [HideInInspector]
     public Arms playerArms;
 
+    [SerializeField]
+    private bool voiceTrigger = false;
+
     // Start is called before the first frame update
     void Start() {
         rigid = GetComponent<Rigidbody>();
@@ -23,6 +26,11 @@ public class CarryBox : MonoBehaviour {
     void Update() {
         if (transform.position.y < -50f) {
             DestroyBox();
+        }
+
+        if(voiceTrigger && gettingCarried) {
+            SoundController.Play(this.gameObject, SoundController.Voice.CUBE_PICK_UP);
+            voiceTrigger = false;
         }
 
         //if (platformOn != null) {
