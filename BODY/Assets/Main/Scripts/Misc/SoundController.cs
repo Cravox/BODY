@@ -69,7 +69,7 @@ public class SoundController : SerializedMonoBehaviour {
     public static void Play(GameObject source, Sounds sound, int priority = 128, float volume = 1f) {
         PlaySound(source, Instance.Clips[(int) sound], priority, volume);
     }
-    
+
     public static void Play(GameObject source, Voice voice, int priority = 128, float volume = 1f) {
         PlaySound(source, Instance.VoiceClips[(int) voice], priority, volume);
     }

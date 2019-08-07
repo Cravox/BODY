@@ -11,7 +11,6 @@ public class PuzzleDoor : TriggerContainer {
 
     [SerializeField, TabGroup("References"), Required]
     private Animator doorAnim;
-    private bool wasActive;
 
     [SerializeField]
     private MeshRenderer[] doorRenderer;
@@ -23,21 +22,15 @@ public class PuzzleDoor : TriggerContainer {
 
     // Update is called once per frame
     void Update() {
-        if(!isHubDoor)
-            doorAnim.SetBool("Open", gotActive);
-
-        if(gotActive && !wasActive)
-        {
-            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
-            wasActive = true;
+        if (gotActive) {
+            for (int i = 0; i < doorRenderer.Length; i++) {
+                doorRenderer[i].material.SetColor("_EmissionColor", color);
+            }
+        } else {
+            for (int i = 0; i < doorRenderer.Length; i++) {
+                doorRenderer[i].material.SetColor("_EmissionColor", Color.white);
+            }
         }
-
-        if (!gotActive && wasActive)
-        {
-            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
-            wasActive = false;
-        }
-    }
 
         //if(!isHubDoor)
         //    doorAnim.SetBool("Open", gotActive);

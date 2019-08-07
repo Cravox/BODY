@@ -23,11 +23,10 @@ public class TriggerEnergypillar : TriggerContainer {
     void Update() {
         if (gotActive) {
             ren.materials[2].SetColor("_EmissionColor", color);
-            ren.materials[1] = energyMats[1];
+            ren.materials[0] = energyMats[1];
         } else {
             ren.materials[2].SetColor("_EmissionColor", Color.white);
-            ren.materials[1] = energyMats[0];
-
+            ren.materials[0] = energyMats[0];
         }
     }
 }

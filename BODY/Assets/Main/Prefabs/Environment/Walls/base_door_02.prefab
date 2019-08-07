@@ -136,9 +136,11 @@ MonoBehaviour:
     SerializationNodes: []
   gotActive: 0
   isHubDoor: 0
-  color: {r: 0.2971698, g: 1, b: 0.8909449, a: 0}
+  color: {r: 0, g: 1, b: 0.9896784, a: 1}
   doorAnim: {fileID: 3703891567180812468}
-  doorRenderer: []
+  doorRenderer:
+  - {fileID: 161391081838833670}
+  - {fileID: 5983605500982694391}
 --- !u!65 &7766893427524846586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -222,6 +224,12 @@ GameObject:
 --- !u!4 &161391081836933862 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4e29a9987023d8b47bd0c695c1c17f77,
+    type: 3}
+  m_PrefabInstance: {fileID: 161391081836537958}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &161391081838833670 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 4e29a9987023d8b47bd0c695c1c17f77,
     type: 3}
   m_PrefabInstance: {fileID: 161391081836537958}
   m_PrefabAsset: {fileID: 0}
@@ -445,6 +453,12 @@ GameObject:
 --- !u!4 &5983605500980269847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 889a91228007a204b85819ac91cac1bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983605500980660631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5983605500982694391 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 889a91228007a204b85819ac91cac1bc,
     type: 3}
   m_PrefabInstance: {fileID: 5983605500980660631}
   m_PrefabAsset: {fileID: 0}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using System.Linq;
 
@@ -28,6 +29,12 @@ public class Arms : Limb {
 
     [SerializeField, TabGroup("References"), Required]
     private LineRenderer predictLine;
+
+    [SerializeField, TabGroup("References")]
+    private Image buttonsImage;
+
+    [SerializeField, TabGroup("References")]
+    private Sprite[] buttonSprites = new Sprite[2];
 
     [SerializeField, TabGroup("Debugging")]
     public Transform Box;
@@ -126,9 +133,9 @@ public class Arms : Limb {
     }
 
     public override void BaselineAbility() {
-        if (canInteract && box.CompareTag("Carry")) {
+        if (canInteract && Box.CompareTag("Carry")) {
             SoundController.Play(gameObject, SoundController.Sounds.CHAR_PICKUP, 128, 0.5f);
-            box.GetComponent<CarryBox>().playerArms = this;
+            Box.GetComponent<CarryBox>().playerArms = this;
             playerCont.modelAnim.SetBool("isCarrying", true);
         } else if (isCarrying) {
             if (Box == null)
@@ -184,25 +191,31 @@ public class Arms : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        if (canInteract && Box.CompareTag("Carry") && chargeState == Enums.ChargeState.NOT_CHARGED) {
-            limbText.text = "Pick up";
-        } else if (canInteract && Box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_TWO) {
-            limbText.text = "Push";
-        } else if (isCarrying) {
-            switch (chargeState) {
-                case Enums.ChargeState.NOT_CHARGED:
-                    limbText.text = "Drop";
-                    break;
-                case Enums.ChargeState.TIER_ONE:
-                    limbText.text = "Throw";
-                    break;
-                case Enums.ChargeState.TIER_TWO:
-                    limbText.text = "";
-                    break;
-                default:
-                    break;
+        if(Input.GetAxis("LeftTrigger") >= 0.9f) {
+            buttonsImage.sprite = buttonSprites[1];
+        } else {
+            buttonsImage.sprite = buttonSprites[0];
+        }
+
+        if (canInteract) {
+            if(Box.CompareTag("Carry")) {
+                limbImage.sprite = actionSprite[0];
+            } else {
+                limbImage.sprite = actionSprite[3];
             }
-        } else limbText.text = "";
+        }
+
+        if(isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {
+            limbImage.sprite = actionSprite[2];
+        } else if (isCarrying) {
+            limbImage.sprite = actionSprite[1];
+        }
+
+        if(!canInteract && !isCarrying) {
+            limbImage.enabled = false;
+        } else {
+            limbImage.enabled = true;
+        }
     }
 
     public void AttachObject() {
@@ -235,7 +248,7 @@ public class Arms : Limb {
         predictLine.enabled = (Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying);
 
         if (Input.GetButtonDown("ButtonX") && Box != null) {
-            if (Box.GetComponent<PushBox>() != null) {
+            if (Box.GetComponent<PushBox>() != null && Input.GetAxis("LeftTrigger") <= 0.1f) {
                 TierTwo();
             } else {
                 if (isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {

@@ -8,8 +8,11 @@ using Sirenix.OdinInspector;
 // head, arms and legs inherit from limb
 [RequireComponent(typeof(PlayerController))]
 public abstract class Limb : SerializedMonoBehaviour {
-    [SerializeField, TabGroup("References"), Required]
-    protected TextMeshProUGUI limbText;
+    [SerializeField, TabGroup("References")]
+    protected Image limbImage;
+
+    [SerializeField, TabGroup("References")]
+    protected Sprite[] actionSprite;
 
     [HideInInspector]
     public Enums.ChargeState chargeState;
