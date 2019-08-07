@@ -8,6 +8,7 @@ public class PuzzleDoor : TriggerContainer {
 
     [SerializeField, TabGroup("References"), Required]
     private Animator doorAnim;
+    private bool wasActive;
 
     // Start is called before the first frame update
     void Start() {
@@ -18,6 +19,18 @@ public class PuzzleDoor : TriggerContainer {
     void Update() {
         if(!isHubDoor)
             doorAnim.SetBool("Open", gotActive);
+
+        if(gotActive && !wasActive)
+        {
+            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
+            wasActive = true;
+        }
+
+        if (!gotActive && wasActive)
+        {
+            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
+            wasActive = false;
+        }
     }
 
     private void OnTriggerEnter(Collider col) {

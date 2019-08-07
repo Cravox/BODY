@@ -16,17 +16,20 @@ public class SoundController : SerializedMonoBehaviour {
     private AudioClip[] VoiceClips;
 
     public enum Sounds {
-        BLASTER,             // Blaster - Single
-        WARPING,             // Warping
-        DODGE,               // HC Jump 2
-        COLLISION,           // Explosion - Distant Long
-        MODULE_ACTIVATION,   // Activation
-        HEALTH_CRITICAL,     // Health Critical - Loop
-        GENERATOR_ACTIVATE,  // Recharge Gun
-        ENEMY_DEATH,         // Lizard Scream 2
-        SPOTTED,             // Lizard Scream 5
-        ITEM_PICKUP,         // Button
-        MISSION_DONE,        // Button Positive
+        CHAR_WALK01,
+        CHAR_WALK02,
+        CHAR_WALK03,
+        CHAR_JUMP,
+        CHAR_DOUBLEJUMP,
+        CHAR_HOVER,
+        CHAR_PICKUP,
+        CHAR_THROW,
+        CHAR_PUSH,
+        BOX_IMPACT_SMALL,
+        BOX_IMPACT_BIG,
+        PUSHBOX_IMPACT,
+        DOOR_OPENCLOSE,
+        BUTTON_CLICK
     }
 
     public enum Voice {
