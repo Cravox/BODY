@@ -135,13 +135,14 @@ public class CharAnimEvents : MonoBehaviour {
 
     void PickUp() {
         arms.AttachObject();
+        anim.SetBool("isFullPower", true);
         vfxCarry.SetActive(true);
         vfxReceive.SetActive(true);
         vfxLightRightHand.SetActive(true);
     }
 
     void Drop() {
-        anim.SetBool("isFullPower", true);
+        anim.SetBool("isFullPower", false);
 
         if (isPushing == false) {
             arms.DetachObject();

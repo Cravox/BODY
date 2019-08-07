@@ -25,9 +25,9 @@ public class CarryBox : MonoBehaviour {
             DestroyBox();
         }
 
-        if (platformOn != null) {
-            rigid.velocity += platformOn.rigid.velocity;
-        }
+        //if (platformOn != null) {
+        //    rigid.velocity += platformOn.rigid.velocity;
+        //}
 
         if (groundTrigger.obj != null && groundTrigger.obj.gameObject.tag == "MovingPlatform") {
             platformOn = groundTrigger.obj.gameObject.GetComponent<MovingPlatform>();
@@ -52,6 +52,10 @@ public class CarryBox : MonoBehaviour {
         if (other.gameObject.CompareTag("EnergyWall")) {
             if(playerArms != null)
             playerArms.DetachObject();
+            else {
+                transform.parent = null;
+                rigid.constraints = RigidbodyConstraints.None;
+            }
         }
     }
 }

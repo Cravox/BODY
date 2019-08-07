@@ -81,12 +81,14 @@ public class Legs : Limb {
         if (hoverCoroutine != null)
             StopCoroutine(hoverCoroutine);
         playerCont.modelAnim.SetBool("isHovering", false);
+        playerCont.modelAnim.SetBool("isFullPower", false);
         hover = false;
     }
 
     IEnumerator HoverTime(float t) {
         hover = true;
         yield return new WaitForSeconds(t);
+        playerCont.modelAnim.SetBool("isFullPower", false);
         hover = false;
     }
 
@@ -95,16 +97,15 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-        //playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
-
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
         {
             jumping = false;
             doubleJumping = false;
             wallJumping = false;
 
-            if (hoverCoroutine != null)
+            if (hoverCoroutine != null) {
                 StopHover();
+            }
 
             hasHovered = false;
         }

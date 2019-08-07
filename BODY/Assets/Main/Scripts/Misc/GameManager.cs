@@ -69,11 +69,6 @@ public class GameManager : SerializedMonoBehaviour {
     void Update() {
         InputHandler();
         EventHelper.FixEventSystem();
-        //if (playerInHub) {
-        //    audioSource.volume = audioMaxValue;
-        //} else {
-        //    audioSource.volume = audioMaxValue/3;
-        //}
     }
 
     void InputHandler() {

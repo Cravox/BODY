@@ -30,7 +30,7 @@ public class Arms : Limb {
     private LineRenderer predictLine;
 
     [SerializeField, TabGroup("Debugging")]
-    private Transform box;
+    public Transform Box;
 
     [SerializeField, TabGroup("Debugging")]
     private LayerMask indicatorMask;
@@ -76,11 +76,9 @@ public class Arms : Limb {
             canInteract = false;
         }
 
-        if (box == null && isCarrying) {
+        if (Box == null && isCarrying) {
             DetachObject();
         }
-
-        //playerCont.modelAnim.SetBool("isCarrying", isCarrying);
     }
 
     public void SetPredictLine() {
@@ -112,27 +110,16 @@ public class Arms : Limb {
     }
 
     private bool CheckForInteractable() {
-        ray.origin = rayTrans.position;
-        ray.direction = playerCont.modelAxis.forward;
-
-        //var sphereObjects = Physics.OverlapSphere(rayTrans.position, interactRange, LayerMask.GetMask("Interactable"));
-        //
-        //if (sphereObjects.Length == 0) {
-        //    box = null;
-        //    return false;
-        //}
-        //
-        //sphereObjects.OrderBy(so => Vector3.Distance(so.transform.position, this.transform.position));
-        //
-        //box = sphereObjects[0].transform;
-        //if (box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
         var interactable = false;
-        if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
+
+        var sphereObjects = Physics.OverlapSphere(rayTrans.position, interactRange, LayerMask.GetMask("Interactable"));
+
+        if(Physics.SphereCast(rayTrans.position, 1,playerCont.modelAxis.forward, out hit, interactRange, LayerMask.GetMask("Interactable"))){
             interactable = true;
-            box = hit.transform;
-            if (box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
+            Box = hit.transform;
+            if (Box.CompareTag("Carry")) boxRb = Box.GetComponent<Rigidbody>();
         } else {
-            box = null;
+            Box = null;
         }
 
         return interactable;
@@ -144,7 +131,7 @@ public class Arms : Limb {
             box.GetComponent<CarryBox>().playerArms = this;
             playerCont.modelAnim.SetBool("isCarrying", true);
         } else if (isCarrying) {
-            if (box == null)
+            if (Box == null)
                 isCarrying = false;
             else {
                 playerCont.modelAnim.SetBool("isCarrying", false);
@@ -166,7 +153,7 @@ public class Arms : Limb {
 
     public override int TierTwo() {
         int cost = 0;
-        if (canInteract && !isCarrying && playerCont.isGrounded && box.GetComponent<PushBox>() != null) {
+        if (canInteract && !isCarrying && playerCont.isGrounded && Box.GetComponent<PushBox>() != null) {
             GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
             SoundController.Play(gameObject, SoundController.Sounds.CHAR_PUSH, 128, 0.5f);
@@ -176,9 +163,8 @@ public class Arms : Limb {
     }
 
     public void PushBoxEvent() {
-        pushBox = box.GetComponent<PushBox>();
+        pushBox = Box.GetComponent<PushBox>();
         pushBox.PushedBox(transform.position, pushForce);
-        //pushBox = null;
     }
 
     public void ThrowBoxEvent() {
@@ -190,7 +176,7 @@ public class Arms : Limb {
     public override int TierThree() {
         int cost = 0;
         if (canInteract && !isCarrying) {
-            PushBox pushBox = box.GetComponent<PushBox>();
+            PushBox pushBox = Box.GetComponent<PushBox>();
             pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[2];
         }
@@ -198,9 +184,9 @@ public class Arms : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        if (canInteract && box.CompareTag("Carry") && chargeState == Enums.ChargeState.NOT_CHARGED) {
+        if (canInteract && Box.CompareTag("Carry") && chargeState == Enums.ChargeState.NOT_CHARGED) {
             limbText.text = "Pick up";
-        } else if (canInteract && box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_TWO) {
+        } else if (canInteract && Box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_TWO) {
             limbText.text = "Push";
         } else if (isCarrying) {
             switch (chargeState) {
@@ -220,25 +206,26 @@ public class Arms : Limb {
     }
 
     public void AttachObject() {
-        isCarrying = true;
-        //var saveRota = box.localRotation;
-        if(box != null) {
-            box.GetComponent<BoxCollider>().isTrigger = true;
-            box.parent = topPosition;
-            constraint = boxRb.constraints;
+        if(Box != null) {
+            isCarrying = true;
+            Box.GetComponent<BoxCollider>().isTrigger = true;
+            Box.parent = topPosition;
+            //constraint = boxRb.constraints;
             boxRb.constraints = RigidbodyConstraints.FreezeAll;
-            box.localRotation = Quaternion.identity;
-            box.localPosition = Vector3.zero;
+            Box.localRotation = Quaternion.identity;
+            Box.localPosition = Vector3.zero;
+            Box.GetComponent<CarryBox>().gettingCarried = true;
         }
     }
 
     public void DetachObject() {
-        if (box != null && boxRb != null) {
-            box.GetComponent<BoxCollider>().isTrigger = false;
+        if (Box != null && boxRb != null) {
+            Box.GetComponent<BoxCollider>().isTrigger = false;
             playerCont.modelAnim.SetBool("isCarrying", false);
-            box.parent = null;
-            box.GetComponent<CarryBox>().playerArms = null;
-            boxRb.constraints = constraint;
+            Box.parent = null;
+            Box.GetComponent<CarryBox>().playerArms = null;
+            boxRb.constraints = RigidbodyConstraints.None;
+            Box.GetComponent<CarryBox>().gettingCarried = false;
         }
 
         isCarrying = false;
@@ -247,8 +234,8 @@ public class Arms : Limb {
     public override void InputCheck() {
         predictLine.enabled = (Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying);
 
-        if (Input.GetButtonDown("ButtonX") && box != null) {
-            if (box.GetComponent<PushBox>() != null) {
+        if (Input.GetButtonDown("ButtonX") && Box != null) {
+            if (Box.GetComponent<PushBox>() != null) {
                 TierTwo();
             } else {
                 if (isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {
