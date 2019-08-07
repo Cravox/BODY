@@ -20,6 +20,9 @@ public class MovingPlatform : SerializedMonoBehaviour {
     private Transform currentPos { get { return positions[currentPosition]; } }
     private int currentPosition = 0;
 
+    [SerializeField]
+    private bool isCrateplate;
+
     [TabGroup("Debugging")]
     public bool stop = true;
     public bool isActive { get { return !platCol.isTrigger; } }

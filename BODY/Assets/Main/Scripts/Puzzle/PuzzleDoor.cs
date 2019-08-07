@@ -15,6 +15,8 @@ public class PuzzleDoor : TriggerContainer {
     [SerializeField]
     private MeshRenderer[] doorRenderer;
 
+    private bool wasActive;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -32,11 +34,22 @@ public class PuzzleDoor : TriggerContainer {
             }
         }
 
-        //if(!isHubDoor)
-        //    doorAnim.SetBool("Open", gotActive);
+        if (gotActive && !wasActive) {
+            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
+            wasActive = true;
+        }
+
+        if (!gotActive && wasActive) {
+            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
+            wasActive = false;
+        }
     }
 
     private void OnTriggerStay(Collider col) {
         if (col.gameObject.CompareTag("Player")) doorAnim.SetBool("Open", gotActive);
+    }
+
+    private void OnTriggerExit(Collider col) {
+        if (col.gameObject.CompareTag("Player")) doorAnim.SetBool("Open", false);
     }
 }

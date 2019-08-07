@@ -136,6 +136,7 @@ public class Arms : Limb {
         if (canInteract && Box.CompareTag("Carry")) {
             SoundController.Play(gameObject, SoundController.Sounds.CHAR_PICKUP, 128, 0.5f);
             Box.GetComponent<CarryBox>().playerArms = this;
+            if(Box != null)
             playerCont.modelAnim.SetBool("isCarrying", true);
         } else if (isCarrying) {
             if (Box == null)

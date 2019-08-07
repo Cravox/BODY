@@ -145,12 +145,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  speed: 5
+  speed: 15
   pushed: 0
   rayTrans: {fileID: 2965047242106959970}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
+  aud: {fileID: 0}
 --- !u!1 &9032180866080103862
 GameObject:
   m_ObjectHideFlags: 0
