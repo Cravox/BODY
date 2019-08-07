@@ -103,7 +103,7 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void JumpThrusters() {
-        anim.setBool("isFullPower", true);
+        anim.SetBool("isFullPower", true);
 
         isDoubleJumping = true;
 
@@ -116,7 +116,7 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void PushImpulse() {
-        anim.setBool("isFullPower", true);
+        anim.SetBool("isFullPower", true);
 
         isPushing = true;
 
@@ -141,7 +141,7 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void Drop() {
-        anim.setBool("isFullPower", true);
+        anim.SetBool("isFullPower", true);
 
         if (isPushing == false) {
             arms.DetachObject();
@@ -177,7 +177,7 @@ public class CharAnimEvents : MonoBehaviour {
 
     void DoubleJumpEnd() {
         isDoubleJumping = false;
-        anim.setBool("isFullPower", false);
+        anim.SetBool("isFullPower", false);
 
 
         if (anim.GetBool("isHovering") == false) {
@@ -187,7 +187,7 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void PushEnd() {
-        anim.setBool("isFullPower", false);
+        anim.SetBool("isFullPower", false);
         isPushing = false;
 
         if (anim.GetBool("isCarrying") == false) {
