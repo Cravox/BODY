@@ -105,4 +105,4 @@ MonoBehaviour:
   energyMats:
   - {fileID: 2100000, guid: 2c9f0dcf68708074b8859662b12400d0, type: 2}
   - {fileID: 2100000, guid: ff76785c99b1efa4981f0d4303af6ac7, type: 2}
-  color: {r: 0.6784314, g: 1, b: 1, a: 1}
+  color: {r: 0.6784314, g: 1, b: 1, a: 0}

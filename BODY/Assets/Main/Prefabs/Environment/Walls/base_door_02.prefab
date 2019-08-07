@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 2441224980247472616}
   - component: {fileID: 5445432961100332592}
   - component: {fileID: 220589238}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ BoxCollider:
   m_GameObject: {fileID: 3045658079430154289}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 8, y: 4, z: 6}
   m_Center: {x: -2, y: 2, z: 0}
@@ -135,12 +135,10 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   gotActive: 0
-  isHubDoor: 0
-  color: {r: 0, g: 1, b: 0.9896784, a: 1}
+  isHubDoor: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
   doorAnim: {fileID: 3703891567180812468}
-  doorRenderer:
-  - {fileID: 161391081838833670}
-  - {fileID: 5983605500982694391}
+  doorRenderer: []
 --- !u!65 &7766893427524846586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -224,12 +222,6 @@ GameObject:
 --- !u!4 &161391081836933862 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4e29a9987023d8b47bd0c695c1c17f77,
-    type: 3}
-  m_PrefabInstance: {fileID: 161391081836537958}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &161391081838833670 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300000, guid: 4e29a9987023d8b47bd0c695c1c17f77,
     type: 3}
   m_PrefabInstance: {fileID: 161391081836537958}
   m_PrefabAsset: {fileID: 0}
@@ -453,12 +445,6 @@ GameObject:
 --- !u!4 &5983605500980269847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 889a91228007a204b85819ac91cac1bc,
-    type: 3}
-  m_PrefabInstance: {fileID: 5983605500980660631}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &5983605500982694391 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300000, guid: 889a91228007a204b85819ac91cac1bc,
     type: 3}
   m_PrefabInstance: {fileID: 5983605500980660631}
   m_PrefabAsset: {fileID: 0}
