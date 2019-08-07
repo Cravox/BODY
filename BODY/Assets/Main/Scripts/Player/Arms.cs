@@ -27,7 +27,7 @@ public class Arms : Limb {
     private Transform rayTrans;
 
     [SerializeField, TabGroup("References"), Required]
-    private Transform ball;
+    private LineRenderer predictLine;
 
     [SerializeField, TabGroup("Debugging")]
     private Transform box;
@@ -39,10 +39,10 @@ public class Arms : Limb {
     private bool isCarrying;
 
     [SerializeField, TabGroup("Debugging"), Header("Range Indicator")]
-    private int impactIterations;
+    private int predictLineIterations;
 
     [SerializeField, TabGroup("Debugging")]
-    private float impactIterationLenght;
+    private float predictLineLength;
 
     private LineRenderer line;
 
@@ -54,15 +54,18 @@ public class Arms : Limb {
     private Rigidbody boxRb;
 
     private bool canInteract;
-    private Vector3 impactPos;
+    public List<Vector3> linePos;
+    private Rigidbody lastRb;
 
     RigidbodyConstraints constraints;
 
     protected override void LimbStart() {
-
+        
     }
 
     protected override void LimbUpdate() {
+        SetPredictLine();
+
         if (!playerCont.animEvents.isPushing) {
             playerCont.rigid.constraints = constraints;
         }
@@ -70,7 +73,6 @@ public class Arms : Limb {
         if (!isCarrying) {
             canInteract = CheckForInteractable();
         } else {
-            if (chargeState == Enums.ChargeState.TIER_ONE) PredictRigidbody();
             canInteract = false;
         }
 
@@ -81,49 +83,32 @@ public class Arms : Limb {
         //playerCont.modelAnim.SetBool("isCarrying", isCarrying);
     }
 
-    public void PredictRigidbody() {
-        if (!isCarrying || box == null) {
-            impactPos = Vector3.zero;
+    public void SetPredictLine() {
+        if (!isCarrying || boxRb == null || boxRb == lastRb)
             return;
-        }
 
-        Vector3 dir = playerCont.modelAxis.forward;
         float vFwd = (throwForce / boxRb.mass) * Time.fixedDeltaTime;
         float vUp = (upForce / boxRb.mass) * Time.fixedDeltaTime;
+        linePos = CalcPredictPos(vFwd, vUp, predictLineIterations, predictLineLength);
 
-        impactPos = CalcRigidPos(topPosition.position, dir, vFwd, vUp, impactIterations, impactIterationLenght);
-        ball.position = impactPos;
+        predictLine.positionCount = linePos.Count;
+        predictLine.SetPositions(linePos.ToArray());
+
+        lastRb = boxRb;
     }
 
-    Vector3 CalcRigidPos(Vector3 origin, Vector3 dir, float fwd, float up, int iterations, float stepDistance) {
-        Vector3 result = Vector3.zero;
+    List<Vector3> CalcPredictPos(float fwd, float up, int iterations, float stepDistance) {
         List<Vector3> calcs = new List<Vector3>();
-        calcs.Add(origin);
-
-        //*DEBUG*
-        float q = 0;    //*/
+        calcs.Add(Vector3.zero);
 
         for (int i = 1; i < iterations + 1; i++) {
             float t = i * stepDistance;
-            Vector3 pos = origin + ((Vector3.up * up * t) + (dir * fwd * t) + Physics.gravity / 2 * t * t);
+            Vector3 pos = new Vector3();
+            pos = (Vector3.up * up * t) + (Vector3.forward * fwd * t) + Physics.gravity / 2 * t * t;
             calcs.Add(pos);
-
-            RaycastHit hit;
-            bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
-
-            //*DEBUG*
-            Color col = new Color(q, 1f - q, 0.5f);
-            Debug.DrawLine(calcs[i - 1], calcs[i], col);
-            q += 0.25f;
-            //*/
-
-            if (hit.collider != null) {
-                result = hit.point;
-                return result;
-            }
         }
 
-        return result;
+        return calcs;
     }
 
     private bool CheckForInteractable() {
@@ -155,6 +140,7 @@ public class Arms : Limb {
 
     public override void BaselineAbility() {
         if (canInteract && box.CompareTag("Carry")) {
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_PICKUP, 128, 0.5f);
             box.GetComponent<CarryBox>().playerArms = this;
             playerCont.modelAnim.SetBool("isCarrying", true);
         } else if (isCarrying) {
@@ -170,6 +156,7 @@ public class Arms : Limb {
         int cost = 0;
         if (isCarrying) {
             playerCont.modelAnim.SetTrigger("Throw");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_THROW, 128, 0.5f);
             cost = tierCosts[0];
         } else {
             DetachObject();
@@ -182,6 +169,7 @@ public class Arms : Limb {
         if (canInteract && !isCarrying && playerCont.isGrounded && box.GetComponent<PushBox>() != null) {
             GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_PUSH, 128, 0.5f);
             cost = tierCosts[1];
         }
         return cost;
@@ -257,9 +245,7 @@ public class Arms : Limb {
     }
 
     public override void InputCheck() {
-        if(Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying) {
-            PredictRigidbody();
-        }
+        predictLine.enabled = (Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying);
 
         if (Input.GetButtonDown("ButtonX") && box != null) {
             if (box.GetComponent<PushBox>() != null) {

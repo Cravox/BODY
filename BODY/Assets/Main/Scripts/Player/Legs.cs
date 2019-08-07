@@ -34,6 +34,7 @@ public class Legs : Limb {
             playerCont.JumpOnce(jumpSpeed, true, 0);
             jumping = true;
             playerCont.modelAnim.SetTrigger("Jump");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_JUMP, 128, 0.5f);
         }
     }
 
@@ -42,6 +43,7 @@ public class Legs : Limb {
             playerCont.JumpOnce(dJumpSpeed, false, 1);
             doubleJumping = true;
             playerCont.modelAnim.SetTrigger("DoubleJump");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_DOUBLEJUMP, 128, 0.5f);
             return tierCosts[0];
         }
 
@@ -55,6 +57,7 @@ public class Legs : Limb {
             hoverCoroutine = StartCoroutine(HoverTime(timeToHover));
             hasHovered = true;
             playerCont.modelAnim.SetBool("isHovering", true);
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_HOVER, 128, 0.5f);
             return tierCosts[1];
         } else
             StopHover();
