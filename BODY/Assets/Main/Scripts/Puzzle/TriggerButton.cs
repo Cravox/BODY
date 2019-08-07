@@ -53,7 +53,7 @@ public class TriggerButton : TriggerObject {
 
     private void OnTriggerExit(Collider other) {
         if (triggered && !GetComponent<AudioSource>())
-            SoundController.Play(gameObject, SoundController.Sounds.BUTTON_CLICK, 128, 0.5f);
+            SoundController.Play(gameObject, SoundController.Sounds.BUTTON_CLICK, 128, 0.25f);
 
         if (player) {
             if (other.gameObject.tag == "Player") {

@@ -33,6 +33,10 @@ public class PushBox : SerializedMonoBehaviour {
 
     private float lerpF = 0;
 
+    public AudioSource aud;
+
+    private bool wasPushed;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -55,6 +59,16 @@ public class PushBox : SerializedMonoBehaviour {
                 pushed = false;
                 lerpF = 0;
             }
+        }
+
+        aud.enabled = pushed;
+        if (!wasPushed && pushed)
+            wasPushed = true;
+
+        if (!pushed && wasPushed)
+        {
+            SoundController.Play(gameObject, SoundController.Sounds.PUSHBOX_IMPACT, 128, 1f);
+            wasPushed = false;
         }
     }
 
