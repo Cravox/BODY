@@ -78,6 +78,7 @@ public class SoundController : SerializedMonoBehaviour {
         var audioSource = source.AddComponent<AudioSource>();
         audioSource.priority = priority;
         audioSource.clip = clip;
+        audioSource.spatialBlend = 1;
         audioSource.volume = volume;
         audioSource.Play();
         Destroy(audioSource, clip.length);
