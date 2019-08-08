@@ -18,13 +18,13 @@ public class MainMenu : MonoBehaviour {
 
     [Header("Settings Objects")]
     public GameObject settingsFirstObject;
-    public Text volumeText;
+    public Slider volumeSlider;
     public Toggle AxisX;
     public Toggle AxisY;
 
     private int currentPanel;
 
-    private int volume = 100;
+    private float volume = 1;
     private bool invAxisX = false;
     private bool invAxisY = false;
 
@@ -51,7 +51,7 @@ public class MainMenu : MonoBehaviour {
     {
         if (PlayerPrefs.HasKey("BODY_Volume"))
         {
-            volume = PlayerPrefs.GetInt("BODY_Volume");
+            volume = PlayerPrefs.GetFloat("BODY_Volume");
             invAxisX = PlayerPrefs.GetInt("BODY_XInverted") == 1 ? true : false;
             invAxisY = PlayerPrefs.GetInt("BODY_YInverted") == 1 ? true : false;
         }
@@ -63,7 +63,7 @@ public class MainMenu : MonoBehaviour {
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetInt("BODY_Volume", volume);
+        PlayerPrefs.SetFloat("BODY_Volume", volume);
         PlayerPrefs.SetInt("BODY_XInverted", invAxisX ? 1 : 0);
         PlayerPrefs.SetInt("BODY_YInverted", invAxisY ? 1 : 0);
     }
@@ -77,7 +77,7 @@ public class MainMenu : MonoBehaviour {
             case 1: //settings
                 LoadSettings();
                 settingsPanel.SetActive(true);
-                volumeText.text = volume.ToString() + "%";
+                volumeSlider.value = volume;
                 AxisX.isOn = invAxisX;
                 AxisY.isOn = invAxisY;
                 EventSystem.current.SetSelectedGameObject(settingsFirstObject);
@@ -126,15 +126,8 @@ public class MainMenu : MonoBehaviour {
         Application.Quit();
     }
 
-    public void Button_AddRemoveVolume(int amount)
+    public void Button_SetVolume()
     {
-        if (volume + amount > 100)
-            volume = 100;
-        else if (volume + amount < 0)
-            volume = 0;
-        else
-            volume += amount;
-
-        volumeText.text = volume.ToString() + "%";
+        volume = volumeSlider.value;
     }
 }
