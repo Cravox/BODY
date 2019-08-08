@@ -237,9 +237,11 @@ public class Arms : Limb {
             Box.GetComponent<BoxCollider>().isTrigger = false;
             playerCont.modelAnim.SetBool("isCarrying", false);
             Box.parent = null;
-            Box.GetComponent<CarryBox>().playerArms = null;
             boxRb.constraints = RigidbodyConstraints.None;
             Box.GetComponent<CarryBox>().gettingCarried = false;
+            Box.GetComponent<BoxCollider>().enabled = false;
+            Box.GetComponent<BoxCollider>().enabled = true;
+            Box.GetComponent<CarryBox>().playerArms = null;
         }
 
         isCarrying = false;
