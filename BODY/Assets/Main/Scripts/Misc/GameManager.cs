@@ -19,6 +19,12 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References"), Required]
     private AudioSource audioSource;
 
+    [SerializeField, TabGroup("References"), Required]
+    private GameObject[] resettableCubes;
+
+    [SerializeField, TabGroup("References"), Required]
+    private Transform[] puzzleSolutionPositions;
+
     [SerializeField]
     private GameObject player;
 
@@ -59,11 +65,11 @@ public class GameManager : SerializedMonoBehaviour {
 
     IEnumerator Intro() {
         ScreenShakeManager.Instance.Shake(0.1f, 2, SoundController.GetClip(SoundController.Voice.INTRO_1).length+SoundController.GetClip(SoundController.Voice.INTRO_2).length+SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
-        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_1);
+        SoundController.Play(Camera.main.gameObject, SoundController.Voice.INTRO_1);
         yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_1).length);
-        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_2);
+        SoundController.Play(Camera.main.gameObject, SoundController.Voice.INTRO_2);
         yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_2).length);
-        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_3);
+        SoundController.Play(Camera.main.gameObject, SoundController.Voice.INTRO_3);
         yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
         elevatorDoor.gotActive = true;
     }
@@ -82,10 +88,10 @@ public class GameManager : SerializedMonoBehaviour {
             es.SetSelectedGameObject(pauseMenu.firstButton);
         }
 
-        if (Input.GetButtonDown("SelectButton") && aktPuzzle != null) {
-            SceneManager.LoadScene(0);
-            //aktPuzzle.ResetPuzzle(true);
-            //aktPuzzle.StartCoroutine(aktPuzzle.ResetPuzzle(false));
+        if (Input.GetButtonDown("SelectButton")) {
+            for(int i = 0; i < resettableCubes.Length; i++) {
+                resettableCubes[i].transform.position = puzzleSolutionPositions[i].position;
+            }
         }
     }
 }
