@@ -51,8 +51,12 @@ public class CarryBox : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("EnergyWall")) {
-            if(playerArms != null)
-            playerArms.DetachObject();
+            if(playerArms != null) {
+                playerArms.DetachObject();
+            } else {
+                this.transform.parent = null;
+                rigid.constraints = RigidbodyConstraints.None;
+            }
         }
     }
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CrateHolder : MonoBehaviour {
+    [SerializeField]
+    private CarryBox box;
+
     // Start is called before the first frame update
     void Start() {
 
@@ -10,18 +13,30 @@ public class CrateHolder : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if (box != null && box.gettingCarried) {
+            box = null;
+        }
     }
 
     private void OnTriggerStay(Collider other) {
+
+    }
+
+    private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Carry")) {
-            if (!other.gameObject.GetComponent<CarryBox>().gettingCarried) {
-                other.transform.parent = this.transform;
-                other.transform.position = this.transform.position;
-                other.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                other.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                other.transform.localRotation = Quaternion.identity;
+            box = other.gameObject.GetComponent<CarryBox>();
+
+            if (!box.gettingCarried) {
+                box.transform.parent = this.transform;
+                box.transform.position = this.transform.position;
+                box.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                box.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                box.transform.localRotation = Quaternion.identity;
             }
+        } else if (other.gameObject.CompareTag("EnergyWall") && box != null) {
+            box.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            box.transform.parent = null;
+            box = null;
         }
     }
 }
