@@ -42,6 +42,7 @@ public class TriggerButton : TriggerObject {
 
         if (carryBox) {
             if (other.gameObject.tag == "Carry") {
+                other.transform.position = this.transform.position;
                 foreach (var ren in lineRenderers) {
                     ren.material = lineMaterials[1];
                 }

@@ -23,6 +23,12 @@ public class PushBox : SerializedMonoBehaviour {
     private Transform rayTrans;
 
     [SerializeField]
+    private ParticleSystem sparkVFX;
+
+    [SerializeField]
+    private GameObject impactVFX;
+
+    [SerializeField]
     private LayerMask layerMask;
 
     private Vector3[] directions;
@@ -62,6 +68,12 @@ public class PushBox : SerializedMonoBehaviour {
                 pushed = false;
                 lerpF = 0;
             }
+        }
+
+        if (pushed) {
+            sparkVFX.Play();
+        } else {
+            sparkVFX.Stop();
         }
 
         if(pushed && firstPushed) {
