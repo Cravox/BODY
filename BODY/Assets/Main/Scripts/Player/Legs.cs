@@ -34,6 +34,7 @@ public class Legs : Limb {
             playerCont.JumpOnce(jumpSpeed, true, 0);
             jumping = true;
             playerCont.modelAnim.SetTrigger("Jump");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_JUMP, 128, 0.5f);
         }
     }
 
@@ -42,6 +43,7 @@ public class Legs : Limb {
             playerCont.JumpOnce(dJumpSpeed, false, 1);
             doubleJumping = true;
             playerCont.modelAnim.SetTrigger("DoubleJump");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_DOUBLEJUMP, 128, 0.5f);
             return tierCosts[0];
         }
 
@@ -55,6 +57,8 @@ public class Legs : Limb {
             hoverCoroutine = StartCoroutine(HoverTime(timeToHover));
             hasHovered = true;
             playerCont.modelAnim.SetBool("isHovering", true);
+            playerCont.modelAnim.SetBool("isFullPower", true);
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_HOVER, 128, 0.5f);
             return tierCosts[1];
         } else
             StopHover();
@@ -78,12 +82,14 @@ public class Legs : Limb {
         if (hoverCoroutine != null)
             StopCoroutine(hoverCoroutine);
         playerCont.modelAnim.SetBool("isHovering", false);
+        playerCont.modelAnim.SetBool("isFullPower", false);
         hover = false;
     }
 
     IEnumerator HoverTime(float t) {
         hover = true;
         yield return new WaitForSeconds(t);
+        playerCont.modelAnim.SetBool("isFullPower", false);
         hover = false;
     }
 
@@ -92,16 +98,15 @@ public class Legs : Limb {
     }
 
     protected override void LimbUpdate() {
-        //playerCont.modelAnim.SetBool("IsDashing", doubleJumping);
-
         if (playerCont.isGrounded) //if grounded, cancel ongoing forces
         {
             jumping = false;
             doubleJumping = false;
             wallJumping = false;
 
-            if (hoverCoroutine != null)
+            if (hoverCoroutine != null) {
                 StopHover();
+            }
 
             hasHovered = false;
         }
@@ -116,35 +121,28 @@ public class Legs : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        switch (chargeState) {
-            case Enums.ChargeState.NOT_CHARGED:
-                if (playerCont.isGrounded)
-                    limbText.text = "Jump";
-                else
-                    limbText.text = "";
-                break;
-            case Enums.ChargeState.TIER_ONE:
-                if (!playerCont.isGrounded && !doubleJumping)
-                    limbText.text = "Double Jump";
-                else
-                    limbText.text = "";
-                break;
-            case Enums.ChargeState.TIER_TWO:
-                if (!playerCont.isGrounded && hover)
-                    limbText.text = "End Hover";
-                else if (!playerCont.isGrounded && !hover && !hasHovered)
-                    limbText.text = "Start Hover";
-                else
-                    limbText.text = "";
-                break;
-            default:
-                break;
+        if (playerCont.isGrounded && Input.GetAxis("LeftTrigger") >= 0.9f) {
+            limbImage.sprite = actionSprite[1];
+        } else if (playerCont.isGrounded) {
+            limbImage.sprite = actionSprite[0];
+        }
+
+        if(!playerCont.isGrounded && Input.GetAxis("LeftTrigger") >= 0.9f) {
+            limbImage.sprite = actionSprite[3];
+        } else if(!playerCont.isGrounded && Input.GetAxis("LeftTrigger") >= 0.9f && hover) {
+            limbImage.sprite = actionSprite[4];
+        } else if (!playerCont.isGrounded && !doubleJumping) {
+            limbImage.sprite = actionSprite[2];
         }
     }
 
     public override void InputCheck() {
         if (Input.GetButtonDown("Jump") && (Input.GetAxis("LeftTrigger") >= 0.9f)) {
-            TierTwo();
+            if (!playerCont.isGrounded) {
+                TierTwo();
+            } else {
+                BaselineAbility();
+            }
         } else if (Input.GetButtonDown("Jump")) {
             if (playerCont.isGrounded) {
                 BaselineAbility();

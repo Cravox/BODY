@@ -90,27 +90,7 @@ public class Head : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        switch (chargeState) {
-            case Enums.ChargeState.NOT_CHARGED:
-                limbText.text = "";
-                break;
-            case Enums.ChargeState.TIER_ONE:
-                if (pInDistance.Count > 0) {
-                    limbText.text = "Activate Platform";
-                } else {
-                    limbText.text = "";
-                }
-                break;
-            case Enums.ChargeState.TIER_TWO:
-                if (activatedPlatforms.Count > 0) {
-                    limbText.text = "Move Platform";
-                } else {
-                    limbText.text = "";
-                }
-                break;
-            default:
-                break;
-        }
+
     }
 
     public override void InputCheck() {

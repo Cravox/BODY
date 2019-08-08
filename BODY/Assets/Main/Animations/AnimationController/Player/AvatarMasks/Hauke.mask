@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hauke
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Hauke
+    m_Weight: 0
+  - m_Path: Rig
+    m_Weight: 0
+  - m_Path: Rig/root
+    m_Weight: 0
+  - m_Path: Rig/root/hip
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/head
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/head/antenna_base
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/head/antenna_base/antenna_1
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/head/antenna_base/antenna_1/antenna_2
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/head/antenna_base/antenna_1/antenna_2/antenna_3
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/head/antenna_base/antenna_1/antenna_2/antenna_3/antenna_3_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/middleFinger.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/middleFinger.L/middleFinger.L_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pinky.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pinky.L/pinky.L_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pointer.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pointer.L/pointer.L_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/thumb.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/thumb.L/thumb.L_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/middleFinger.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/middleFinger.R/middleFinger.R_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pinky.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pinky.R/pinky.R_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pointer.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pointer.R/pointer.R_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/thumb.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/thumb.R/thumb.R_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/thigh.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/thigh.L/shin.L
+    m_Weight: 1
+  - m_Path: Rig/root/hip/thigh.L/shin.L/shin.L_end
+    m_Weight: 1
+  - m_Path: Rig/root/hip/thigh.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/thigh.R/shin.R
+    m_Weight: 1
+  - m_Path: Rig/root/hip/thigh.R/shin.R/shin.R_end
+    m_Weight: 1
+  - m_Path: Rig/root/IK_Arm.L
+    m_Weight: 1
+  - m_Path: Rig/root/IK_Arm.L/IK_Arm.L_end
+    m_Weight: 1
+  - m_Path: Rig/root/IK_Arm.R
+    m_Weight: 1
+  - m_Path: Rig/root/IK_Arm.R/IK_Arm.R_end
+    m_Weight: 1

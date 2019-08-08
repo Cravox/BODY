@@ -11,7 +11,11 @@ public class CarryBox : MonoBehaviour {
     public Vector3 velocity;
     public bool gettingCarried;
 
+    [HideInInspector]
     public Arms playerArms;
+
+    [SerializeField]
+    private bool voiceTrigger = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -24,9 +28,14 @@ public class CarryBox : MonoBehaviour {
             DestroyBox();
         }
 
-        if (platformOn != null) {
-            rigid.velocity = platformOn.rigid.velocity;
+        if(voiceTrigger && gettingCarried) {
+            SoundController.Play(this.gameObject, SoundController.Voice.CUBE_PICK_UP);
+            voiceTrigger = false;
         }
+
+        //if (platformOn != null) {
+        //    rigid.velocity += platformOn.rigid.velocity;
+        //}
 
         if (groundTrigger.obj != null && groundTrigger.obj.gameObject.tag == "MovingPlatform") {
             platformOn = groundTrigger.obj.gameObject.GetComponent<MovingPlatform>();
@@ -42,7 +51,23 @@ public class CarryBox : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("EnergyWall")) {
+            if(playerArms != null) {
+                playerArms.DetachObject();
+            } else {
+                this.transform.parent = null;
+                rigid.constraints = RigidbodyConstraints.None;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("EnergyWall")) {
+            if(playerArms != null)
             playerArms.DetachObject();
+            else {
+                transform.parent = null;
+                rigid.constraints = RigidbodyConstraints.None;
+            }
         }
     }
 }

@@ -20,6 +20,9 @@ public class MovingPlatform : SerializedMonoBehaviour {
     private Transform currentPos { get { return positions[currentPosition]; } }
     private int currentPosition = 0;
 
+    [SerializeField]
+    private bool isCrateplate;
+
     [TabGroup("Debugging")]
     public bool stop = true;
     public bool isActive { get { return !platCol.isTrigger; } }
@@ -39,8 +42,6 @@ public class MovingPlatform : SerializedMonoBehaviour {
     private void UpdateLinesInEditor() {
         UpdateLineRenderer();
     }
-
-    //Vector3 posTo;
 
     void Start() {
         platCol = platform.GetComponent<BoxCollider>();
@@ -86,9 +87,25 @@ public class MovingPlatform : SerializedMonoBehaviour {
             }
 
             if (platform.position == currentPos.position) {
-                if (currentPosition == 0) currentPosition = 1;
-                else currentPosition = 0;
+                if (currentPosition == 0) {
+                    StartCoroutine(Wait(true, 1));
+                    //currentPosition = 1;
+                }
+                else {
+                    StartCoroutine(Wait(false, 1));
+
+                    //currentPosition = 0;
+                }
             }
+        }
+    }
+
+    private IEnumerator Wait(bool firstPosition, float duration) {
+        yield return new WaitForSeconds(duration);
+        if (firstPosition) {
+            currentPosition = 1;
+        } else {
+            currentPosition = 0;
         }
     }
 
@@ -119,7 +136,6 @@ public class MovingPlatform : SerializedMonoBehaviour {
         for (int i = 0; i < positions.Count; i++) {
             posCoordinates.Add(positions[i].localPosition);
         }
-
 
         line.positionCount = posCoordinates.Count;
         line.SetPositions(posCoordinates.ToArray());

@@ -17,6 +17,9 @@ public class PushBox : SerializedMonoBehaviour {
     private bool pushed = false;
 
     [SerializeField]
+    private bool firstPushed = false;
+
+    [SerializeField]
     private Transform rayTrans;
 
     [SerializeField]
@@ -32,6 +35,10 @@ public class PushBox : SerializedMonoBehaviour {
     private float distance;
 
     private float lerpF = 0;
+
+    public AudioSource aud;
+
+    private bool wasPushed;
 
 
     // Start is called before the first frame update
@@ -55,6 +62,21 @@ public class PushBox : SerializedMonoBehaviour {
                 pushed = false;
                 lerpF = 0;
             }
+        }
+
+        if(pushed && firstPushed) {
+            SoundController.Play(Camera.main.gameObject, SoundController.Voice.BIG_CUBE_03);
+            firstPushed = false;
+        }
+
+        aud.enabled = pushed;
+        if (!wasPushed && pushed)
+            wasPushed = true;
+
+        if (!pushed && wasPushed)
+        {
+            SoundController.Play(gameObject, SoundController.Sounds.PUSHBOX_IMPACT, 128, 1f);
+            wasPushed = false;
         }
     }
 

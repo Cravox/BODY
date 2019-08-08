@@ -136,7 +136,9 @@ MonoBehaviour:
     SerializationNodes: []
   gotActive: 0
   isHubDoor: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
   doorAnim: {fileID: 3703891567180812468}
+  doorRenderer: []
 --- !u!65 &7766893427524846586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 4e29a9987023d8b47bd0c695c1c17f77, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e05a01a0d4f6ecc4191db020247196b8, type: 2}
+      objectReference: {fileID: 2100000, guid: 60898b2b7bc1e4248b6425a7e4724ab4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e29a9987023d8b47bd0c695c1c17f77, type: 3}
 --- !u!1 &161391081836637894 stripped
@@ -431,7 +433,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 889a91228007a204b85819ac91cac1bc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e05a01a0d4f6ecc4191db020247196b8, type: 2}
+      objectReference: {fileID: 2100000, guid: 60898b2b7bc1e4248b6425a7e4724ab4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 889a91228007a204b85819ac91cac1bc, type: 3}
 --- !u!1 &5983605500980694839 stripped

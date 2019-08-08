@@ -103,6 +103,7 @@ ModelImporter:
     7400008: Rig|Run
     7400010: Rig|Stand
     7400012: Rig|Walk
+    7400014: Rig|Clean
     9500000: //RootNode
     13700000: Hauke
     2186277476908879412: ImportLogs
@@ -218,6 +219,122 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Rig|Clean
+      takeName: Rig|Clean
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hauke
+        weight: 0
+      - path: Rig
+        weight: 0
+      - path: Rig/root
+        weight: 0
+      - path: Rig/root/hip
+        weight: 1
+      - path: Rig/root/hip/spine
+        weight: 1
+      - path: Rig/root/hip/spine/head
+        weight: 1
+      - path: Rig/root/hip/spine/head/antenna_base
+        weight: 1
+      - path: Rig/root/hip/spine/head/antenna_base/antenna_1
+        weight: 1
+      - path: Rig/root/hip/spine/head/antenna_base/antenna_1/antenna_2
+        weight: 0
+      - path: Rig/root/hip/spine/head/antenna_base/antenna_1/antenna_2/antenna_3
+        weight: 0
+      - path: Rig/root/hip/spine/head/antenna_base/antenna_1/antenna_2/antenna_3/antenna_3_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/middleFinger.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/middleFinger.L/middleFinger.L_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pinky.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pinky.L/pinky.L_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pointer.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/pointer.L/pointer.L_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/thumb.L
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.L/forearm.L/hand.L/thumb.L/thumb.L_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/middleFinger.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/middleFinger.R/middleFinger.R_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pinky.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pinky.R/pinky.R_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pointer.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/pointer.R/pointer.R_end
+        weight: 0
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/thumb.R
+        weight: 1
+      - path: Rig/root/hip/spine/upper_arm.R/forearm.R/hand.R/thumb.R/thumb.R_end
+        weight: 0
+      - path: Rig/root/hip/thigh.L
+        weight: 1
+      - path: Rig/root/hip/thigh.L/shin.L
+        weight: 1
+      - path: Rig/root/hip/thigh.L/shin.L/shin.L_end
+        weight: 1
+      - path: Rig/root/hip/thigh.R
+        weight: 1
+      - path: Rig/root/hip/thigh.R/shin.R
+        weight: 1
+      - path: Rig/root/hip/thigh.R/shin.R/shin.R_end
+        weight: 1
+      - path: Rig/root/IK_Arm.L
+        weight: 0
+      - path: Rig/root/IK_Arm.L/IK_Arm.L_end
+        weight: 0
+      - path: Rig/root/IK_Arm.R
+        weight: 0
+      - path: Rig/root/IK_Arm.R/IK_Arm.R_end
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -256,199 +373,7 @@ ModelImporter:
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
-    human:
-    - boneName: hip
-      humanName: Hips
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: thigh.L
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: thigh.R
-      humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: shin.L
-      humanName: LeftLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: shin.R
-      humanName: RightLowerLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: spine
-      humanName: Spine
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: head
-      humanName: Head
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: upper_arm.L
-      humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: upper_arm.R
-      humanName: RightUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: forearm.L
-      humanName: LeftLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: forearm.R
-      humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: hand.L
-      humanName: LeftHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: hand.R
-      humanName: RightHand
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: antenna_1
-      humanName: RightEye
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: thumb.L
-      humanName: Left Thumb Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: pointer.L
-      humanName: Left Index Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: middleFinger.L
-      humanName: Left Middle Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: pinky.L
-      humanName: Left Little Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: thumb.R
-      humanName: Right Thumb Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: pointer.R
-      humanName: Right Index Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: middleFinger.R
-      humanName: Right Middle Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: pinky.R
-      humanName: Right Little Proximal
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: shin.R_end
-      humanName: RightFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: shin.L_end
-      humanName: LeftFoot
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
+    human: []
     skeleton:
     - name: hauke(Clone)
       parentName: 
@@ -682,7 +607,7 @@ ModelImporter:
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

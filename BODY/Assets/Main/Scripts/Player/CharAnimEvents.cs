@@ -103,6 +103,8 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void JumpThrusters() {
+        anim.SetBool("isFullPower", true);
+
         isDoubleJumping = true;
 
         vfxLightLeftFoot.SetActive(true);
@@ -114,6 +116,8 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void PushImpulse() {
+        anim.SetBool("isFullPower", true);
+
         isPushing = true;
 
         vfxLightLeftHand.SetActive(true);
@@ -124,18 +128,24 @@ public class CharAnimEvents : MonoBehaviour {
             vfx.transform.localEulerAngles = charRoot.transform.localEulerAngles;
         }
 
+        //Time.timeScale = 0;
+
         arms.PushBoxEvent();
     }
 
     void PickUp() {
         arms.AttachObject();
+        anim.SetBool("isFullPower", true);
         vfxCarry.SetActive(true);
         vfxReceive.SetActive(true);
         vfxLightRightHand.SetActive(true);
     }
 
     void Drop() {
+        anim.SetBool("isFullPower", false);
+
         if (isPushing == false) {
+            arms.DetachObject();
             vfxCarry.SetActive(false);
             vfxReceive.SetActive(false);
             vfxLightRightHand.SetActive(false);
@@ -143,12 +153,13 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void ThrowImpulse() {
+
         vfxCarry.SetActive(false);
         vfxReceive.SetActive(false);
 
         arms.ThrowBoxEvent();
 
-        GameObject pushImpulseObj1 = Instantiate(pushImpulseVFX);   //Spawn vFX
+        GameObject pushImpulseObj1 = Instantiate(vfxThrow);   //Spawn vFX
 
         pushImpulseObj1.transform.parent = charRoot.transform;      // Parent to root to get Character oriantation
 
@@ -167,6 +178,8 @@ public class CharAnimEvents : MonoBehaviour {
 
     void DoubleJumpEnd() {
         isDoubleJumping = false;
+        anim.SetBool("isFullPower", false);
+
 
         if (anim.GetBool("isHovering") == false) {
             vfxLightLeftFoot.SetActive(false);
@@ -175,6 +188,7 @@ public class CharAnimEvents : MonoBehaviour {
     }
 
     void PushEnd() {
+        anim.SetBool("isFullPower", false);
         isPushing = false;
 
         if (anim.GetBool("isCarrying") == false) {

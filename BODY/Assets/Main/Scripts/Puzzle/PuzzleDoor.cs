@@ -6,8 +6,16 @@ using UnityEngine;
 public class PuzzleDoor : TriggerContainer {
     public bool isHubDoor;
 
+    [SerializeField]
+    private Color color;
+
     [SerializeField, TabGroup("References"), Required]
     private Animator doorAnim;
+
+    [SerializeField]
+    private MeshRenderer[] doorRenderer;
+
+    private bool wasActive;
 
     // Start is called before the first frame update
     void Start() {
@@ -16,15 +24,32 @@ public class PuzzleDoor : TriggerContainer {
 
     // Update is called once per frame
     void Update() {
-        if(!isHubDoor)
-            doorAnim.SetBool("Open", gotActive);
+        if (gotActive) {
+            for (int i = 0; i < doorRenderer.Length; i++) {
+                doorRenderer[i].material.SetColor("_EmissionColor", color);
+            }
+        } else {
+            for (int i = 0; i < doorRenderer.Length; i++) {
+                doorRenderer[i].material.SetColor("_EmissionColor", Color.white);
+            }
+        }
+
+        if (gotActive && !wasActive) {
+            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
+            wasActive = true;
+        }
+
+        if (!gotActive && wasActive) {
+            SoundController.Play(gameObject, SoundController.Sounds.DOOR_OPENCLOSE, 128, 0.5f);
+            wasActive = false;
+        }
     }
 
-    private void OnTriggerEnter(Collider col) {
-        if(col.gameObject.CompareTag("Player") && isHubDoor) doorAnim.SetBool("Open", true);
+    private void OnTriggerStay(Collider col) {
+        if (col.gameObject.CompareTag("Player")) doorAnim.SetBool("Open", gotActive);
     }
 
     private void OnTriggerExit(Collider col) {
-        if (col.gameObject.CompareTag("Player") && isHubDoor) doorAnim.SetBool("Open", false);
+        if (col.gameObject.CompareTag("Player")) doorAnim.SetBool("Open", false);
     }
 }

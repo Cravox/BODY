@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Cinemachine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : SerializedMonoBehaviour {
@@ -25,7 +26,7 @@ public class GameManager : SerializedMonoBehaviour {
     private GameObject player;
 
     [SerializeField]
-    private BoxCollider elevatorDoorCollider;
+    private PuzzleDoor elevatorDoor;
 
     private float audioMaxValue;
 
@@ -47,31 +48,33 @@ public class GameManager : SerializedMonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        instance = this;
+
         var limbs = player.GetComponents<Limb>();
         foreach (Limb limb in limbs) {
             limb.canControl = true;
         }
-        instance = this;
+
         Cursor.visible = false;
         audioMaxValue = audioSource.volume;
         StartCoroutine(Intro());
     }
 
-    private IEnumerator Intro() {
-        ScreenShakeManager.Instance.Shake(0.1f, 2, 5);
-        yield return new WaitForSeconds(5);
-        elevatorDoorCollider.enabled = true;
+    IEnumerator Intro() {
+        ScreenShakeManager.Instance.Shake(0.1f, 2, SoundController.GetClip(SoundController.Voice.INTRO_1).length+SoundController.GetClip(SoundController.Voice.INTRO_2).length+SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
+        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_1);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_1).length);
+        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_2);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_2).length);
+        SoundController.Play(this.gameObject, SoundController.Voice.INTRO_3);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
+        elevatorDoor.gotActive = true;
     }
 
     // Update is called once per frame
     void Update() {
         InputHandler();
         EventHelper.FixEventSystem();
-        //if (playerInHub) {
-        //    audioSource.volume = audioMaxValue;
-        //} else {
-        //    audioSource.volume = audioMaxValue/3;
-        //}
     }
 
     void InputHandler() {
@@ -83,8 +86,9 @@ public class GameManager : SerializedMonoBehaviour {
         }
 
         if (Input.GetButtonDown("SelectButton") && aktPuzzle != null) {
+            SceneManager.LoadScene(0);
             //aktPuzzle.ResetPuzzle(true);
-            aktPuzzle.StartCoroutine(aktPuzzle.ResetPuzzle(false));
+            //aktPuzzle.StartCoroutine(aktPuzzle.ResetPuzzle(false));
         }
     }
 }

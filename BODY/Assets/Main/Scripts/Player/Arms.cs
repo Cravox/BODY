@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 public class Arms : Limb {
     [SerializeField, TabGroup("Balancing")]
@@ -26,10 +28,16 @@ public class Arms : Limb {
     private Transform rayTrans;
 
     [SerializeField, TabGroup("References"), Required]
-    private Transform ball;
+    private LineRenderer predictLine;
+
+    [SerializeField, TabGroup("References")]
+    private Image buttonsImage;
+
+    [SerializeField, TabGroup("References")]
+    private Sprite[] buttonSprites = new Sprite[2];
 
     [SerializeField, TabGroup("Debugging")]
-    private Transform box;
+    public Transform Box;
 
     [SerializeField, TabGroup("Debugging")]
     private LayerMask indicatorMask;
@@ -38,10 +46,10 @@ public class Arms : Limb {
     private bool isCarrying;
 
     [SerializeField, TabGroup("Debugging"), Header("Range Indicator")]
-    private int impactIterations;
+    private int predictLineIterations;
 
     [SerializeField, TabGroup("Debugging")]
-    private float impactIterationLenght;
+    private float predictLineLength;
 
     private LineRenderer line;
 
@@ -53,15 +61,18 @@ public class Arms : Limb {
     private Rigidbody boxRb;
 
     private bool canInteract;
-    private Vector3 impactPos;
+    public List<Vector3> linePos;
+    private Rigidbody lastRb;
 
     RigidbodyConstraints constraints;
 
     protected override void LimbStart() {
-
+        
     }
 
     protected override void LimbUpdate() {
+        SetPredictLine();
+
         if (!playerCont.animEvents.isPushing) {
             playerCont.rigid.constraints = constraints;
         }
@@ -69,89 +80,69 @@ public class Arms : Limb {
         if (!isCarrying) {
             canInteract = CheckForInteractable();
         } else {
-            if (chargeState == Enums.ChargeState.TIER_ONE) PredictRigidbody();
             canInteract = false;
         }
 
-        if (box == null && isCarrying) {
+        if (Box == null && isCarrying) {
             DetachObject();
         }
-
-        //playerCont.modelAnim.SetBool("isCarrying", isCarrying);
     }
 
-    public void PredictRigidbody() {
-        if (!isCarrying || box == null) {
-            impactPos = Vector3.zero;
+    public void SetPredictLine() {
+        if (!isCarrying || boxRb == null || boxRb == lastRb)
             return;
-        }
 
-        Vector3 dir = playerCont.modelAxis.forward;
         float vFwd = (throwForce / boxRb.mass) * Time.fixedDeltaTime;
         float vUp = (upForce / boxRb.mass) * Time.fixedDeltaTime;
+        linePos = CalcPredictPos(vFwd, vUp, predictLineIterations, predictLineLength);
 
-        impactPos = CalcRigidPos(topPosition.position, dir, vFwd, vUp, impactIterations, impactIterationLenght);
-        ball.position = impactPos;
+        predictLine.positionCount = linePos.Count;
+        predictLine.SetPositions(linePos.ToArray());
+
+        lastRb = boxRb;
     }
 
-    Vector3 CalcRigidPos(Vector3 origin, Vector3 dir, float fwd, float up, int iterations, float stepDistance) {
-        Vector3 result = Vector3.zero;
+    List<Vector3> CalcPredictPos(float fwd, float up, int iterations, float stepDistance) {
         List<Vector3> calcs = new List<Vector3>();
-        calcs.Add(origin);
-
-        //*DEBUG*
-        float q = 0;    //*/
+        calcs.Add(Vector3.zero);
 
         for (int i = 1; i < iterations + 1; i++) {
             float t = i * stepDistance;
-            Vector3 pos = origin + ((Vector3.up * up * t) + (dir * fwd * t) + Physics.gravity / 2 * t * t);
+            Vector3 pos = new Vector3();
+            pos = (Vector3.up * up * t) + (Vector3.forward * fwd * t) + Physics.gravity / 2 * t * t;
             calcs.Add(pos);
-
-            RaycastHit hit;
-            bool cast = Physics.Linecast(calcs[i - 1], calcs[i], out hit, indicatorMask);
-
-            //*DEBUG*
-            Color col = new Color(q, 1f - q, 0.5f);
-            Debug.DrawLine(calcs[i - 1], calcs[i], col);
-            q += 0.25f;
-            //*/
-
-            if (hit.collider != null) {
-                result = hit.point;
-                return result;
-            }
         }
 
-        return result;
+        return calcs;
     }
 
     private bool CheckForInteractable() {
-        ray.origin = rayTrans.position;
-        ray.direction = playerCont.modelAxis.forward;
-
         var interactable = false;
-        if (Physics.Raycast(ray, out hit, interactRange, LayerMask.GetMask("Interactable"))) {
+
+        var sphereObjects = Physics.OverlapSphere(rayTrans.position, interactRange, LayerMask.GetMask("Interactable"));
+
+        if(Physics.SphereCast(rayTrans.position, 1,playerCont.modelAxis.forward, out hit, interactRange, LayerMask.GetMask("Interactable"))){
             interactable = true;
-            box = hit.transform;
-            if (box.CompareTag("Carry")) boxRb = box.GetComponent<Rigidbody>();
+            Box = hit.transform;
+            if (Box.CompareTag("Carry")) boxRb = Box.GetComponent<Rigidbody>();
         } else {
-            box = null;
+            Box = null;
         }
 
         return interactable;
     }
 
     public override void BaselineAbility() {
-        if (canInteract && box.CompareTag("Carry")) {
-            box.GetComponent<CarryBox>().playerArms = this;
+        if (canInteract && Box.CompareTag("Carry")) {
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_PICKUP, 128, 0.5f);
+            Box.GetComponent<CarryBox>().playerArms = this;
+            if(Box != null)
             playerCont.modelAnim.SetBool("isCarrying", true);
-            //AttachObject();
         } else if (isCarrying) {
-            if (box == null)
+            if (Box == null)
                 isCarrying = false;
             else {
-                //box.localPosition = frontPosition.localPosition;
-                DetachObject();
+                playerCont.modelAnim.SetBool("isCarrying", false);
             }
         }
     }
@@ -160,6 +151,7 @@ public class Arms : Limb {
         int cost = 0;
         if (isCarrying) {
             playerCont.modelAnim.SetTrigger("Throw");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_THROW, 128, 0.5f);
             cost = tierCosts[0];
         } else {
             DetachObject();
@@ -169,18 +161,18 @@ public class Arms : Limb {
 
     public override int TierTwo() {
         int cost = 0;
-        if (canInteract && !isCarrying && playerCont.isGrounded && box.GetComponent<PushBox>() != null) {
+        if (canInteract && !isCarrying && playerCont.isGrounded && Box.GetComponent<PushBox>() != null) {
             GameManager.instance.CanControl = false;
             playerCont.modelAnim.SetTrigger("Push");
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_PUSH, 128, 0.5f);
             cost = tierCosts[1];
         }
         return cost;
     }
 
     public void PushBoxEvent() {
-        pushBox = box.GetComponent<PushBox>();
+        pushBox = Box.GetComponent<PushBox>();
         pushBox.PushedBox(transform.position, pushForce);
-        //pushBox = null;
     }
 
     public void ThrowBoxEvent() {
@@ -192,7 +184,7 @@ public class Arms : Limb {
     public override int TierThree() {
         int cost = 0;
         if (canInteract && !isCarrying) {
-            PushBox pushBox = box.GetComponent<PushBox>();
+            PushBox pushBox = Box.GetComponent<PushBox>();
             pushBox.PushedBox(transform.position, pushForce);
             cost = tierCosts[2];
         }
@@ -200,57 +192,64 @@ public class Arms : Limb {
     }
 
     protected override void UpdateLimbUI() {
-        if (canInteract && box.CompareTag("Carry") && chargeState == Enums.ChargeState.NOT_CHARGED) {
-            limbText.text = "Pick up";
-        } else if (canInteract && box.CompareTag("Push") && chargeState == Enums.ChargeState.TIER_TWO) {
-            limbText.text = "Push";
-        } else if (isCarrying) {
-            switch (chargeState) {
-                case Enums.ChargeState.NOT_CHARGED:
-                    limbText.text = "Drop";
-                    break;
-                case Enums.ChargeState.TIER_ONE:
-                    limbText.text = "Throw";
-                    break;
-                case Enums.ChargeState.TIER_TWO:
-                    limbText.text = "";
-                    break;
-                default:
-                    break;
+        if(Input.GetAxis("LeftTrigger") >= 0.9f) {
+            buttonsImage.sprite = buttonSprites[1];
+        } else {
+            buttonsImage.sprite = buttonSprites[0];
+        }
+
+        if (canInteract) {
+            if(Box.CompareTag("Carry")) {
+                limbImage.sprite = actionSprite[0];
+            } else {
+                limbImage.sprite = actionSprite[3];
             }
-        } else limbText.text = "";
+        }
+
+        if(isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {
+            limbImage.sprite = actionSprite[2];
+        } else if (isCarrying) {
+            limbImage.sprite = actionSprite[1];
+        }
+
+        if(!canInteract && !isCarrying) {
+            limbImage.enabled = false;
+        } else {
+            limbImage.enabled = true;
+        }
     }
 
     public void AttachObject() {
-        isCarrying = true;
-        //var saveRota = box.localRotation;
-        if(box != null) {
-            box.parent = topPosition;
-            constraint = boxRb.constraints;
+        if(Box != null) {
+            isCarrying = true;
+            Box.GetComponent<BoxCollider>().isTrigger = true;
+            Box.parent = topPosition;
+            //constraint = boxRb.constraints;
             boxRb.constraints = RigidbodyConstraints.FreezeAll;
-            box.localRotation = Quaternion.identity;
-            box.localPosition = Vector3.zero;
+            Box.localRotation = Quaternion.identity;
+            Box.localPosition = Vector3.zero;
+            Box.GetComponent<CarryBox>().gettingCarried = true;
         }
     }
 
     public void DetachObject() {
-        if (box != null && boxRb != null) {
+        if (Box != null && boxRb != null) {
+            Box.GetComponent<BoxCollider>().isTrigger = false;
             playerCont.modelAnim.SetBool("isCarrying", false);
-            box.parent = null;
-            box.GetComponent<CarryBox>().playerArms = null;
-            boxRb.constraints = constraint;
+            Box.parent = null;
+            Box.GetComponent<CarryBox>().playerArms = null;
+            boxRb.constraints = RigidbodyConstraints.None;
+            Box.GetComponent<CarryBox>().gettingCarried = false;
         }
 
         isCarrying = false;
     }
 
     public override void InputCheck() {
-        if(Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying) {
-            PredictRigidbody();
-        }
+        predictLine.enabled = (Input.GetAxis("LeftTrigger") >= 0.9f && isCarrying);
 
-        if (Input.GetButtonDown("ButtonX") && box != null) {
-            if (box.GetComponent<PushBox>() != null) {
+        if (Input.GetButtonDown("ButtonX") && Box != null) {
+            if (Box.GetComponent<PushBox>() != null && Input.GetAxis("LeftTrigger") <= 0.1f) {
                 TierTwo();
             } else {
                 if (isCarrying && Input.GetAxis("LeftTrigger") >= 0.9f) {
