@@ -58,7 +58,7 @@ public class Legs : Limb {
             hasHovered = true;
             playerCont.modelAnim.SetBool("isHovering", true);
             playerCont.modelAnim.SetBool("isFullPower", true);
-            SoundController.Play(gameObject, SoundController.Sounds.CHAR_HOVER, 128, 0.5f);
+            SoundController.Play(gameObject, SoundController.Sounds.CHAR_HOVER, 128, 0.05f);
             return tierCosts[1];
         } else
             StopHover();
@@ -81,6 +81,14 @@ public class Legs : Limb {
     void StopHover() {
         if (hoverCoroutine != null)
             StopCoroutine(hoverCoroutine);
+        var aSources = GetComponents<AudioSource>();
+
+        foreach (var aSource in aSources) {
+            if(aSource.isPlaying && aSource.clip == SoundController.GetClip(SoundController.Sounds.CHAR_HOVER)) {
+                Destroy(aSource);
+            }
+        }
+
         playerCont.modelAnim.SetBool("isHovering", false);
         playerCont.modelAnim.SetBool("isFullPower", false);
         hover = false;

@@ -42,6 +42,8 @@ public class TriggerButton : TriggerObject {
 
         if (carryBox) {
             if (other.gameObject.tag == "Carry") {
+                other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                other.transform.rotation = Quaternion.identity;
                 other.transform.position = this.transform.position;
                 foreach (var ren in lineRenderers) {
                     ren.material = lineMaterials[1];

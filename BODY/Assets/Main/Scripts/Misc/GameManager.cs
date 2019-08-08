@@ -65,12 +65,13 @@ public class GameManager : SerializedMonoBehaviour {
 
     IEnumerator Intro() {
         ScreenShakeManager.Instance.Shake(0.1f, 2, SoundController.GetClip(SoundController.Voice.INTRO_1).length+SoundController.GetClip(SoundController.Voice.INTRO_2).length+SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
+        yield return new WaitForSeconds(0.5f);
         SoundController.Play(Camera.main.gameObject, SoundController.Voice.INTRO_1);
         yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_1).length);
         SoundController.Play(Camera.main.gameObject, SoundController.Voice.INTRO_2);
         yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_2).length);
         SoundController.Play(Camera.main.gameObject, SoundController.Voice.INTRO_3);
-        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_3).length + 0.5f);
+        yield return new WaitForSeconds(SoundController.GetClip(SoundController.Voice.INTRO_3).length);
         elevatorDoor.gotActive = true;
     }
 

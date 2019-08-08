@@ -76,6 +76,8 @@ public class PlayerController : SerializedMonoBehaviour {
     [TabGroup("References"), Required]
     public CharAnimEvents animEvents;
 
+    public Transform respawnTrans;
+
     private bool landed;
 
     Vector3 platformNoY;
@@ -113,6 +115,18 @@ public class PlayerController : SerializedMonoBehaviour {
 
     void InputCheck() {
         inputAxis = Vector2.MoveTowards(inputAxis, new Vector2(Input.GetAxis("Horizontal"), -Input.GetAxis("Vertical")), 9 * Time.deltaTime);
+
+        if (Input.GetButtonDown("LeftBumper") && respawnTrans != null) {
+            StartCoroutine(Dubstep());
+        }
+    }
+
+    IEnumerator Dubstep() {
+        GameManager.instance.fadeAnim.SetTrigger("Fade");
+        yield return new WaitForSeconds(0.5f);
+        this.transform.position = respawnTrans.position;
+        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.fadeAnim.SetTrigger("Fade");
     }
 
     void Move() {

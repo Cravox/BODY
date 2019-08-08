@@ -52,7 +52,9 @@ public class SoundController : SerializedMonoBehaviour {
         BIG_CUBE_02,
         BIG_CUBE_03,
         TUT_END01,
-        TUT_END02
+        TUT_END02,
+        CUBE_RIGHT,
+        HAUKE,
     }
     
     public static void Play(GameObject source, Sounds sound, int priority = 128, float volume = 1f) {

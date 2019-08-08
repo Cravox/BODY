@@ -113,11 +113,11 @@ public class PushBox : SerializedMonoBehaviour {
 
         angleVectors.Sort((av1, av2) => av1.Angle.CompareTo(av2.Angle));
 
-        //moveDir = -angleVectors[0].Direction.normalized * pushForce;
         Ray ray = new Ray();
         RaycastHit hit;
         ray.origin = rayTrans.position;
         ray.direction = -angleVectors[0].Direction.normalized;
+        sparkVFX.transform.localEulerAngles = angleVectors[0].Direction.normalized;
 
         if (Physics.Raycast(ray.origin, ray.direction, out hit, 100000, layerMask.value)) {
             if (hit.transform != null && hit.distance > 1.5f) {
