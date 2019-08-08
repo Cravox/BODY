@@ -16,9 +16,6 @@ public class GameManager : SerializedMonoBehaviour {
     [SerializeField, TabGroup("References")]
     public Animator fadeAnim;
 
-    [TabGroup("References"), Required]
-    public RawImage camImage;
-
     [SerializeField, TabGroup("References"), Required]
     private AudioSource audioSource;
 

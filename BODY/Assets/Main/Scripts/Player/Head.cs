@@ -26,7 +26,7 @@ public class Head : Limb {
 
     public override void BaselineAbility() {
         if (GameManager.instance.aktPuzzle != null) {
-            GameManager.instance.camImage.enabled = !GameManager.instance.camImage.enabled;
+
         }
     }
 
