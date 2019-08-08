@@ -6,20 +6,11 @@ public class CrateHolder : MonoBehaviour {
     [SerializeField]
     private CarryBox box;
 
-    // Start is called before the first frame update
-    void Start() {
-
-    }
-
     // Update is called once per frame
     void Update() {
         if (box != null && box.gettingCarried) {
             box = null;
         }
-    }
-
-    private void OnTriggerStay(Collider other) {
-
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -34,8 +25,6 @@ public class CrateHolder : MonoBehaviour {
                 box.transform.localRotation = Quaternion.identity;
             }
         } else if (other.gameObject.CompareTag("EnergyWall") && box != null) {
-            box.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            box.transform.parent = null;
             box = null;
         }
     }

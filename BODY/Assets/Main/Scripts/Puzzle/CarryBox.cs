@@ -11,7 +11,6 @@ public class CarryBox : MonoBehaviour {
     public Vector3 velocity;
     public bool gettingCarried;
 
-    [HideInInspector]
     public Arms playerArms;
 
     [SerializeField]
@@ -28,7 +27,7 @@ public class CarryBox : MonoBehaviour {
             DestroyBox();
         }
 
-        if(voiceTrigger && gettingCarried) {
+        if (voiceTrigger && gettingCarried) {
             SoundController.Play(this.gameObject, SoundController.Voice.CUBE_PICK_UP);
             voiceTrigger = false;
         }
@@ -51,7 +50,7 @@ public class CarryBox : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("EnergyWall")) {
-            if(playerArms != null) {
+            if (playerArms != null) {
                 playerArms.DetachObject();
             } else {
                 this.transform.parent = null;
@@ -62,9 +61,9 @@ public class CarryBox : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("EnergyWall")) {
-            if(playerArms != null)
-            playerArms.DetachObject();
-            else {
+            if (playerArms != null) {
+                playerArms.DetachObject();
+            } else {
                 transform.parent = null;
                 rigid.constraints = RigidbodyConstraints.None;
             }
